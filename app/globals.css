@@ -1,0 +1,265 @@
+@import "tailwindcss";
+
+/* Tema por atributo: <html data-theme="light|dark"> */
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+@custom-variant light (&:where([data-theme="light"], [data-theme="light"] *));
+
+/* ==========================================================================
+   PALETA — único lugar donde viven los colores.
+   Base: ilustración "ALONE" (assets/referencias/paleta).
+   Los tintes se derivan con color-mix de los 5 colores base; ratios WCAG
+   documentados en docs/brief-diseno.md.
+   ========================================================================== */
+@theme {
+  --color-abyss: #0e2931;
+  --color-deep: #12484c;
+  --color-teal: #2b7574;
+  --color-crimson: #861211;
+  --color-mist: #e2e2e0;
+}
+
+@theme inline {
+  /* Tintes derivados (solo de la paleta) */
+  --color-teal-300: color-mix(in srgb, var(--color-teal) 40%, var(--color-mist)); /* #99B6B5 · 7.04:1 sobre abyss */
+  --color-teal-700: color-mix(in srgb, var(--color-teal) 70%, var(--color-abyss)); /* #225E60 · 5.70:1 sobre mist */
+  --color-crimson-300: color-mix(in srgb, var(--color-crimson) 25%, var(--color-mist)); /* #CBAEAC · 7.38:1 sobre abyss */
+  --color-crimson-700: color-mix(in srgb, var(--color-crimson) 75%, var(--color-abyss)); /* #681819 · mist encima 9.34:1 */
+  --color-mist-muted: color-mix(in srgb, var(--color-mist) 75%, var(--color-abyss)); /* #ADB4B4 · 7.22:1 sobre abyss */
+  --color-abyss-muted: color-mix(in srgb, var(--color-abyss) 75%, var(--color-mist)); /* #43575D · 5.87:1 sobre mist */
+
+  /* Colores semánticos que cambian con el tema */
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-surface-soft: var(--surface-soft);
+  --color-fg: var(--fg);
+  --color-muted: var(--fg-muted);
+  --color-accent: var(--accent);
+  --color-accent-warm: var(--accent-warm);
+  --color-line: var(--line);
+  --color-action: var(--action);
+  --color-action-hover: var(--action-hover);
+  --color-on-action: var(--on-action);
+
+  /* Tipografía (next/font inyecta las variables en <html>) */
+  --font-display: var(--font-fraunces), Georgia, "Times New Roman", serif;
+  --font-sans: var(--font-manrope), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-jetbrains), ui-monospace, "SFMono-Regular", monospace;
+
+  --radius-chip: 0.25rem;
+  --radius-card: 1rem;
+  --radius-layer: 1.75rem;
+}
+
+/* --- Tema oscuro (por defecto) --- */
+:root {
+  color-scheme: dark;
+  --bg: var(--color-abyss);
+  --surface: var(--color-deep);
+  --surface-soft: color-mix(in srgb, var(--color-deep) 50%, var(--color-abyss));
+  --fg: var(--color-mist);
+  --fg-muted: var(--color-mist-muted);
+  --accent: var(--color-teal-300);
+  --accent-warm: var(--color-crimson-300);
+  --line: color-mix(in srgb, var(--color-teal) 55%, transparent);
+  --contour: var(--color-teal);
+  --ribbon: var(--color-mist);
+  --action: var(--color-crimson);
+  --action-hover: var(--color-crimson-700);
+  --on-action: var(--color-mist);
+  --shadow-layer: color-mix(in srgb, black 45%, transparent);
+}
+
+/* --- Tema claro derivado --- */
+:root[data-theme="light"] {
+  color-scheme: light;
+  --bg: var(--color-mist);
+  --surface: color-mix(in srgb, var(--color-mist) 92%, var(--color-teal)); /* #D3D9D7 */
+  --surface-soft: color-mix(in srgb, var(--color-mist) 96%, var(--color-teal));
+  --fg: var(--color-abyss);
+  --fg-muted: var(--color-abyss-muted);
+  --accent: var(--color-teal-700);
+  --accent-warm: var(--color-crimson);
+  --line: color-mix(in srgb, var(--color-teal) 45%, transparent);
+  --contour: color-mix(in srgb, var(--color-teal) 70%, var(--color-mist));
+  --ribbon: var(--color-deep);
+  --action: var(--color-crimson);
+  --action-hover: var(--color-crimson-700);
+  --on-action: var(--color-mist);
+  --shadow-layer: color-mix(in srgb, var(--color-abyss) 22%, transparent);
+}
+
+/* ==========================================================================
+   Base
+   ========================================================================== */
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    background-color: var(--bg);
+    color: var(--fg);
+    font-family: var(--font-sans);
+    font-size: 1rem;
+    line-height: 1.65;
+    overflow-x: clip;
+    text-rendering: optimizeLegibility;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+
+  /* Compensa el navbar fijo al saltar a una sección */
+  section[id],
+  main[id] {
+    scroll-margin-top: 5rem;
+  }
+
+  ::selection {
+    background-color: var(--color-crimson);
+    color: var(--color-mist);
+  }
+
+  :focus-visible {
+    outline: 3px solid var(--accent);
+    outline-offset: 3px;
+    border-radius: 0.25rem;
+  }
+
+  h1,
+  h2,
+  h3 {
+    font-family: var(--font-display);
+    letter-spacing: -0.02em;
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+}
+
+/* ==========================================================================
+   Utilidades del sistema "Capas"
+   ========================================================================== */
+@utility label-mono {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  line-height: 1.4;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+/* Vidrio para el cuadro interior de las tarjetas */
+@utility glass {
+  background-color: color-mix(in srgb, var(--surface) 62%, transparent);
+  backdrop-filter: blur(14px) saturate(1.15);
+  -webkit-backdrop-filter: blur(14px) saturate(1.15);
+  border: 1px solid color-mix(in srgb, var(--fg) 12%, transparent);
+}
+
+/* Tarjeta con capas detrás que se separan al hover */
+@utility layered {
+  position: relative;
+  isolation: isolate;
+
+  &::before,
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    border-radius: inherit;
+    border: 1px solid var(--line);
+    transition: transform 0.35s cubic-bezier(0.2, 0.7, 0.2, 1);
+    pointer-events: none;
+  }
+  &::before {
+    transform: translate(6px, 6px);
+    background-color: var(--surface-soft);
+  }
+  &::after {
+    transform: translate(12px, 12px);
+    background-color: color-mix(in srgb, var(--color-teal) 18%, transparent);
+  }
+  &:where(:hover, :focus-within)::before {
+    transform: translate(10px, 10px);
+  }
+  &:where(:hover, :focus-within)::after {
+    transform: translate(20px, 20px);
+  }
+}
+
+/* ==========================================================================
+   Movimiento (siempre respetando prefers-reduced-motion)
+   ========================================================================== */
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes drift {
+  to {
+    transform: translate3d(0, 90px, 0);
+  }
+}
+
+@keyframes draw {
+  from {
+    stroke-dashoffset: 1;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+.rise {
+  animation: rise 0.8s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  animation-delay: var(--d, 0ms);
+}
+
+/* El contenido solo se oculta si hay JS (clase .js en <html>) */
+.js .reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition:
+    opacity 0.7s ease,
+    transform 0.7s cubic-bezier(0.2, 0.7, 0.2, 1);
+  transition-delay: var(--d, 0ms);
+}
+.js .reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+@supports (animation-timeline: scroll()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .parallax {
+      animation: drift linear both;
+      animation-timeline: scroll(root);
+      animation-range: 0 100vh;
+    }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  .js .reveal {
+    opacity: 1;
+    transform: none;
+  }
+}
