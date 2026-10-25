@@ -77,9 +77,9 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
                 external
                 variant="tonal"
                 icon="external"
-                aria-label={`Demo en vivo de ${project.title}`}
+                aria-label={`${project.demoLabel ?? "Demo en vivo"} de ${project.title}`}
               >
-                Demo en vivo
+                {project.demoLabel ?? "Demo en vivo"}
               </ButtonLink>
             ) : (
               <PendingLink label="Demo pendiente" />

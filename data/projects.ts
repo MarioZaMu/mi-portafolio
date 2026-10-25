@@ -16,6 +16,8 @@ export type Project = {
   githubUrl: string;
   /** Obligatorio. null mientras no haya demo publicada (TODO). Nunca usar "#". */
   demoUrl: string | null;
+  /** Texto del botón de demo cuando no es una web (p. ej. un instalador). Por defecto "Demo en vivo". */
+  demoLabel?: string;
   /** Qué hice yo en el proyecto. */
   role: string;
   /** Repositorios o enlaces adicionales (p. ej. backend). */
@@ -45,8 +47,9 @@ export const projects: Project[] = [
     imageAlt: "Captura de Mudanzify: pantalla de bienvenida «Tu mudanza de datos, sin perder nada» con el logo de la caja",
     tags: ["Electron", "TypeScript", "React", "Tailwind CSS"],
     githubUrl: "https://github.com/MarioZaMu/Mudanzify-Frontend",
-    // TODO: demo (video corto o instalador en GitHub Releases).
-    demoUrl: null,
+    // Instalador para Windows publicado en GitHub Releases.
+    demoUrl: "https://github.com/MarioZaMu/Mudanzify-Backend/releases/latest",
+    demoLabel: "Descargar app",
     role: "Diseño de interfaz, frontend y backend",
     extraLinks: [{ label: "Backend", href: "https://github.com/MarioZaMu/Mudanzify-Backend" }],
   },
