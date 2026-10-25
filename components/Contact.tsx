@@ -123,7 +123,6 @@ export default function Contact() {
       <Container>
         <SectionHeading
           id="contacto-title"
-          index="06"
           eyebrow="Contacto"
           title="Hablemos de tu proyecto"
           intro="¿Tienes una idea, una práctica o una pregunta? Escríbeme por el canal que prefieras; respondo lo antes posible."

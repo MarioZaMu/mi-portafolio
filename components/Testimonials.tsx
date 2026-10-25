@@ -57,7 +57,6 @@ export default function Testimonials() {
       <Container>
         <SectionHeading
           id="testimonios-title"
-          index="04"
           eyebrow="Testimonios"
           title="Lo que dicen quienes han trabajado conmigo"
         />

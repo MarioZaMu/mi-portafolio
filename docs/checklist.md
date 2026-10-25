@@ -26,7 +26,7 @@ Leyenda: ✅ cumplido · ⚠️ cumplido en código, falta contenido real (`TODO
 | 3 | Párrafo en 1.ª persona, 3–5 líneas | ⚠️ | `site.about` (borrador para editar) |
 | 3 | Foto o ilustración | ✅ | `About.tsx` (avatar en capas) |
 | 3 | Habilidades / tecnologías | ✅ | `About.tsx` + `data/skills.ts` |
-| 3 | Datos rápidos (ubicación, semestre, intereses) | ⚠️ | `About.tsx` (intereses por confirmar) |
+| 3 | Datos rápidos (ubicación, semestre, intereses) | ✅ | `About.tsx` (interés: desarrollo de videojuegos) |
 | 4 | Tarjeta: imagen, título, descripción | ✅ | `Projects.tsx`; capturas reales de las 3 apps |
 | 4 | Tecnologías como etiquetas | ✅ | `Chip` en cada tarjeta |
 | 4 | Link a GitHub | ✅ | Voz Segura, Mudanzify y Vidalvl (+ backends) |

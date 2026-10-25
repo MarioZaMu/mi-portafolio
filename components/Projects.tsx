@@ -113,7 +113,6 @@ export default function Projects({ projects }: { projects: Project[] }) {
       <Container>
         <SectionHeading
           id="proyectos-title"
-          index="03"
           eyebrow="Proyectos"
           title="Lo que he construido"
           intro="Apps móviles, de escritorio y web. Cada tarjeta enlaza al código en GitHub y a su demo en vivo."

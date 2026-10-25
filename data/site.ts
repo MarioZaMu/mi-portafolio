@@ -13,8 +13,7 @@ export const site = {
   university: "Universidad Cooperativa de Colombia",
   location: "Pasto, Nariño, Colombia",
   semester: "Cuarto semestre",
-  // TODO: confirmar intereses.
-  interests: ["Desarrollo móvil", "Diseño de interfaces", "IA aplicada"],
+  interests: ["Desarrollo de videojuegos"],
   // Coordenadas y altitud reales de Pasto, usadas como detalle de "carta topográfica".
   coordinates: "N 01°12′ · O 77°16′",
   altitude: "2 527 m s. n. m.",

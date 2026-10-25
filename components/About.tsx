@@ -26,7 +26,7 @@ export default function About() {
         opacity={0.18}
       />
       <Container>
-        <SectionHeading id="sobre-mi-title" index="02" eyebrow="Acerca de mí" title="Un poco sobre quién soy" />
+        <SectionHeading id="sobre-mi-title" eyebrow="Acerca de mí" title="Un poco sobre quién soy" />
 
         <div className="grid grid-cols-1 items-start gap-12 md:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)] md:gap-16">
           {/* Retrato en capas */}

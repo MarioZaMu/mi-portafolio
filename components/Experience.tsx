@@ -13,7 +13,6 @@ export default function Experience() {
       <Container>
         <SectionHeading
           id="experiencia-title"
-          index="05"
           eyebrow="Experiencia"
           title="Trayectoria académica y laboral"
           intro="De la más reciente a la más antigua."

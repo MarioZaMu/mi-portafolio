@@ -5,7 +5,7 @@ import { Container, SectionHeading, delay } from "./ui/Primitives";
 
 const projectTitle = new Map(projects.map((p) => [p.id, p.title]));
 
-// Sección adicional: habilidades agrupadas por área, como estratos de un corte de terreno.
+// Sección adicional: habilidades agrupadas por área.
 export default function Skills() {
   return (
     <section id="habilidades" aria-labelledby="habilidades-title" className="relative isolate overflow-hidden py-24 md:py-32">
@@ -22,10 +22,9 @@ export default function Skills() {
       <Container>
         <SectionHeading
           id="habilidades-title"
-          index="07"
           eyebrow="Habilidades"
-          title="Mis estratos técnicos"
-          intro="Agrupadas por área y conectadas con los proyectos donde las usé, en lugar de porcentajes que no dicen mucho."
+          title="Herramientas y tecnologías"
+          intro="Agrupadas por área y conectadas con los proyectos donde las usé."
         />
 
         <ol className="grid gap-4">
@@ -36,8 +35,7 @@ export default function Skills() {
               style={{ ...delay(i * 70), marginLeft: `min(${i * 1.5}rem, ${i * 3}vw)` }}
             >
               <div>
-                <p className="label-mono text-accent">Estrato {String(i + 1).padStart(2, "0")}</p>
-                <h3 className="mt-1 text-2xl font-medium text-fg">{group.title}</h3>
+                <h3 className="text-2xl font-medium text-fg">{group.title}</h3>
                 <p className="mt-2 text-base text-muted">{group.summary}</p>
               </div>
               <ul className="flex flex-wrap content-start gap-2">

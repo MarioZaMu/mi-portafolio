@@ -38,23 +38,20 @@ export function Card({ className = "", children, ...props }: HTMLAttributes<HTML
 
 type SectionHeadingProps = {
   id: string;
-  index: string;
   eyebrow: string;
   title: ReactNode;
   intro?: ReactNode;
   align?: "start" | "center";
 };
 
-/** Título de sección con marca de "capa" estilo carta topográfica. */
-export function SectionHeading({ id, index, eyebrow, title, intro, align = "start" }: SectionHeadingProps) {
+/** Título de sección con etiqueta superior estilo carta topográfica. */
+export function SectionHeading({ id, eyebrow, title, intro, align = "start" }: SectionHeadingProps) {
   const centered = align === "center";
   return (
     <header className={`reveal mb-12 max-w-3xl md:mb-16 ${centered ? "mx-auto text-center" : ""}`}>
       <p className={`label-mono flex items-center gap-3 text-accent ${centered ? "justify-center" : ""}`}>
         <span aria-hidden="true" className="inline-block h-px w-8 bg-current" />
-        <span>
-          Capa {index} · {eyebrow}
-        </span>
+        <span>{eyebrow}</span>
       </p>
       <h2 id={id} className="mt-4 text-4xl font-medium leading-[1.05] text-fg sm:text-5xl md:text-6xl">
         {title}

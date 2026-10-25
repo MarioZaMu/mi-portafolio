@@ -5,7 +5,7 @@
 | # | Decisión de diseño | Principio / heurística | Dónde se ve |
 |---|---|---|---|
 | 1 | Nombre en Fraunces a ~92 px, rol en negrita 20 px, frase en cursiva 24 px | Jerarquía visual | `components/Hero.tsx` |
-| 2 | Un solo `h1` (nombre); cada sección abre con `h2` y su etiqueta «Capa 0X» | Jerarquía · consistencia (Nielsen #4) | `components/ui/Primitives.tsx` → `SectionHeading` |
+| 2 | Un solo `h1` (nombre); cada sección abre con `h2` y una etiqueta corta con el nombre de la sección | Jerarquía · consistencia (Nielsen #4) | `components/ui/Primitives.tsx` → `SectionHeading` |
 | 3 | Rojo `crimson` solo para la acción principal (Descargar CV, Enviar, volver arriba) | Contraste · ley de Von Restorff | `Hero.tsx`, `Contact.tsx`, `Footer.tsx` |
 | 4 | Menú fijo con la sección activa subrayada en rojo y `aria-current` | Reconocer antes que recordar (Nielsen #6) · visibilidad del estado (Nielsen #1) | `components/Navbar.tsx` |
 | 5 | Etiquetas de tecnología y botones GitHub/Demo dentro de la misma tarjeta | Proximidad (Gestalt) | `components/Projects.tsx` |
