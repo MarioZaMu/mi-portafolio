@@ -48,15 +48,29 @@ type SectionHeadingProps = {
 export function SectionHeading({ id, eyebrow, title, intro, align = "start" }: SectionHeadingProps) {
   const centered = align === "center";
   return (
-    <header className={`reveal mb-12 max-w-3xl md:mb-16 ${centered ? "mx-auto text-center" : ""}`}>
+    <header className={`reveal mb-10 max-w-3xl md:mb-12 ${centered ? "mx-auto text-center" : ""}`}>
       <p className={`label-mono flex items-center gap-3 text-accent ${centered ? "justify-center" : ""}`}>
         <span aria-hidden="true" className="inline-block h-px w-8 bg-current" />
         <span>{eyebrow}</span>
       </p>
-      <h2 id={id} className="mt-4 text-4xl font-medium leading-[1.05] text-fg sm:text-5xl md:text-6xl">
+      <h2 id={id} className="mt-4 text-4xl font-medium leading-[1.05] text-fg sm:text-5xl">
         {title}
       </h2>
       {intro && <p className="mt-5 text-lg leading-relaxed text-muted">{intro}</p>}
     </header>
+  );
+}
+
+/** Mosaico del diseño bento. `as` permite usarlo como <li>, <article>, etc. */
+export function Tile({
+  as: Tag = "div",
+  className = "",
+  children,
+  ...props
+}: HTMLAttributes<HTMLElement> & { as?: "div" | "li" | "article" | "section" }) {
+  return (
+    <Tag className={`tile ${className}`} {...props}>
+      {children}
+    </Tag>
   );
 }

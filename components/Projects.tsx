@@ -18,31 +18,41 @@ function PendingLink({ label }: { label: string }) {
   );
 }
 
-function ProjectCard({ project, index }: { project: Project; index: number }) {
+function ProjectCard({ project, index, featured }: { project: Project; index: number; featured: boolean }) {
   const titleId = `proyecto-${project.id}`;
   return (
-    <li className="h-full">
+    <li className={`h-full ${featured ? "md:col-span-2" : ""}`}>
       <article
         aria-labelledby={titleId}
-        className="layered group flex h-full flex-col rounded-layer border border-line bg-surface transition-transform duration-300 hover:-translate-y-1 focus-within:-translate-y-1 motion-reduce:transform-none"
+        className={`tile group flex h-full flex-col hover:-translate-y-1 hover:border-accent focus-within:-translate-y-1 motion-reduce:transform-none ${
+          featured ? "lg:grid lg:grid-cols-[minmax(0,1.3fr)_minmax(0,1fr)]" : ""
+        }`}
       >
-        <div className="relative aspect-[16/10] overflow-hidden rounded-t-layer border-b border-line">
+        <div
+          className={`relative aspect-[16/10] overflow-hidden border-line ${
+            featured ? "border-b lg:aspect-auto lg:min-h-[26rem] lg:border-b-0 lg:border-r" : "border-b"
+          }`}
+        >
           <Image
             src={project.image}
             alt={project.imageAlt}
             fill
-            sizes="(min-width: 1024px) 380px, (min-width: 640px) 50vw, 100vw"
+            sizes={featured ? "(min-width: 1024px) 680px, 100vw" : "(min-width: 768px) 50vw, 100vw"}
             unoptimized={project.image.endsWith(".svg")}
             className="object-cover transition-transform duration-500 group-hover:scale-[1.04] motion-reduce:transform-none"
           />
           <span className="label-mono absolute left-4 top-4 rounded-chip bg-abyss/85 px-2 py-1 text-mist">
             {String(index + 1).padStart(2, "0")}
           </span>
+          {featured && project.release && (
+            <span className="label-mono absolute right-4 top-4 rounded-chip bg-crimson px-2 py-1 text-mist">
+              {project.release.tag}
+            </span>
+          )}
         </div>
 
-        {/* Cuadro interior de vidrio que se monta sobre la imagen */}
-        <div className="glass relative z-10 mx-3 -mt-10 flex flex-1 flex-col rounded-card p-5 sm:mx-4 sm:p-6">
-          <h3 id={titleId} className="text-2xl font-medium text-fg">
+        <div className={`flex flex-1 flex-col p-6 ${featured ? "sm:p-8 lg:justify-center" : ""}`}>
+          <h3 id={titleId} className={`font-medium text-fg ${featured ? "text-3xl sm:text-4xl" : "text-2xl"}`}>
             {project.title}
           </h3>
           <p className="mt-2 text-base leading-relaxed text-muted">{project.description}</p>
@@ -58,7 +68,7 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
             ))}
           </ul>
 
-          <div className="mt-auto flex flex-wrap gap-2 pt-6">
+          <div className={`flex flex-wrap gap-2 pt-6 ${featured ? "lg:mt-4" : "mt-auto"}`}>
             <ButtonLink
               href={project.githubUrl}
               external
@@ -109,7 +119,7 @@ export default function Projects({ projects }: { projects: Project[] }) {
   const visible = filter === ALL ? projects : projects.filter((p) => p.tags[0] === filter);
 
   return (
-    <section id="proyectos" aria-labelledby="proyectos-title" className="relative py-24 md:py-32">
+    <section id="proyectos" aria-labelledby="proyectos-title" className="relative py-16 md:py-20">
       <Container>
         <SectionHeading
           id="proyectos-title"
@@ -140,9 +150,15 @@ export default function Projects({ projects }: { projects: Project[] }) {
             {visible.length === 1 ? "1 proyecto visible" : `${visible.length} proyectos visibles`}
           </p>
 
-          <ul className="mt-10 grid grid-cols-1 gap-x-8 gap-y-12 pr-5 sm:grid-cols-2 lg:grid-cols-3">
-            {visible.map((p) => (
-              <ProjectCard key={p.id} project={p} index={projects.indexOf(p)} />
+          {/* Bento: el primero ocupa todo el ancho; si el último queda solo, también se estira. */}
+          <ul className="mt-8 grid grid-cols-1 gap-3 md:grid-cols-2 lg:gap-4">
+            {visible.map((p, i) => (
+              <ProjectCard
+                key={p.id}
+                project={p}
+                index={projects.indexOf(p)}
+                featured={i === 0 || (i === visible.length - 1 && i % 2 === 1)}
+              />
             ))}
           </ul>
         </div>

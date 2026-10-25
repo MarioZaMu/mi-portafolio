@@ -37,3 +37,13 @@
 - El formulario depende de Formspree (plan gratuito: 50 envíos/mes). Sin ID usa `mailto:`.
 - Mejora posible: sección de actividad de GitHub (mapa de calor) con la API GraphQL y un token en el servidor; no se incluyó para no exponer claves ni depender de servicios de terceros.
 - Mejora posible: página de detalle por proyecto (caso de estudio) y versión en inglés.
+
+## Rediseño bento (octubre 2026)
+
+| Decisión | Principio | Dónde |
+|---|---|---|
+| Inicio, «Acerca de mí», proyectos, contacto y habilidades en mosaicos que encajan en una cuadrícula de 12 columnas | Ley de proximidad y región común (Gestalt); elimina los espacios vacíos de las columnas desparejas | `Tile` en `components/ui/Primitives.tsx` |
+| El primer proyecto ocupa todo el ancho con su captura grande | Jerarquía visual: lo más importante primero | `components/Projects.tsx` |
+| Mosaico «Recién publicado» alimentado por GitHub Releases | Visibilidad del estado del sistema (Nielsen #1) | `components/Hero.tsx`, `lib/releases.ts` |
+| Línea de tiempo en filas (fecha · marcador · tarjeta) en lugar de alternar lados | Lectura en F y sin media pantalla vacía | `components/Experience.tsx` |
+| Cinta de tecnologías animada que se detiene al pasar el cursor y queda fija con movimiento reducido | Control del usuario (Nielsen #3), WCAG 2.2.2 | `.marquee` en `app/globals.css` |

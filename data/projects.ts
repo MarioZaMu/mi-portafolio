@@ -22,6 +22,8 @@ export type Project = {
   releaseRepo?: string;
   /** Qué hice yo en el proyecto. */
   role: string;
+  /** Último release publicado; lo completa lib/releases.ts, no se escribe a mano. */
+  release?: { tag: string; url: string; label: string; publishedAt: string };
   /** Repositorios o enlaces adicionales (p. ej. backend). */
   extraLinks?: ProjectLink[];
 };

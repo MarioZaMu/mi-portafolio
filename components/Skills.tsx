@@ -1,14 +1,14 @@
 import { projects } from "@/data/projects";
 import { skillGroups } from "@/data/skills";
 import { ContourField } from "./ui/Contours";
-import { Container, SectionHeading, delay } from "./ui/Primitives";
+import { Container, SectionHeading, Tile, delay } from "./ui/Primitives";
 
 const projectTitle = new Map(projects.map((p) => [p.id, p.title]));
 
 // Sección adicional: habilidades agrupadas por área.
 export default function Skills() {
   return (
-    <section id="habilidades" aria-labelledby="habilidades-title" className="relative isolate overflow-hidden py-24 md:py-32">
+    <section id="habilidades" aria-labelledby="habilidades-title" className="relative isolate overflow-hidden py-16 md:py-20">
       <ContourField
         className="absolute -left-1/4 top-0 -z-10 h-full w-[120%] md:-left-[10%] md:w-[70%]"
         cx={300}
@@ -27,12 +27,14 @@ export default function Skills() {
           intro="Agrupadas por área y conectadas con los proyectos donde las usé."
         />
 
-        <ol className="grid gap-4">
+        {/* Bento: los dos grupos más grandes arriba (mitad y mitad) y tres abajo (un tercio cada uno) */}
+        <ol className="grid grid-cols-1 gap-3 md:grid-cols-6 lg:gap-4">
           {skillGroups.map((group, i) => (
-            <li
+            <Tile
+              as="li"
               key={group.id}
-              className="reveal grid gap-4 rounded-layer border border-line bg-surface/80 p-6 backdrop-blur-sm transition-colors hover:border-accent md:grid-cols-[14rem_minmax(0,1fr)] md:gap-10 md:p-8"
-              style={{ ...delay(i * 70), marginLeft: `min(${i * 1.5}rem, ${i * 3}vw)` }}
+              className={`reveal flex flex-col gap-5 p-6 hover:border-accent sm:p-8 ${i < 2 ? "md:col-span-3" : "md:col-span-2"}`}
+              style={delay(i * 70)}
             >
               <div>
                 <h3 className="text-2xl font-medium text-fg">{group.title}</h3>
@@ -52,7 +54,7 @@ export default function Skills() {
                   );
                 })}
               </ul>
-            </li>
+            </Tile>
           ))}
         </ol>
       </Container>

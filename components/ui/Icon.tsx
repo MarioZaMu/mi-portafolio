@@ -5,6 +5,19 @@ const paths = {
   download: <path d="M12 3v12m0 0-5-5m5 5 5-5M4 19h16" />,
   arrowRight: <path d="M5 12h14m-6-6 6 6-6 6" />,
   arrowUp: <path d="M12 19V5m-6 6 6-6 6 6" />,
+  gamepad: (
+    <>
+      <path d="M7 7h10a5 5 0 0 1 4.9 6l-.6 3a2.5 2.5 0 0 1-4.3 1.2L15 15H9l-2 2.2A2.5 2.5 0 0 1 2.7 16l-.6-3A5 5 0 0 1 7 7Z" />
+      <path d="M7.5 10v3M6 11.5h3M15.5 11h.01M17.5 13h.01" />
+    </>
+  ),
+  rocket: (
+    <>
+      <path d="M5 15c-1.5 1.5-2 4-2 6 2 0 4.5-.5 6-2" />
+      <path d="M9 15 6 12c1-4 5-9 15-9 0 10-5 14-9 15l-3-3Z" />
+      <circle cx="15" cy="9" r="1.5" />
+    </>
+  ),
   external: <path d="M7 17 17 7m0 0H9m8 0v8" />,
   chevronLeft: <path d="m15 6-6 6 6 6" />,
   chevronRight: <path d="m9 6 6 6-6 6" />,

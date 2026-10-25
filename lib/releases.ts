@@ -5,11 +5,12 @@ import type { Project } from "@/data/projects";
 // La página se regenera como máximo cada REVALIDATE segundos (ISR).
 const REVALIDATE = 300;
 
-type Release = { tag: string; url: string; label: string };
+type Release = NonNullable<Project["release"]>;
 
 type GitHubRelease = {
   tag_name: string;
   html_url: string;
+  published_at: string;
   draft: boolean;
   assets: { name: string }[];
 };
@@ -36,7 +37,7 @@ async function latestRelease(repo: string): Promise<Release | null> {
     if (!res.ok) return null;
     const data = (await res.json()) as GitHubRelease;
     if (data.draft) return null;
-    return { tag: data.tag_name, url: data.html_url, label: labelFor(data.assets) };
+    return { tag: data.tag_name, url: data.html_url, label: labelFor(data.assets), publishedAt: data.published_at };
   } catch {
     return null;
   }
@@ -55,8 +56,15 @@ export async function withLatestReleases(list: Project[]): Promise<Project[]> {
       const release = await latestRelease(project.releaseRepo);
       if (!release) return project;
       const label = `${release.label} · ${release.tag}`;
-      if (!project.demoUrl) return { ...project, demoUrl: release.url, demoLabel: label };
-      return { ...project, extraLinks: [...(project.extraLinks ?? []), { label, href: release.url }] };
+      if (!project.demoUrl) return { ...project, release, demoUrl: release.url, demoLabel: label };
+      return { ...project, release, extraLinks: [...(project.extraLinks ?? []), { label, href: release.url }] };
     }),
   );
+}
+
+/** El proyecto con el release más reciente (para el mosaico «Recién publicado» del inicio). */
+export function newestRelease(list: Project[]) {
+  return list
+    .filter((p): p is Project & { release: Release } => Boolean(p.release))
+    .sort((a, b) => b.release.publishedAt.localeCompare(a.release.publishedAt))[0];
 }

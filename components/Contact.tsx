@@ -3,6 +3,7 @@
 import { useRef, useState, type FormEvent } from "react";
 import { site, whatsappHref } from "@/data/site";
 import { Button } from "./ui/Button";
+import { ContourField } from "./ui/Contours";
 import { Icon, type IconName } from "./ui/Icon";
 import { Container, SectionHeading, delay } from "./ui/Primitives";
 
@@ -119,7 +120,7 @@ export default function Contact() {
   const done = status === "success" || status === "mailto";
 
   return (
-    <section id="contacto" aria-labelledby="contacto-title" className="relative py-24 md:py-32">
+    <section id="contacto" aria-labelledby="contacto-title" className="relative py-16 md:py-20">
       <Container>
         <SectionHeading
           id="contacto-title"
@@ -128,45 +129,68 @@ export default function Contact() {
           intro="¿Tienes una idea, una práctica o una pregunta? Escríbeme por el canal que prefieras; respondo lo antes posible."
         />
 
-        <div className="grid grid-cols-1 gap-10 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)] lg:gap-14">
-          <ul className="reveal grid min-w-0 grid-cols-1 content-start gap-3">
-            {channels.map((c) => {
-              const inner = (
-                <>
-                  <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full border border-line bg-deep text-mist transition-colors group-hover:border-accent">
-                    <Icon name={c.icon} size={22} />
-                  </span>
-                  <span className="min-w-0 flex-1">
-                    <span className="label-mono block text-muted">{c.label}</span>
-                    <span className="block truncate font-semibold text-fg">{c.value}</span>
-                  </span>
-                  {c.href && <Icon name={c.external ? "external" : "arrowRight"} size={18} className="text-accent" />}
-                </>
-              );
-              const cls =
-                "group flex min-h-16 items-center gap-4 rounded-card border border-line bg-surface p-3 pr-5 transition-[border-color,transform] duration-200";
-              return (
-                <li key={c.label}>
-                  {c.href ? (
-                    <a
-                      href={c.href}
-                      className={`${cls} hover:-translate-y-0.5 hover:border-accent motion-reduce:transform-none`}
-                      {...(c.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-                    >
-                      {inner}
-                      {c.external && <span className="sr-only"> (se abre en una pestaña nueva)</span>}
-                    </a>
-                  ) : (
-                    <div aria-disabled="true" className={`${cls} border-dashed opacity-70`}>
-                      {inner}
-                    </div>
-                  )}
-                </li>
-              );
-            })}
-          </ul>
+        <div className="grid grid-cols-1 gap-3 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:gap-4">
+          <div className="reveal flex min-w-0 flex-col gap-3 lg:gap-4">
+            {/* Mosaico grande: la invitación ocupa el alto sobrante junto al formulario */}
+            <div className="tile flex flex-1 flex-col justify-between gap-8 p-6 sm:p-8">
+              <span aria-hidden="true" className="absolute inset-0 -z-10 bg-crimson/15" />
+              <ContourField
+                className="absolute -right-1/4 -top-1/3 -z-10 h-[140%] w-[90%]"
+                cx={300}
+                cy={300}
+                count={14}
+                minRadius={30}
+                step={24}
+                seed={2025}
+                opacity={0.35}
+              />
+              <Icon name="send" size={28} className="text-accent-warm" />
+              <div>
+                <p className="font-display text-3xl font-medium leading-tight text-fg sm:text-4xl">
+                  ¿Tienes una idea? Construyámosla juntos.
+                </p>
+                <p className="mt-3 text-muted">Escríbeme directo al correo o por el formulario.</p>
+              </div>
+            </div>
+            <ul className="grid min-w-0 grid-cols-1 gap-3 sm:grid-cols-2">
+              {channels.map((c, i) => {
+                const inner = (
+                  <>
+                    <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full border border-line bg-deep text-mist transition-colors group-hover:border-accent">
+                      <Icon name={c.icon} size={22} />
+                    </span>
+                    <span className="min-w-0 flex-1">
+                      <span className="label-mono block text-muted">{c.label}</span>
+                      <span className="block truncate font-semibold text-fg">{c.value}</span>
+                    </span>
+                    {c.href && <Icon name={c.external ? "external" : "arrowRight"} size={18} className="text-accent" />}
+                  </>
+                );
+                const cls =
+                  "group flex h-full min-h-16 items-center gap-4 rounded-layer border border-line bg-surface p-3 pr-5 transition-[border-color,transform] duration-200";
+                return (
+                  <li key={c.label} className={i === 0 ? "sm:col-span-2" : ""}>
+                    {c.href ? (
+                      <a
+                        href={c.href}
+                        className={`${cls} hover:-translate-y-0.5 hover:border-accent motion-reduce:transform-none`}
+                        {...(c.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+                      >
+                        {inner}
+                        {c.external && <span className="sr-only"> (se abre en una pestaña nueva)</span>}
+                      </a>
+                    ) : (
+                      <div aria-disabled="true" className={`${cls} border-dashed opacity-70`}>
+                        {inner}
+                      </div>
+                    )}
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
 
-          <div className="reveal layered rounded-layer border border-line bg-surface p-6 sm:p-8" style={delay(120)}>
+          <div className="reveal tile p-6 sm:p-8" style={delay(120)}>
             {done ? (
               <div ref={statusRef} tabIndex={-1} role="status" className="flex flex-col items-center py-10 text-center focus:outline-none">
                 <span className="flex h-20 w-20 items-center justify-center rounded-full border-2 border-accent text-accent">

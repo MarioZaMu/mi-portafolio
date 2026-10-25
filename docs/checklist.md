@@ -19,7 +19,7 @@ Leyenda: ✅ cumplido · ⚠️ cumplido en código, falta contenido real (`TODO
 | 1 | Menú con navegación a todas las secciones | ✅ | `components/Navbar.tsx` (escritorio + hamburguesa) |
 | 2 | Nombre como título grande (`h1`) | ✅ | `Hero.tsx` |
 | 2 | Rol / perfil | ✅ | `data/site.ts → role` |
-| 2 | Foto o avatar | ⚠️ | `ui/Avatar.tsx`: monograma «MZ»; usa `public/images/profile.jpg` en cuanto exista |
+| 2 | Foto o avatar | ⚠️ | `ui/Avatar.tsx` en el mosaico del inicio: monograma «MZ»; usa `public/images/profile.jpg` en cuanto exista |
 | 2 | Frase corta | ⚠️ | `site.tagline` (propuesta, confirmar) |
 | 2 | Botón «Descargar CV» `href="/cv.pdf"` con `download` | ⚠️ | `Hero.tsx`; `public/cv.pdf` es provisional |
 | 2 | Botón secundario (Ver proyectos) | ✅ | `Hero.tsx` |
@@ -31,10 +31,10 @@ Leyenda: ✅ cumplido · ⚠️ cumplido en código, falta contenido real (`TODO
 | 4 | Tecnologías como etiquetas | ✅ | `Chip` en cada tarjeta |
 | 4 | Link a GitHub | ✅ | Voz Segura, Mudanzify y Vidalvl (+ backends) |
 | 4 | Link a demo en vivo | ✅ | Voz Segura (web + APK), Mudanzify (instalador) y Vidalvl (APK); las descargas salen solas del último GitHub Release (`lib/releases.ts`, se actualiza cada 5 min) |
-| 4 | Grid 1 col móvil, 2–3 escritorio | ✅ | `grid-cols-1 sm:grid-cols-2 lg:grid-cols-3` |
+| 4 | Grid 1 col móvil, 2–3 escritorio | ✅ | bento: `grid-cols-1 md:grid-cols-2`, el primero destacado a todo el ancho |
 | 4 | `target="_blank"` | ✅ | `ButtonLink external` → `target="_blank" rel="noopener noreferrer"` |
 | 4 | Datos en `data/projects.ts`, tipado, `.map()` | ✅ | tipo `Project`, `projects.map` |
-| 5 | Mínimo 3 testimonios con nombre, relación, avatar y texto | ⚠️ | `data/testimonials.ts` (3 placeholders: deben ser reales) |
+| 5 | Mínimo 3 testimonios con nombre, relación, avatar y texto | ❌ | Sección oculta por ahora (sin testimonios reales). `Testimonials.tsx` sigue listo: volver a ponerlo en `app/page.tsx` y en `navItems` antes de entregar |
 | 5 | Tipo `Testimonial` + arreglo ≥ 3 | ✅ | `data/testimonials.ts` |
 | 5 | Carrusel o grid (opcional) | ✅ | carrusel accesible con flechas, puntos y teclado |
 | 6 | Académica y laboral | ⚠️ | `data/experience.ts` (fechas y cursos `TODO`) |
