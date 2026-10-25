@@ -10,7 +10,7 @@ Leyenda: ✅ cumplido · ⚠️ cumplido en código, falta contenido real (`TODO
 | Estructura `app/ · components/ · data/projects.ts · public/cv.pdf · public/images/` | ✅ | árbol del proyecto (extras: `components/ui/`, `lib/`, `data/*.ts`, `docs/`) |
 | Un componente por sección en `components/` | ✅ | `Navbar, Hero, About, Projects, Testimonials, Experience, Contact, Skills, Footer .tsx` |
 | `app/page.tsx` los une en el orden del mapa | ✅ | `app/page.tsx` |
-| Desplegado en Vercel (`tu-nombre.vercel.app`) | ❌ | Lo hace Mario (ver README → Despliegue) |
+| Desplegado en Vercel (`tu-nombre.vercel.app`) | ✅ | https://mario-zambrano.vercel.app · repo https://github.com/MarioZaMu/mi-portafolio (cada push a `main` publica) |
 
 ## Secciones
 
