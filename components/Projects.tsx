@@ -2,14 +2,12 @@
 
 import Image from "next/image";
 import { useState } from "react";
-import { projects, type Project } from "@/data/projects";
+import type { Project } from "@/data/projects";
 import { ButtonLink, buttonClasses } from "./ui/Button";
 import { Icon } from "./ui/Icon";
 import { Chip, Container, SectionHeading } from "./ui/Primitives";
 
 const ALL = "Todos";
-// Filtro por tecnología principal (primera etiqueta) para no saturar de opciones (ley de Hick).
-const filters = [ALL, ...Array.from(new Set(projects.map((p) => p.tags[0])))];
 
 function PendingLink({ label }: { label: string }) {
   return (
@@ -91,7 +89,7 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
                 external
                 variant="ghost"
                 icon="external"
-                aria-label={`${link.label} de ${project.title} en GitHub`}
+                aria-label={`${link.label} de ${project.title} (GitHub)`}
               >
                 {link.label}
               </ButtonLink>
@@ -103,8 +101,11 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
   );
 }
 
-export default function Projects() {
+// Recibe los proyectos ya completados con sus releases desde app/page.tsx (servidor).
+export default function Projects({ projects }: { projects: Project[] }) {
   const [filter, setFilter] = useState(ALL);
+  // Filtro por tecnología principal (primera etiqueta) para no saturar de opciones (ley de Hick).
+  const filters = [ALL, ...Array.from(new Set(projects.map((p) => p.tags[0])))];
   const visible = filter === ALL ? projects : projects.filter((p) => p.tags[0] === filter);
 
   return (

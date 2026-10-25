@@ -30,7 +30,7 @@ Leyenda: ✅ cumplido · ⚠️ cumplido en código, falta contenido real (`TODO
 | 4 | Tarjeta: imagen, título, descripción | ✅ | `Projects.tsx`; capturas reales de las 3 apps |
 | 4 | Tecnologías como etiquetas | ✅ | `Chip` en cada tarjeta |
 | 4 | Link a GitHub | ✅ | Voz Segura, Mudanzify y Vidalvl (+ backends) |
-| 4 | Link a demo en vivo | ⚠️ | Voz Segura (web) y Mudanzify (instalador en Releases) ✅; Vidalvl `TODO` («Demo pendiente», nunca `#`) |
+| 4 | Link a demo en vivo | ✅ | Voz Segura (web + APK), Mudanzify (instalador) y Vidalvl (APK); las descargas salen solas del último GitHub Release (`lib/releases.ts`, se actualiza cada 5 min) |
 | 4 | Grid 1 col móvil, 2–3 escritorio | ✅ | `grid-cols-1 sm:grid-cols-2 lg:grid-cols-3` |
 | 4 | `target="_blank"` | ✅ | `ButtonLink external` → `target="_blank" rel="noopener noreferrer"` |
 | 4 | Datos en `data/projects.ts`, tipado, `.map()` | ✅ | tipo `Project`, `projects.map` |
@@ -58,7 +58,7 @@ Leyenda: ✅ cumplido · ⚠️ cumplido en código, falta contenido real (`TODO
 
 | Verificación | Resultado |
 |---|---|
-| `npm run build` | ✅ sin errores (página estática) |
+| `npm run build` | ✅ sin errores (página estática con ISR cada 5 min) |
 | `npm run lint` | ✅ sin errores ni avisos |
 | Enlaces con `href="#"` | ✅ ninguno |
 | Consola del navegador | ✅ sin errores |

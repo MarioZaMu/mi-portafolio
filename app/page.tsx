@@ -9,10 +9,13 @@ import Skills from "@/components/Skills";
 import Testimonials from "@/components/Testimonials";
 import { StrataDivider } from "@/components/ui/Contours";
 import { RevealObserver } from "@/components/ui/RevealObserver";
+import { projects } from "@/data/projects";
+import { withLatestReleases } from "@/lib/releases";
 
 // Mismo orden del mapa: Menú → Hero + CV → Acerca de mí → Proyectos → Testimonios
 // → Experiencia → Contactos → Adicional (Habilidades) → Pie de página.
-export default function Home() {
+export default async function Home() {
+  const projectsWithReleases = await withLatestReleases(projects);
   return (
     <>
       <Navbar />
@@ -20,7 +23,7 @@ export default function Home() {
         <Hero />
         <About />
         <StrataDivider seed={21} />
-        <Projects />
+        <Projects projects={projectsWithReleases} />
         <StrataDivider seed={34} />
         <Testimonials />
         <Experience />

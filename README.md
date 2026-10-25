@@ -49,6 +49,7 @@ Todo el texto vive en `data/`; no hace falta tocar los componentes.
 | Habilidades por área | `data/skills.ts` |
 | Foto de perfil | guarda `public/images/profile.jpg` (se detecta sola al compilar) |
 | CV | reemplaza `public/cv.pdf` |
+| Botón de descarga (APK / instalador) | nada: publica un release en GitHub y aparece solo en ≤ 5 min (campo `releaseRepo`) |
 | Capturas de proyectos | `public/images/projects/` (1600 × 1000) y el campo `image` en `data/projects.ts` |
 
 Busca `TODO` en el proyecto para ver lo que falta.

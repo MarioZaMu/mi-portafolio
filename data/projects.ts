@@ -18,6 +18,8 @@ export type Project = {
   demoUrl: string | null;
   /** Texto del botón de demo cuando no es una web (p. ej. un instalador). Por defecto "Demo en vivo". */
   demoLabel?: string;
+  /** Repositorio («usuario/repo») cuyos GitHub Releases se leen solos (lib/releases.ts). */
+  releaseRepo?: string;
   /** Qué hice yo en el proyecto. */
   role: string;
   /** Repositorios o enlaces adicionales (p. ej. backend). */
@@ -35,6 +37,7 @@ export const projects: Project[] = [
     tags: ["React", "TypeScript", "Capacitor", "Node.js", "IA"],
     githubUrl: "https://github.com/MarioZaMu/VozSegura-Frontend",
     demoUrl: "https://voz-segura-frontend.vercel.app",
+    releaseRepo: "MarioZaMu/VozSegura-Frontend",
     role: "Diseño de interfaz, frontend y funciones serverless",
     extraLinks: [{ label: "Backend", href: "https://github.com/MarioZaMu/VozSegura-backend" }],
   },
@@ -47,9 +50,9 @@ export const projects: Project[] = [
     imageAlt: "Captura de Mudanzify: pantalla de bienvenida «Tu mudanza de datos, sin perder nada» con el logo de la caja",
     tags: ["Electron", "TypeScript", "React", "Tailwind CSS"],
     githubUrl: "https://github.com/MarioZaMu/Mudanzify-Frontend",
-    // Instalador para Windows publicado en GitHub Releases.
-    demoUrl: "https://github.com/MarioZaMu/Mudanzify-Backend/releases/latest",
-    demoLabel: "Descargar app",
+    // El instalador para Windows sale del último release (botón «Descargar app»).
+    demoUrl: null,
+    releaseRepo: "MarioZaMu/Mudanzify-Backend",
     role: "Diseño de interfaz, frontend y backend",
     extraLinks: [{ label: "Backend", href: "https://github.com/MarioZaMu/Mudanzify-Backend" }],
   },
@@ -62,8 +65,9 @@ export const projects: Project[] = [
     imageAlt: "Captura de Vidalvl: pantalla de misiones con el avatar en pixel art, nivel, racha y misiones diarias",
     tags: ["Kotlin", "Jetpack Compose", "Room", "CameraX"],
     githubUrl: "https://github.com/MarioZaMu/Vidalvl",
-    // TODO: demo (APK en GitHub Releases o video corto).
+    // En cuanto haya un release con el APK, aparece «Descargar APK» solo.
     demoUrl: null,
+    releaseRepo: "MarioZaMu/Vidalvl",
     role: "Diseño y desarrollo de la app",
   },
 ];
