@@ -1,6 +1,6 @@
 # Portafolio · Mario Alberto Zambrano Muñoz
 
-Portafolio personal para la materia **Diseño de Interfaces de Software** (Universidad Cooperativa de Colombia, Pasto). Concepto visual **«Capas»** con la paleta **«Medianoche violeta»**: fondo aurora de luz difusa, tarjetas apiladas y una franja diagonal menta y violeta.
+Portafolio personal para la materia **Diseño de Interfaces de Software** (Universidad Cooperativa de Colombia, Pasto). Concepto visual **«Capas»** con la paleta **«Perla y navy»**: gris perla y azul marino en modo claro, navy nocturno en oscuro.
 
 > Capturas: `TODO` agrega aquí imágenes del sitio publicado (escritorio y móvil).
 
@@ -56,7 +56,7 @@ Busca `TODO` en el proyecto para ver lo que falta.
 
 ## Cómo cambiar la paleta
 
-Los 6 colores base (`night`, `indigo`, `violet`, `iris`, `frost`, `mint`) están en un solo lugar: el bloque `@theme` de `app/globals.css`. Los tintes (`violet-300`, `iris-700`, etc.) se calculan con `color-mix` a partir de ellos, y los colores semánticos de cada tema (`--bg`, `--fg`, `--accent`…) están justo debajo. Si cambias la paleta, vuelve a comprobar el contraste (mínimo 4.5:1 para texto).
+Los 7 colores base (`midnight`, `harbor`, `navy`, `marine`, `periwinkle`, `pearl`, `snow`) están en un solo lugar: el bloque `@theme` de `app/globals.css`. Los tintes (`periwinkle-200`, `marine-800`, etc.) se calculan con `color-mix` a partir de ellos, y los colores semánticos de cada tema (`--bg`, `--fg`, `--accent`…) están justo debajo. Si cambias la paleta, vuelve a comprobar el contraste (mínimo 4.5:1 para texto).
 
 ## Formulario de contacto (Formspree)
 

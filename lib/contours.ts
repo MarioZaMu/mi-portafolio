@@ -109,7 +109,7 @@ export function contourLines({
   });
 }
 
-/** Banda rellena entre dos líneas paralelas (la "franja" menta/violeta). */
+/** Banda rellena entre dos líneas paralelas (la "franja" del inicio). */
 export function ribbon(options: LinesOptions & { thickness: number }) {
   const start = options.start ?? 0.2;
   // Misma semilla → misma forma: la línea inferior es la superior desplazada.

@@ -52,8 +52,15 @@ export const skillGroups: SkillGroup[] = [
   {
     id: "herramientas",
     title: "Herramientas",
-    summary: "Control de versiones y despliegue.",
-    skills: [{ name: "Git" }, { name: "GitHub" }, { name: "Vercel", usedIn: ["vozsegura"] }, { name: "Android Studio", usedIn: ["vidalvl"] }],
+    summary: "Control de versiones, despliegue y servicios externos.",
+    skills: [
+      { name: "Git" },
+      { name: "GitHub" },
+      { name: "Vercel", usedIn: ["vozsegura"] },
+      { name: "Android Studio", usedIn: ["vidalvl"] },
+      { name: "Telegram Bot API", usedIn: ["vozsegura"] },
+      { name: "Gemini / Groq (IA)", usedIn: ["vozsegura", "mudanzify", "vidalvl"] },
+    ],
   },
   {
     id: "diseno",

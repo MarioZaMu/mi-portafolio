@@ -17,8 +17,8 @@ export default function OpengraphImage() {
           flexDirection: "column",
           justifyContent: "center",
           padding: "80px",
-          background: "radial-gradient(circle at 85% 0%, #3A2F8F 0%, #0E0B1F 60%)",
-          color: "#ECEAF6",
+          background: "radial-gradient(circle at 85% 0%, #2D2F55 0%, #0F1024 60%)",
+          color: "#E6E7EB",
           position: "relative",
         }}
       >
@@ -29,7 +29,7 @@ export default function OpengraphImage() {
             bottom: -260,
             width: 900,
             height: 260,
-            background: "#6D5DFC",
+            background: "#4A4E9E",
             transform: "rotate(-24deg)",
           }}
         />
@@ -40,15 +40,15 @@ export default function OpengraphImage() {
             bottom: -160,
             width: 900,
             height: 60,
-            background: "#3DDC97",
+            background: "#A9ADF0",
             transform: "rotate(-24deg)",
           }}
         />
-        <div style={{ fontSize: 26, letterSpacing: 6, color: "#B7AEFB" }}>
+        <div style={{ fontSize: 26, letterSpacing: 6, color: "#A9ADF0" }}>
           {`${site.coordinates} · ${site.altitude}`.toUpperCase()}
         </div>
         <div style={{ fontSize: 88, marginTop: 24, lineHeight: 1 }}>Mario Alberto</div>
-        <div style={{ fontSize: 88, fontStyle: "italic", color: "#B7AEFB", lineHeight: 1.1 }}>Zambrano Muñoz</div>
+        <div style={{ fontSize: 88, fontStyle: "italic", color: "#A9ADF0", lineHeight: 1.1 }}>Zambrano Muñoz</div>
         <div style={{ fontSize: 32, marginTop: 32, maxWidth: 760 }}>{site.role}</div>
       </div>
     ),

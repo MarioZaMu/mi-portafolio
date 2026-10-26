@@ -15,7 +15,7 @@ export default function Hero() {
       aria-labelledby="hero-title"
       className="relative isolate flex min-h-[100svh] items-center overflow-hidden pb-48 pt-28 md:pb-56"
     >
-      {/* Franja menta y violeta en la base del inicio */}
+      {/* Franja en la base del inicio */}
       <Ribbon className="absolute inset-x-0 bottom-0 -z-10 h-[28%] w-full md:h-[34%]" />
 
       <Container className="grid grid-cols-1 items-center gap-12 lg:grid-cols-[minmax(0,1.35fr)_minmax(0,1fr)]">
@@ -39,7 +39,7 @@ export default function Hero() {
           </p>
 
           <p
-            className="mt-4 max-w-xl border-l-2 border-iris pl-4 font-display text-xl italic leading-snug text-muted sm:text-2xl"
+            className="mt-4 max-w-xl border-l-2 border-marine pl-4 font-display text-xl italic leading-snug text-muted sm:text-2xl"
           >
             {site.tagline}
           </p>

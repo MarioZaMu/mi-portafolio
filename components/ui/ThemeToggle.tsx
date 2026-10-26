@@ -33,7 +33,7 @@ export function ThemeToggle({ className = "" }: { className?: string }) {
       onClick={toggle}
       aria-label={next === "light" ? "Activar tema claro" : "Activar tema oscuro"}
       title={next === "light" ? "Tema claro" : "Tema oscuro"}
-      className={`inline-flex h-11 w-11 items-center justify-center rounded-full border border-line text-fg transition-colors hover:border-accent hover:bg-violet/15 active:bg-violet/25 ${className}`}
+      className={`inline-flex h-11 w-11 items-center justify-center rounded-full border border-line text-fg transition-colors hover:border-accent hover:bg-periwinkle/15 active:bg-periwinkle/25 ${className}`}
     >
       <Icon name={theme === "dark" ? "sun" : "moon"} size={20} />
     </button>

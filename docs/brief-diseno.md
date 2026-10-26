@@ -6,45 +6,41 @@
 - **Objetivo:** que en menos de 10 segundos se entienda *quién soy, qué hago y cómo ver mi trabajo*, y que en un minuto se pueda revisar un proyecto, descargar el CV o escribirme.
 - **Requisitos fuente:** las 9 capturas de `assets/referencias/` (pestañas *Estructura* y *Secciones*) coinciden con la tabla del prompt. No se ven las pestañas **Entrega** ni **Checklist**; se tratan como pendientes.
 
-## 2. Concepto: «Capas» con paleta «Medianoche violeta»
+## 2. Concepto: «Capas» con paleta «Perla y navy»
 
-La primera versión usaba la paleta de la ilustración «ALONE» (verde azulado y rojo). En octubre de 2026 se cambió a **Medianoche violeta**, más moderna y cercana a mi interés por los videojuegos. La estructura y el concepto de capas se mantienen:
+Historial de paletas: «ALONE» (verde azulado y rojo) → «Medianoche violeta» → **«Perla y navy»** (octubre 2026). El modo claro toma el gris perla y el azul marino de una referencia de portafolio; el modo oscuro, «navy nocturno», es su espejo: fondo azul marino casi negro con texto perla, para que cambiar de tema se sienta natural.
 
-- **Fondo aurora:** manchas de luz violeta, iris y menta, muy difusas y quietas, fijas detrás de todo el contenido (`.aurora` en `app/globals.css`). Llenan los espacios amplios sin distraer y no se animan, así que no afectan el rendimiento ni a quien prefiere movimiento reducido.
-- **Curvas de nivel en SVG** solo como detalle: anillos alrededor del avatar. Siempre `aria-hidden`.
-- **La franja:** una cinta diagonal menta + violeta en la base del Hero.
+- **Fondo aurora (provisional):** resplandores marine y navy muy difusos, fijos detrás del contenido. Se reemplazará por el diseño de fondo nuevo.
+- **Curvas de nivel en SVG** como detalle alrededor del avatar. Siempre `aria-hidden`.
+- **La franja:** cinta diagonal en la base del Hero (periwinkle + marine en oscuro, navy en claro).
 - **Tarjetas apiladas:** proyectos y formulario muestran capas detrás que se separan al pasar el cursor.
 
 ## 3. Paleta y contraste (WCAG 2.1, calculado)
 
 | Token | Hex | Uso |
 |---|---|---|
-| `night` | `#0E0B1F` | Fondo oscuro |
-| `indigo` | `#1A1535` | Superficies / tarjetas |
-| `violet` | `#8B7CFF` | Bordes, íconos, decoración, aurora |
-| `iris` | `#6D5DFC` | Franja, subrayados, aurora |
-| `frost` | `#ECEAF6` | Texto (oscuro) |
-| `mint` | `#3DDC97` | Detalles: experiencia laboral, punto del avatar, franja |
-| `violet-300` *(violet 55 % + frost)* | `#B7AEFB` | Texto/enlaces de acento en oscuro |
-| `iris-700` *(iris 78 % + night)* | `#584BCB` | Relleno del botón principal (ambos temas) |
-| `frost-muted` *(frost 75 % + night)* | `#B4B2C0` | Texto secundario en oscuro |
-| `violet-700` *(violet 55 % + night)* | `#53499A` | Texto/enlaces de acento en claro |
-| `mint-700` *(mint 48 % + night)* | `#256F59` | Acento menta como texto en claro |
-| `night-muted` *(night 72 % + frost)* | `#4C495B` | Texto secundario en claro |
+| `midnight` | `#0F1024` | Fondo oscuro |
+| `harbor` | `#1B1D3A` | Tarjetas en oscuro, botón tonal |
+| `navy` | `#2D2F55` | Texto, acento y botón en claro |
+| `marine` | `#4A4E9E` | Botón en oscuro, franja, subrayados |
+| `periwinkle` | `#A9ADF0` | Acento (texto/enlaces) en oscuro |
+| `pearl` | `#E6E7EB` | Fondo claro / texto en oscuro |
+| `snow` | `#F6F6F8` | Tarjetas en claro / texto sobre botones |
+| `periwinkle-200` *(periwinkle 45 % + pearl)* | `#CBCDED` | Acento secundario en oscuro |
+| `pearl-muted` *(pearl 72 % + midnight)* | `#AAABB3` | Texto secundario en oscuro |
+| `navy-muted` *(navy 78 % + pearl)* | `#565776` | Texto secundario en claro |
 
 | Combinación | Ratio | Veredicto |
 |---|---|---|
-| `frost` sobre `night` / `indigo` | **16.26 / 14.69** | AAA |
-| `frost` sobre `iris-700` (botón) | **5.38:1** | AA |
-| `violet-300` sobre `night` / `indigo` | **9.63 / 8.70** | AAA |
-| `mint` sobre `night` / `indigo` | **10.94 / 9.88** | AAA |
-| `frost-muted` sobre `night` / `indigo` | **9.27 / 8.37** | AAA |
-| `night` sobre lavanda `#F4F2FB` (tema claro) | **17.44:1** | AAA |
-| `violet-700` sobre lavanda / superficie `#E9E5F8` | **6.79 / 6.11** | AA |
-| `mint-700` sobre lavanda / superficie | **5.42 / 4.87** | AA |
-| `night-muted` sobre lavanda / superficie | **7.85 / 7.06** | AAA / AA |
-| ❌ `frost` sobre `iris` puro | 3.82:1 | Por eso el botón usa `iris-700` |
-| `violet` sobre `night` | 5.91:1 | Bordes y decoración |
+| `pearl` sobre `midnight` / `harbor` | **15.18 / 13.24** | AAA |
+| `periwinkle` sobre `midnight` / `harbor` | **8.86 / 7.73** | AAA |
+| `pearl-muted` sobre `midnight` / `harbor` | **8.20 / 7.16** | AAA |
+| `snow` sobre `marine` (botón oscuro) | **6.77:1** | AA |
+| `navy` sobre `pearl` / `snow` (tema claro) | **10.30 / 11.80** | AAA |
+| `navy-muted` sobre `pearl` / `snow` | **5.63 / 6.44** | AA |
+| `marine` sobre `pearl` / `snow` | **6.92 / 7.93** | AA |
+| `snow` sobre `navy` (botón claro) | **11.80:1** | AAA |
+| `marine` sobre `midnight` | 2.57:1 | Solo decoración (franja, rombo) |
 
 Los valores exactos están en `app/globals.css`.
 
@@ -72,7 +68,7 @@ Base de **4 px**; los bloques usan múltiplos de 8 (8, 16, 24, 32, 48, 64, 96, 1
 │ Mario Alberto                          │  (( MZ )) │ curvas   │
 │ Zambrano Muñoz                         │  anillos  │ de nivel │
 │ Desarrollador de software · 4.º sem.   ╰──────────╯          │
-│ «Construyo software capa por capa…»   ╲╲ franja menta/violeta│
+│ «Hago software que se siente bien…»   ╲╲ franja del inicio   │
 │ [↓ Descargar CV]  [Ver proyectos]       ╲╲                   │
 ├──────────────────────────────────────────────────────────────┤
 │ 02 · ACERCA DE MÍ                                             │
@@ -141,7 +137,7 @@ Base de **4 px**; los bloques usan múltiplos de 8 (8, 16, 24, 32, 48, 64, 96, 1
 | **Ley de Hick** | Navbar con 7 enlaces cortos; filtro de proyectos con pocas tecnologías principales. |
 | **Reconocer vs. recordar** | Navbar fija con sección activa resaltada (Nielsen #6). |
 | **Prevención de errores** | Validación en línea del formulario con mensajes claros (Nielsen #5 y #9). |
-| **Estética minimalista** | Paleta de 6 colores + tintes; el único degradado es el fondo aurora, muy tenue (Nielsen #8). |
+| **Estética minimalista** | Paleta de 7 colores + tintes; el único degradado es el fondo aurora, muy tenue (Nielsen #8). |
 | **Control y libertad** | Toggle de tema, menú que cierra con `Esc`, botón volver arriba (Nielsen #3). |
 
 ## 8. Pendientes (`TODO`) que debe resolver Mario

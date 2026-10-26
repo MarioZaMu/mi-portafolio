@@ -18,7 +18,6 @@ export const experience: Item[] = [
     type: "academica",
     title: "Ingeniería de Software · Cuarto semestre",
     place: "Universidad Cooperativa de Colombia, Pasto",
-    // TODO: confirmar fecha de inicio (deducida de cursar 4.º semestre en 2026-2).
     date: "2025 — Actualidad",
     start: "2025-02",
     description:
@@ -28,19 +27,10 @@ export const experience: Item[] = [
     type: "laboral",
     title: "Desarrollador freelance",
     place: "Que Ricuras · negocio familiar de comidas rápidas",
-    // TODO: fechas reales de inicio y fin.
-    date: "Fechas por confirmar",
-    start: "2025-01",
-    description: "Diseño y desarrollo de una PWA de punto de venta con Firebase, usada en el negocio.",
-  },
-  {
-    type: "academica",
-    // TODO: curso o certificado real (nombre, plataforma y fechas).
-    title: "Curso o certificado",
-    place: "Institución o plataforma por confirmar",
-    date: "Fechas por confirmar",
-    start: "2024-01",
-    description: "Espacio reservado para un curso o certificación complementaria.",
+    date: "Junio 2026 — Actualidad",
+    start: "2026-06",
+    description:
+      "Diseño y desarrollo de una PWA de punto de venta con Firebase, usada en el negocio. Ya preparo una nueva versión.",
   },
   // TODO: agregar empleos o prácticas reales con { type: "laboral", ... }.
 ];

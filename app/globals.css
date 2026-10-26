@@ -5,29 +5,26 @@
 @custom-variant light (&:where([data-theme="light"], [data-theme="light"] *));
 
 /* ==========================================================================
-   PALETA «Medianoche violeta» — único lugar donde viven los colores.
-   Los tintes se derivan con color-mix de los 6 colores base; ratios WCAG
-   documentados en docs/brief-diseno.md.
+   PALETA «Perla y navy» — único lugar donde viven los colores.
+   Claro: gris perla + azul marino. Oscuro: «navy nocturno», su espejo.
+   Ratios WCAG documentados en docs/brief-diseno.md.
    ========================================================================== */
 @theme {
-  --color-night: #0e0b1f;
-  --color-indigo: #1a1535;
-  --color-violet: #8b7cff;
-  --color-iris: #6d5dfc;
-  --color-frost: #eceaf6;
-  --color-mint: #3ddc97;
+  --color-midnight: #0f1024;
+  --color-harbor: #1b1d3a;
+  --color-navy: #2d2f55;
+  --color-marine: #4a4e9e;
+  --color-periwinkle: #a9adf0;
+  --color-pearl: #e6e7eb;
+  --color-snow: #f6f6f8;
 }
 
 @theme inline {
   /* Tintes derivados (solo de la paleta) */
-  --color-violet-300: color-mix(in srgb, var(--color-violet) 55%, var(--color-frost)); /* #B7AEFB · 9.63:1 sobre night */
-  --color-violet-700: color-mix(in srgb, var(--color-violet) 55%, var(--color-night)); /* #53499A · 6.79:1 sobre lavanda */
-  --color-iris-300: color-mix(in srgb, var(--color-iris) 30%, var(--color-frost)); /* #C3BEF9 */
-  --color-iris-700: color-mix(in srgb, var(--color-iris) 78%, var(--color-night)); /* #584BCB · frost encima 5.38:1 */
-  --color-iris-800: color-mix(in srgb, var(--color-iris) 62%, var(--color-night)); /* hover del botón */
-  --color-mint-700: color-mix(in srgb, var(--color-mint) 48%, var(--color-night)); /* #256F59 · 5.42:1 sobre lavanda */
-  --color-frost-muted: color-mix(in srgb, var(--color-frost) 75%, var(--color-night)); /* #B4B2C0 · 9.27:1 sobre night */
-  --color-night-muted: color-mix(in srgb, var(--color-night) 72%, var(--color-frost)); /* #4C495B · 7.85:1 sobre lavanda */
+  --color-marine-800: color-mix(in srgb, var(--color-marine) 68%, var(--color-midnight)); /* #373A77 · hover del botón */
+  --color-periwinkle-200: color-mix(in srgb, var(--color-periwinkle) 45%, var(--color-pearl)); /* #CBCDED · 12.05:1 sobre midnight */
+  --color-pearl-muted: color-mix(in srgb, var(--color-pearl) 72%, var(--color-midnight)); /* #AAABB3 · 8.20:1 sobre midnight */
+  --color-navy-muted: color-mix(in srgb, var(--color-navy) 78%, var(--color-pearl)); /* #565776 · 5.63:1 sobre pearl */
 
   /* Colores semánticos que cambian con el tema */
   --color-bg: var(--bg);
@@ -52,49 +49,49 @@
   --radius-layer: 1.75rem;
 }
 
-/* --- Tema oscuro (por defecto) --- */
+/* --- Tema oscuro (por defecto): navy nocturno --- */
 :root {
   color-scheme: dark;
-  --bg: var(--color-night);
-  --surface: color-mix(in srgb, var(--color-indigo) 88%, transparent);
-  --surface-soft: color-mix(in srgb, var(--color-indigo) 60%, var(--color-night));
-  --fg: var(--color-frost);
-  --fg-muted: var(--color-frost-muted);
-  --accent: var(--color-violet-300);
-  --accent-warm: var(--color-mint);
-  --line: color-mix(in srgb, var(--color-violet) 32%, transparent);
-  --contour: var(--color-violet);
-  --ribbon: var(--color-mint);
-  --action: var(--color-iris-700);
-  --action-hover: var(--color-iris-800);
-  --on-action: var(--color-frost);
+  --bg: var(--color-midnight);
+  --surface: color-mix(in srgb, var(--color-harbor) 90%, transparent);
+  --surface-soft: color-mix(in srgb, var(--color-harbor) 55%, var(--color-midnight));
+  --fg: var(--color-pearl);
+  --fg-muted: var(--color-pearl-muted);
+  --accent: var(--color-periwinkle); /* 8.86:1 sobre midnight */
+  --accent-warm: var(--color-periwinkle-200);
+  --line: color-mix(in srgb, var(--color-periwinkle) 28%, transparent);
+  --contour: var(--color-periwinkle);
+  --ribbon: var(--color-periwinkle);
+  --action: var(--color-marine); /* snow encima 6.77:1 */
+  --action-hover: var(--color-marine-800);
+  --on-action: var(--color-snow);
   --shadow-layer: color-mix(in srgb, black 55%, transparent);
-  /* Manchas del fondo aurora */
-  --aurora-1: color-mix(in srgb, var(--color-iris) 38%, transparent);
-  --aurora-2: color-mix(in srgb, var(--color-mint) 16%, transparent);
-  --aurora-3: color-mix(in srgb, var(--color-violet) 22%, transparent);
+  /* Manchas del fondo aurora (provisional) */
+  --aurora-1: color-mix(in srgb, var(--color-marine) 40%, transparent);
+  --aurora-2: color-mix(in srgb, var(--color-periwinkle) 12%, transparent);
+  --aurora-3: color-mix(in srgb, var(--color-navy) 55%, transparent);
 }
 
-/* --- Tema claro derivado --- */
+/* --- Tema claro: gris perla + azul marino --- */
 :root[data-theme="light"] {
   color-scheme: light;
-  --bg: #f4f2fb;
-  --surface: color-mix(in srgb, #e9e5f8 88%, transparent);
-  --surface-soft: #efecfa;
-  --fg: var(--color-night);
-  --fg-muted: var(--color-night-muted);
-  --accent: var(--color-violet-700);
-  --accent-warm: var(--color-mint-700);
-  --line: color-mix(in srgb, var(--color-violet) 40%, transparent);
-  --contour: color-mix(in srgb, var(--color-violet) 70%, var(--color-frost));
-  --ribbon: color-mix(in srgb, var(--color-mint) 75%, var(--color-frost));
-  --action: var(--color-iris-700);
-  --action-hover: var(--color-iris-800);
-  --on-action: var(--color-frost);
-  --shadow-layer: color-mix(in srgb, var(--color-night) 18%, transparent);
-  --aurora-1: color-mix(in srgb, var(--color-iris) 18%, transparent);
-  --aurora-2: color-mix(in srgb, var(--color-mint) 14%, transparent);
-  --aurora-3: color-mix(in srgb, var(--color-violet) 14%, transparent);
+  --bg: var(--color-pearl);
+  --surface: color-mix(in srgb, var(--color-snow) 92%, transparent);
+  --surface-soft: color-mix(in srgb, var(--color-snow) 60%, var(--color-pearl));
+  --fg: var(--color-navy); /* 10.30:1 sobre pearl */
+  --fg-muted: var(--color-navy-muted);
+  --accent: var(--color-navy);
+  --accent-warm: var(--color-marine); /* 6.92:1 sobre pearl */
+  --line: color-mix(in srgb, var(--color-navy) 28%, transparent);
+  --contour: color-mix(in srgb, var(--color-navy) 45%, var(--color-pearl));
+  --ribbon: var(--color-navy);
+  --action: var(--color-navy); /* snow encima 11.8:1 */
+  --action-hover: var(--color-midnight);
+  --on-action: var(--color-snow);
+  --shadow-layer: color-mix(in srgb, var(--color-navy) 20%, transparent);
+  --aurora-1: color-mix(in srgb, var(--color-marine) 14%, transparent);
+  --aurora-2: color-mix(in srgb, var(--color-snow) 80%, transparent);
+  --aurora-3: color-mix(in srgb, var(--color-navy) 10%, transparent);
 }
 
 /* ==========================================================================
@@ -124,8 +121,8 @@
   }
 
   ::selection {
-    background-color: var(--color-iris-700);
-    color: var(--color-frost);
+    background-color: var(--color-marine);
+    color: var(--color-snow);
   }
 
   :focus-visible {
@@ -160,7 +157,7 @@
 
 /* Vidrio para el cuadro interior de las tarjetas */
 @utility glass {
-  background-color: color-mix(in srgb, var(--surface) 62%, transparent);
+  background-color: color-mix(in srgb, var(--surface) 85%, transparent);
   backdrop-filter: blur(14px) saturate(1.15);
   -webkit-backdrop-filter: blur(14px) saturate(1.15);
   border: 1px solid color-mix(in srgb, var(--fg) 12%, transparent);
@@ -188,7 +185,7 @@
   }
   &::after {
     transform: translate(12px, 12px);
-    background-color: color-mix(in srgb, var(--color-violet) 18%, transparent);
+    background-color: color-mix(in srgb, var(--color-periwinkle) 18%, transparent);
   }
   &:where(:hover, :focus-within)::before {
     transform: translate(10px, 10px);

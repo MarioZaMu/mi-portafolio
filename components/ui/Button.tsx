@@ -8,13 +8,13 @@ const base =
   "group inline-flex min-h-11 min-w-11 items-center justify-center gap-2 rounded-full font-semibold transition-[background-color,border-color,color,transform,box-shadow] duration-200 active:translate-y-px disabled:cursor-not-allowed disabled:opacity-50 aria-disabled:cursor-not-allowed aria-disabled:opacity-50";
 
 const variants: Record<Variant, string> = {
-  // Violeta intenso (iris-700) como relleno: texto frost encima (5.38:1)
+  // Relleno de acción (marine en oscuro, navy en claro) con texto snow: 6.77:1 / 11.8:1
   primary:
     "bg-action text-on-action shadow-[0_10px_30px_-14px_var(--action)] hover:bg-action-hover hover:shadow-[0_14px_34px_-12px_var(--action)] active:bg-action-hover",
-  secondary: "border-2 border-violet bg-transparent text-fg hover:border-accent hover:bg-violet/15 active:bg-violet/25",
-  // Relleno indigo con texto frost (14.69:1) en ambos temas
-  tonal: "border border-violet bg-indigo text-frost hover:bg-night active:bg-night",
-  ghost: "text-accent underline-offset-4 hover:bg-violet/10 hover:underline active:bg-violet/20",
+  secondary: "border-2 border-accent bg-transparent text-fg hover:bg-periwinkle/15 active:bg-periwinkle/25",
+  // Relleno harbor con texto pearl (13.24:1) en ambos temas
+  tonal: "border border-periwinkle bg-harbor text-pearl hover:bg-midnight active:bg-midnight",
+  ghost: "text-accent underline-offset-4 hover:bg-periwinkle/10 hover:underline active:bg-periwinkle/20",
 };
 
 const sizes: Record<Size, string> = {

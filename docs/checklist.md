@@ -20,10 +20,10 @@ Leyenda: ✅ cumplido · ⚠️ cumplido en código, falta contenido real (`TODO
 | 2 | Nombre como título grande (`h1`) | ✅ | `Hero.tsx` |
 | 2 | Rol / perfil | ✅ | `data/site.ts → role` |
 | 2 | Foto o avatar | ⚠️ | `ui/Avatar.tsx`: monograma «MZ»; usa `public/images/profile.jpg` en cuanto exista |
-| 2 | Frase corta | ⚠️ | `site.tagline` (propuesta, confirmar) |
+| 2 | Frase corta | ✅ | `site.tagline` («Hago software que se siente bien al usarlo…») |
 | 2 | Botón «Descargar CV» `href="/cv.pdf"` con `download` | ⚠️ | `Hero.tsx`; `public/cv.pdf` es provisional |
 | 2 | Botón secundario (Ver proyectos) | ✅ | `Hero.tsx` |
-| 3 | Párrafo en 1.ª persona, 3–5 líneas | ⚠️ | `site.about` (borrador para editar) |
+| 3 | Párrafo en 1.ª persona, 3–5 líneas | ✅ | `site.about` (versión aprobada) |
 | 3 | Foto o ilustración | ✅ | `About.tsx` (avatar en capas) |
 | 3 | Habilidades / tecnologías | ✅ | `About.tsx` + `data/skills.ts` |
 | 3 | Datos rápidos (ubicación, semestre, intereses) | ✅ | `About.tsx` (interés: desarrollo de videojuegos) |
@@ -37,8 +37,8 @@ Leyenda: ✅ cumplido · ⚠️ cumplido en código, falta contenido real (`TODO
 | 5 | Mínimo 3 testimonios con nombre, relación, avatar y texto | ❌ | Sección oculta por ahora (sin testimonios reales). `Testimonials.tsx` sigue listo: volver a ponerlo en `app/page.tsx` y en `navItems` antes de entregar |
 | 5 | Tipo `Testimonial` + arreglo ≥ 3 | ✅ | `data/testimonials.ts` |
 | 5 | Carrusel o grid (opcional) | ✅ | carrusel accesible con flechas, puntos y teclado |
-| 6 | Académica y laboral | ⚠️ | `data/experience.ts` (fechas y cursos `TODO`) |
-| 6 | Fechas inicio/fin, institución, cargo, logros | ⚠️ | campos `date`, `place`, `title`, `description` |
+| 6 | Académica y laboral | ✅ | `data/experience.ts` (UCC 2025 — Actualidad, Que Ricuras junio 2026 — Actualidad) |
+| 6 | Fechas inicio/fin, institución, cargo, logros | ✅ | campos `date`, `place`, `title`, `description` |
 | 6 | De la más reciente a la más antigua | ✅ | `sortedExperience` |
 | 6 | Timeline con tipos diferenciados | ✅ | `Experience.tsx` (lado, color, ícono y leyenda) |
 | 7 | Correo, LinkedIn, GitHub, WhatsApp (opc.) | ⚠️ | `Contact.tsx`; LinkedIn «Próximamente», WhatsApp opcional sin número |

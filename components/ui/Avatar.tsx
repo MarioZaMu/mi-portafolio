@@ -25,7 +25,7 @@ export function Avatar({ size, priority = false, className = "" }: AvatarProps) 
           ))}
         </g>
       </svg>
-      <div className="absolute inset-[18%] overflow-hidden rounded-full border border-line bg-indigo shadow-[0_30px_60px_-30px_var(--shadow-layer)]">
+      <div className="absolute inset-[18%] overflow-hidden rounded-full border border-line bg-harbor shadow-[0_30px_60px_-30px_var(--shadow-layer)]">
         {hasPhoto ? (
           <Image
             src={site.photo}
@@ -39,11 +39,11 @@ export function Avatar({ size, priority = false, className = "" }: AvatarProps) 
           <div
             role="img"
             aria-label={`Avatar con las iniciales de ${site.name}`}
-            className="flex h-full w-full items-center justify-center bg-[radial-gradient(circle_at_30%_25%,var(--color-violet),var(--color-indigo)_55%,var(--color-night))]"
+            className="flex h-full w-full items-center justify-center bg-[radial-gradient(circle_at_30%_25%,var(--color-periwinkle),var(--color-harbor)_55%,var(--color-midnight))]"
           >
             <span
               aria-hidden="true"
-              className="font-display font-medium italic text-frost"
+              className="font-display font-medium italic text-pearl"
               style={{ fontSize: size * 0.2 }}
             >
               {site.initials}
@@ -54,7 +54,7 @@ export function Avatar({ size, priority = false, className = "" }: AvatarProps) 
       {/* Marca de cima: el "punto más alto" del mapa */}
       <span
         aria-hidden="true"
-        className="absolute right-[13%] top-[14%] h-3 w-3 rotate-45 border-2 border-frost bg-mint"
+        className="absolute right-[13%] top-[14%] h-3 w-3 rotate-45 border-2 border-pearl bg-periwinkle"
       />
     </div>
   );

@@ -35,7 +35,7 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
             unoptimized={project.image.endsWith(".svg")}
             className="object-cover transition-transform duration-500 group-hover:scale-[1.04] motion-reduce:transform-none"
           />
-          <span className="label-mono absolute left-4 top-4 rounded-chip bg-night/85 px-2 py-1 text-frost">
+          <span className="label-mono absolute left-4 top-4 rounded-chip bg-midnight/85 px-2 py-1 text-pearl">
             {String(index + 1).padStart(2, "0")}
           </span>
         </div>

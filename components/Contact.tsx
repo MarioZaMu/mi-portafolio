@@ -133,7 +133,7 @@ export default function Contact() {
             {channels.map((c) => {
               const inner = (
                 <>
-                  <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full border border-line bg-indigo text-frost transition-colors group-hover:border-accent">
+                  <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full border border-line bg-harbor text-pearl transition-colors group-hover:border-accent">
                     <Icon name={c.icon} size={22} />
                   </span>
                   <span className="min-w-0 flex-1">
@@ -261,7 +261,7 @@ export default function Contact() {
                     ref={statusRef}
                     tabIndex={-1}
                     role="alert"
-                    className="flex items-start gap-3 rounded-card border border-accent-warm/60 bg-iris/10 p-4 text-fg"
+                    className="flex items-start gap-3 rounded-card border border-accent-warm/60 bg-marine/10 p-4 text-fg"
                   >
                     <Icon name="alert" className="mt-0.5 shrink-0 text-accent-warm" />
                     <p>

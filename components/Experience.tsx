@@ -3,8 +3,8 @@ import { Icon } from "./ui/Icon";
 import { Container, SectionHeading, delay } from "./ui/Primitives";
 
 const types: Record<ExperienceType, { label: string; icon: "graduation" | "briefcase"; marker: string; text: string }> = {
-  academica: { label: "Académica", icon: "graduation", marker: "bg-indigo text-frost border-violet-300 rounded-full", text: "text-accent" },
-  laboral: { label: "Laboral", icon: "briefcase", marker: "bg-mint text-night border-mint rounded-lg", text: "text-accent-warm" },
+  academica: { label: "Académica", icon: "graduation", marker: "bg-harbor text-pearl border-periwinkle rounded-full", text: "text-accent" },
+  laboral: { label: "Laboral", icon: "briefcase", marker: "bg-periwinkle text-midnight border-periwinkle rounded-lg", text: "text-accent-warm" },
 };
 
 export default function Experience() {

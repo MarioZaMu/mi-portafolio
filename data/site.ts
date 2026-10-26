@@ -4,12 +4,10 @@ export const site = {
   name: "Mario Alberto Zambrano Muñoz",
   shortName: "Mario Zambrano",
   initials: "MZ",
-  role: "Desarrollador de software y estudiante de Ingeniería de Software",
-  // Frase elegida entre 3 propuestas (ver docs/brief-diseno.md). TODO: confirmar o reemplazar.
-  tagline: "Construyo software capa por capa: primero entiendo el problema, luego lo diseño y al final lo programo.",
-  // TODO: borrador en 1.ª persona; edítalo con tu voz.
+  role: "Desarrollador de software · apps móviles, web y de escritorio",
+  tagline: "Hago software que se siente bien al usarlo, como un buen juego.",
   about:
-    "Soy Mario, estudiante de cuarto semestre de Ingeniería de Software en Pasto. Me gusta construir aplicaciones que resuelvan problemas reales: desde una app Android que convierte la productividad en un juego hasta el punto de venta que usa el negocio de mi familia. Disfruto tanto programar como diseñar la interfaz, porque creo que el buen software también tiene que sentirse bien al usarlo.",
+    "Soy Mario, estudiante de cuarto semestre de Ingeniería de Software en la UCC de Pasto. Me gusta construir apps que resuelven problemas reales: un botón de pánico para smartwatch, una app de escritorio que muda tus archivos sin perder nada y una app Android que convierte los hábitos en un RPG. Me apasionan los videojuegos y llevo esa forma de pensar —metas claras, progreso visible y algo de diversión— a todo lo que diseño y programo.",
   university: "Universidad Cooperativa de Colombia",
   location: "Pasto, Nariño, Colombia",
   semester: "Cuarto semestre",
@@ -28,7 +26,6 @@ export const site = {
   cv: "/cv.pdf",
   // Si este archivo existe en public/, el Hero y "Acerca de mí" lo muestran; si no, avatar con iniciales.
   photo: "/images/profile.jpg",
-  // TODO: reemplazar por la URL final de Vercel.
   url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://mario-zambrano.vercel.app",
 } as const;
 

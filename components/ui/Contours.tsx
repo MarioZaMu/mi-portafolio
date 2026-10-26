@@ -92,8 +92,8 @@ export function Ribbon({ className = "" }: { className?: string }) {
       className={`pointer-events-none select-none ${className}`}
     >
       <path d={light} fill="var(--ribbon)" opacity={0.8} />
-      <path d={strong} fill="var(--color-iris)" opacity={0.9} />
-      <g fill="none" stroke="var(--color-night)" strokeOpacity={0.55}>
+      <path d={strong} fill="var(--color-marine)" opacity={0.9} />
+      <g fill="none" stroke="var(--color-midnight)" strokeOpacity={0.55}>
         {lines.map((d, i) => (
           <path key={i} d={d} strokeWidth={1} vectorEffect="non-scaling-stroke" />
         ))}
