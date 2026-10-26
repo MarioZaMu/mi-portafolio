@@ -217,23 +217,67 @@
     var(--bg);
 }
 
-/* Radar del inicio: haz que gira y tarjeta que se expande desde el eco */
+/* Radar del inicio: disco, haz que gira, destello de los ecos y tarjeta que se expande */
+.radar-disc {
+  background:
+    radial-gradient(circle at 50% 50%, color-mix(in srgb, var(--accent) 10%, transparent), transparent 70%),
+    color-mix(in srgb, var(--bg) 55%, transparent);
+  box-shadow: inset 0 0 60px -20px color-mix(in srgb, var(--accent) 35%, transparent);
+}
 .radar-sweep {
-  background: conic-gradient(from 0deg, transparent 0deg, transparent 300deg, color-mix(in srgb, var(--accent) 22%, transparent) 358deg, transparent 360deg);
-  animation: sweep 7s linear infinite;
+  background: conic-gradient(from 0deg, transparent 0deg 290deg, color-mix(in srgb, var(--accent) 26%, transparent) 359deg, transparent 360deg);
+  animation: sweep var(--sweep, 6s) linear infinite;
+}
+/* Borde delantero del haz */
+.radar-sweep::after {
+  content: "";
+  position: absolute;
+  left: calc(50% - 0.5px);
+  top: 0;
+  width: 1px;
+  height: 50%;
+  background: linear-gradient(to top, var(--accent), transparent);
+  opacity: 0.7;
 }
 @keyframes sweep {
   to {
     transform: rotate(360deg);
   }
 }
+/* El eco destella cuando el haz pasa por su rumbo (animation-delay calculado en HeroRadar) */
+.radar-flash {
+  opacity: 0;
+  animation: flash var(--sweep, 6s) linear infinite;
+}
+@keyframes flash {
+  0% {
+    opacity: 0.9;
+    transform: scale(0.6);
+  }
+  14% {
+    opacity: 0;
+    transform: scale(1.8);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1.8);
+  }
+}
+.radar-lock {
+  animation: lock 0.3s ease-out both;
+}
+@keyframes lock {
+  from {
+    opacity: 0;
+  }
+}
 .radar-card:not([hidden]) {
-  animation: expand 0.28s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  animation: expand 0.3s cubic-bezier(0.2, 0.7, 0.2, 1) both;
 }
 @keyframes expand {
   from {
     opacity: 0;
-    transform: scale(0.35);
+    transform: scale(0.3);
   }
 }
 
