@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { useState } from "react";
-import type { Platform, Project } from "@/data/projects";
+import type { Platform, Project, Shot } from "@/data/projects";
 import { site } from "@/data/site";
 import { badgeFor } from "@/lib/badges";
 import { ButtonLink, buttonClasses } from "./ui/Button";
@@ -20,6 +20,81 @@ function PendingLink({ label }: { label: string }) {
   );
 }
 
+const sizes = "(min-width: 1024px) 380px, (min-width: 640px) 50vw, 100vw";
+
+/** Imagen que cambia con el tema: la versión clara solo se ve con data-theme="light". */
+function ThemedImage({ shot, className, sizes }: { shot: Shot; className: string; sizes: string }) {
+  return (
+    <>
+      <Image src={shot.src} alt={shot.alt} fill sizes={sizes} className={`${className} ${shot.srcLight ? "light:hidden" : ""}`} />
+      {shot.srcLight && (
+        <Image src={shot.srcLight} alt={shot.alt} fill sizes={sizes} className={`${className} hidden light:block`} />
+      )}
+    </>
+  );
+}
+
+/** Capturas de la tarjeta: celulares lado a lado, o pantallas una a la vez con puntos para cambiar. */
+function Shots({ project }: { project: Project }) {
+  const [current, setCurrent] = useState(0);
+  const zoom = "transition-transform duration-500 group-hover:scale-[1.04] motion-reduce:transform-none";
+
+  if (project.shotLayout === "phone") {
+    return (
+      <div className="absolute inset-0 flex items-end justify-center gap-3 px-4 pt-8">
+        {project.shots.map((shot, i) => (
+          <div
+            key={shot.src}
+            className={`relative h-full w-auto aspect-[3/4] overflow-hidden rounded-t-2xl border-x border-t border-line shadow-[0_-10px_30px_-18px_var(--shadow-layer)] transition-transform duration-500 motion-reduce:transform-none ${
+              i % 2 ? "group-hover:-translate-y-1.5" : "group-hover:-translate-y-3"
+            }`}
+          >
+            <ThemedImage shot={shot} sizes="200px" className="object-cover object-top" />
+          </div>
+        ))}
+      </div>
+    );
+  }
+
+  return (
+    <>
+      {project.shots.map((shot, i) => (
+        <div
+          key={shot.src}
+          aria-hidden={i !== current}
+          className={`absolute inset-0 transition-opacity duration-500 ${i === current ? "opacity-100" : "opacity-0"}`}
+        >
+          <ThemedImage shot={shot} sizes={sizes} className={`object-cover object-top ${zoom}`} />
+        </div>
+      ))}
+      {project.shots.length > 1 && (
+        <div
+          className="absolute bottom-2 left-1/2 z-10 flex -translate-x-1/2 rounded-full bg-midnight/70 px-1 backdrop-blur-sm"
+          role="group"
+          aria-label={`Capturas de ${project.title}`}
+        >
+          {project.shots.map((shot, i) => (
+            <button
+              key={shot.src}
+              type="button"
+              onClick={() => setCurrent(i)}
+              aria-label={`Ver captura ${i + 1} de ${project.shots.length}`}
+              aria-pressed={i === current}
+              className="group/dot inline-flex h-8 w-7 items-center justify-center"
+            >
+              <span
+                className={`block h-2 rounded-full transition-all duration-300 ${
+                  i === current ? "w-5 bg-snow" : "w-2 bg-snow/60 group-hover/dot:bg-snow"
+                }`}
+              />
+            </button>
+          ))}
+        </div>
+      )}
+    </>
+  );
+}
+
 function ProjectCard({ project, index }: { project: Project; index: number }) {
   const titleId = `proyecto-${project.id}`;
   const badge = badgeFor(project);
@@ -30,14 +105,7 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
         className="group flex h-full flex-col overflow-hidden rounded-layer border border-line bg-harbor shadow-[0_24px_50px_-35px_var(--shadow-layer)] transition-[transform,border-color] duration-300 hover:-translate-y-1 hover:border-accent focus-within:-translate-y-1 motion-reduce:transform-none light:bg-snow"
       >
         <div className="relative aspect-[16/9] overflow-hidden border-b border-line bg-bg">
-          <Image
-            src={project.image}
-            alt={project.imageAlt}
-            fill
-            sizes="(min-width: 1024px) 380px, (min-width: 640px) 50vw, 100vw"
-            unoptimized={project.image.endsWith(".svg")}
-            className="object-cover transition-transform duration-500 group-hover:scale-[1.04] motion-reduce:transform-none"
-          />
+          <Shots project={project} />
           <span className="label-mono absolute left-3 top-3 rounded-full bg-midnight/85 px-3 py-1 text-pearl">
             {String(index + 1).padStart(2, "0")} / {project.platforms[0]}
           </span>

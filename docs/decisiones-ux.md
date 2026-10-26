@@ -83,4 +83,5 @@
 | Radar en lugar de tarjetas en abanico: cada proyecto es un «eco» con nombre y plataforma | Reconocimiento a primera vista; los proyectos se descubren explorando | `components/HeroRadar.tsx` |
 | Al pasar el mouse, enfocar con teclado o tocar un eco, su tarjeta se expande desde ese punto hacia el centro, sin salirse del radar | Divulgación progresiva; Escape la cierra y devuelve el foco al eco | `components/HeroRadar.tsx`, `.radar-card` |
 | Con una tarjeta abierta, las etiquetas de los otros ecos se ocultan y sus puntos siguen accesibles encima | Menos ruido sin bloquear el cambio a otro proyecto | `components/HeroRadar.tsx` |
-| Captura de Vidalvl sin el fondo verdoso: el teléfono queda sobre el color de la página | Consistencia con la paleta en ambos temas | `public/images/projects/vidalvl-app.png`, `bg-bg` en `Projects.tsx` |
+| Capturas de Vidalvl como dos celulares lado a lado sobre el color de la página, en su versión clara u oscura según el tema del portafolio | Consistencia con la paleta en ambos temas; se ve que la app también tiene los dos temas | `shots` / `shotLayout: "phone"` en `data/projects.ts`, `Shots` en `Projects.tsx` |
+| Mudanzify con dos capturas (bienvenida e inicio) y puntos para cambiar entre ellas | Muestra más de la app sin alargar la tarjeta; los puntos son botones con `aria-pressed` | `Projects.tsx` |
