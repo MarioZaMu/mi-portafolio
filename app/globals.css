@@ -189,19 +189,6 @@
   }
 }
 
-/* Mosaico del diseño bento: superficie, borde fino y realce al pasar el cursor */
-@utility tile {
-  position: relative;
-  isolation: isolate;
-  overflow: hidden;
-  border-radius: var(--radius-layer);
-  border: 1px solid var(--line);
-  background-color: var(--surface);
-  transition:
-    border-color 0.25s ease,
-    transform 0.25s cubic-bezier(0.2, 0.7, 0.2, 1);
-}
-
 /* ==========================================================================
    Movimiento (siempre respetando prefers-reduced-motion)
    ========================================================================== */
@@ -229,20 +216,6 @@
   to {
     stroke-dashoffset: 0;
   }
-}
-
-@keyframes marquee {
-  to {
-    transform: translate3d(-50%, 0, 0);
-  }
-}
-
-/* Cinta de tecnologías: la lista va duplicada y se desplaza la mitad de su ancho */
-.marquee {
-  animation: marquee 38s linear infinite;
-}
-.marquee:hover {
-  animation-play-state: paused;
 }
 
 .rise {
@@ -288,13 +261,5 @@
   .js .reveal {
     opacity: 1;
     transform: none;
-  }
-  .marquee {
-    animation: none;
-    flex-wrap: wrap;
-    width: auto;
-  }
-  .marquee [data-copy] {
-    display: none;
   }
 }

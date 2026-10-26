@@ -55,7 +55,7 @@ export default function Footer() {
 
         <nav aria-label="Enlaces rápidos">
           <p className="label-mono text-accent">Enlaces rápidos</p>
-          <ul className="mt-4 grid grid-cols-2 gap-x-6">
+          <ul className="mt-4 grid grid-cols-2 gap-x-4 md:grid-cols-1">
             {navItems.map((item) => (
               <li key={item.id}>
                 <a href={`#${item.id}`} className="inline-flex min-h-11 items-center text-muted underline-offset-4 hover:text-fg hover:underline">
