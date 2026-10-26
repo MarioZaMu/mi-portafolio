@@ -73,7 +73,7 @@ export default function Navbar() {
         >
           <span
             aria-hidden="true"
-            className="flex h-10 w-10 items-center justify-center rounded-full border border-line bg-deep font-display text-lg italic text-mist transition-colors group-hover:border-accent"
+            className="flex h-10 w-10 items-center justify-center rounded-full border border-line bg-indigo font-display text-lg italic text-frost transition-colors group-hover:border-accent"
           >
             {site.initials}
           </span>
@@ -87,7 +87,7 @@ export default function Navbar() {
                 {item.label}
                 <span
                   aria-hidden="true"
-                  className={`absolute inset-x-3 -bottom-0.5 h-0.5 origin-left rounded-full bg-crimson transition-transform duration-300 ${
+                  className={`absolute inset-x-3 -bottom-0.5 h-0.5 origin-left rounded-full bg-iris transition-transform duration-300 ${
                     active === item.id ? "scale-x-100" : "scale-x-0"
                   }`}
                 />
@@ -101,7 +101,7 @@ export default function Navbar() {
           <button
             ref={toggleRef}
             type="button"
-            className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-line text-fg transition-colors hover:border-accent hover:bg-teal/15 lg:hidden"
+            className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-line text-fg transition-colors hover:border-accent hover:bg-violet/15 lg:hidden"
             aria-expanded={open}
             aria-controls="menu-movil"
             aria-label={open ? "Cerrar menú" : "Abrir menú"}
@@ -120,8 +120,8 @@ export default function Navbar() {
                 href={`#${item.id}`}
                 onClick={() => setOpen(false)}
                 aria-current={active === item.id ? "location" : undefined}
-                className={`flex min-h-12 items-center gap-4 rounded-card px-3 text-base font-medium transition-colors hover:bg-teal/15 ${
-                  active === item.id ? "bg-teal/15 text-fg" : "text-muted"
+                className={`flex min-h-12 items-center gap-4 rounded-card px-3 text-base font-medium transition-colors hover:bg-violet/15 ${
+                  active === item.id ? "bg-violet/15 text-fg" : "text-muted"
                 }`}
               >
                 <span aria-hidden="true" className="font-mono text-xs text-accent">

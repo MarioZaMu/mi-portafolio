@@ -1,7 +1,7 @@
 import { site } from "@/data/site";
 import { Avatar } from "./ui/Avatar";
 import { ButtonLink } from "./ui/Button";
-import { ContourField, Ribbon } from "./ui/Contours";
+import { Ribbon } from "./ui/Contours";
 import { Container, delay } from "./ui/Primitives";
 
 export default function Hero() {
@@ -15,11 +15,7 @@ export default function Hero() {
       aria-labelledby="hero-title"
       className="relative isolate flex min-h-[100svh] items-center overflow-hidden pb-48 pt-28 md:pb-56"
     >
-      {/* Capa 0: curvas de nivel con parallax sutil (solo CSS, se desactiva con reduced motion) */}
-      <div aria-hidden="true" className="parallax absolute -right-[30%] -top-[20%] -z-20 h-[130%] w-[110%] md:-right-[10%] md:w-[80%]">
-        <ContourField cx={420} cy={360} count={22} minRadius={30} step={22} seed={2527} className="h-full w-full" opacity={0.45} />
-      </div>
-      {/* Capa 1: la franja de la ilustración */}
+      {/* Franja menta y violeta en la base del inicio */}
       <Ribbon className="absolute inset-x-0 bottom-0 -z-10 h-[28%] w-full md:h-[34%]" />
 
       <Container className="grid grid-cols-1 items-center gap-12 lg:grid-cols-[minmax(0,1.35fr)_minmax(0,1fr)]">
@@ -43,7 +39,7 @@ export default function Hero() {
           </p>
 
           <p
-            className="mt-4 max-w-xl border-l-2 border-crimson pl-4 font-display text-xl italic leading-snug text-muted sm:text-2xl"
+            className="mt-4 max-w-xl border-l-2 border-iris pl-4 font-display text-xl italic leading-snug text-muted sm:text-2xl"
           >
             {site.tagline}
           </p>

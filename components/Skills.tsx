@@ -1,6 +1,5 @@
 import { projects } from "@/data/projects";
 import { skillGroups } from "@/data/skills";
-import { ContourField } from "./ui/Contours";
 import { Container, SectionHeading, delay } from "./ui/Primitives";
 
 const projectTitle = new Map(projects.map((p) => [p.id, p.title]));
@@ -9,16 +8,6 @@ const projectTitle = new Map(projects.map((p) => [p.id, p.title]));
 export default function Skills() {
   return (
     <section id="habilidades" aria-labelledby="habilidades-title" className="relative isolate overflow-hidden py-24 md:py-32">
-      <ContourField
-        className="absolute -left-1/4 top-0 -z-10 h-full w-[120%] md:-left-[10%] md:w-[70%]"
-        cx={300}
-        cy={420}
-        count={16}
-        minRadius={40}
-        step={26}
-        seed={77}
-        opacity={0.22}
-      />
       <Container>
         <SectionHeading
           id="habilidades-title"

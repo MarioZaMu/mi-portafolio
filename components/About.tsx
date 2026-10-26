@@ -1,7 +1,6 @@
 import { site } from "@/data/site";
 import { highlightSkills } from "@/data/skills";
 import { Avatar } from "./ui/Avatar";
-import { ContourStrata } from "./ui/Contours";
 import { Icon, type IconName } from "./ui/Icon";
 import { Chip, Container, SectionHeading, delay } from "./ui/Primitives";
 
@@ -14,17 +13,6 @@ const facts: { icon: IconName; label: string; value: string }[] = [
 export default function About() {
   return (
     <section id="sobre-mi" aria-labelledby="sobre-mi-title" className="relative isolate py-24 md:py-32">
-      <ContourStrata
-        className="absolute inset-x-0 top-0 -z-10 h-full w-full"
-        width={1200}
-        height={800}
-        count={18}
-        gap={38}
-        start={0.05}
-        amplitude={40}
-        seed={41}
-        opacity={0.18}
-      />
       <Container>
         <SectionHeading id="sobre-mi-title" eyebrow="Acerca de mí" title="Un poco sobre quién soy" />
 

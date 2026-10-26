@@ -44,7 +44,7 @@ export default function Footer() {
                   href={s.href}
                   aria-label={s.external ? `${s.label} (se abre en una pestaña nueva)` : s.label}
                   {...(s.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-                  className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-line text-fg transition-colors hover:border-accent hover:bg-teal/15 active:bg-teal/25"
+                  className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-line text-fg transition-colors hover:border-accent hover:bg-violet/15 active:bg-violet/25"
                 >
                   <Icon name={s.icon} size={20} />
                 </a>

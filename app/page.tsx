@@ -6,7 +6,6 @@ import Hero from "@/components/Hero";
 import Navbar from "@/components/Navbar";
 import Projects from "@/components/Projects";
 import Skills from "@/components/Skills";
-import { StrataDivider } from "@/components/ui/Contours";
 import { RevealObserver } from "@/components/ui/RevealObserver";
 import { projects } from "@/data/projects";
 import { withLatestReleases } from "@/lib/releases";
@@ -22,11 +21,8 @@ export default async function Home() {
       <main id="contenido" tabIndex={-1} className="focus:outline-none">
         <Hero />
         <About />
-        <StrataDivider seed={21} />
         <Projects projects={projectsWithReleases} />
-        <StrataDivider seed={34} />
         <Experience />
-        <StrataDivider seed={55} />
         <Contact />
         <Skills />
       </main>

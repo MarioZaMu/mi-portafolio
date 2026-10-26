@@ -80,8 +80,8 @@ export function StrataDivider({ seed = 3, className = "" }: { seed?: number; cla
 /** La franja diagonal de la ilustración: arena (ribbon) + rojo, con curvas finas encima. */
 export function Ribbon({ className = "" }: { className?: string }) {
   const shape = { width: 1000, height: 1000, seed: 11, slope: -620, amplitude: 70, points: 12 } as const;
-  const sand = ribbon({ ...shape, count: 1, start: 0.78, thickness: 70 });
-  const red = ribbon({ ...shape, count: 1, start: 0.85, thickness: 120 });
+  const light = ribbon({ ...shape, count: 1, start: 0.78, thickness: 70 });
+  const strong = ribbon({ ...shape, count: 1, start: 0.85, thickness: 120 });
   const lines = contourLines({ ...shape, count: 4, start: 0.87, gap: 22 });
   return (
     <svg
@@ -91,9 +91,9 @@ export function Ribbon({ className = "" }: { className?: string }) {
       preserveAspectRatio="xMidYMid slice"
       className={`pointer-events-none select-none ${className}`}
     >
-      <path d={sand} fill="var(--ribbon)" opacity={0.9} />
-      <path d={red} fill="var(--color-crimson)" />
-      <g fill="none" stroke="var(--color-abyss)" strokeOpacity={0.55}>
+      <path d={light} fill="var(--ribbon)" opacity={0.8} />
+      <path d={strong} fill="var(--color-iris)" opacity={0.9} />
+      <g fill="none" stroke="var(--color-night)" strokeOpacity={0.55}>
         {lines.map((d, i) => (
           <path key={i} d={d} strokeWidth={1} vectorEffect="non-scaling-stroke" />
         ))}

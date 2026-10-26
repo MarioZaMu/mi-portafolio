@@ -22,7 +22,7 @@ function Person({ t }: { t: Testimonial }) {
       ) : (
         <span
           aria-hidden="true"
-          className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full border border-line bg-deep font-display text-lg italic text-mist"
+          className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full border border-line bg-indigo font-display text-lg italic text-frost"
         >
           {initials(t.name)}
         </span>
@@ -103,7 +103,7 @@ export default function Testimonials() {
               type="button"
               onClick={() => go(index - 1)}
               aria-label="Testimonio anterior"
-              className="inline-flex h-12 w-12 items-center justify-center rounded-full border border-line text-fg transition-colors hover:border-accent hover:bg-teal/15 active:bg-teal/25"
+              className="inline-flex h-12 w-12 items-center justify-center rounded-full border border-line text-fg transition-colors hover:border-accent hover:bg-violet/15 active:bg-violet/25"
             >
               <Icon name="chevronLeft" size={22} />
             </button>
@@ -120,7 +120,7 @@ export default function Testimonials() {
                 >
                   <span
                     className={`block h-2.5 rounded-full transition-all duration-300 ${
-                      i === index ? "w-8 bg-crimson" : "w-2.5 bg-teal group-hover:bg-accent"
+                      i === index ? "w-8 bg-iris" : "w-2.5 bg-violet group-hover:bg-accent"
                     }`}
                   />
                 </button>
@@ -131,7 +131,7 @@ export default function Testimonials() {
               type="button"
               onClick={() => go(index + 1)}
               aria-label="Testimonio siguiente"
-              className="inline-flex h-12 w-12 items-center justify-center rounded-full border border-line text-fg transition-colors hover:border-accent hover:bg-teal/15 active:bg-teal/25"
+              className="inline-flex h-12 w-12 items-center justify-center rounded-full border border-line text-fg transition-colors hover:border-accent hover:bg-violet/15 active:bg-violet/25"
             >
               <Icon name="chevronRight" size={22} />
             </button>

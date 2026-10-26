@@ -5,27 +5,29 @@
 @custom-variant light (&:where([data-theme="light"], [data-theme="light"] *));
 
 /* ==========================================================================
-   PALETA — único lugar donde viven los colores.
-   Base: ilustración "ALONE" (assets/referencias/paleta).
-   Los tintes se derivan con color-mix de los 5 colores base; ratios WCAG
+   PALETA «Medianoche violeta» — único lugar donde viven los colores.
+   Los tintes se derivan con color-mix de los 6 colores base; ratios WCAG
    documentados en docs/brief-diseno.md.
    ========================================================================== */
 @theme {
-  --color-abyss: #0e2931;
-  --color-deep: #12484c;
-  --color-teal: #2b7574;
-  --color-crimson: #861211;
-  --color-mist: #e2e2e0;
+  --color-night: #0e0b1f;
+  --color-indigo: #1a1535;
+  --color-violet: #8b7cff;
+  --color-iris: #6d5dfc;
+  --color-frost: #eceaf6;
+  --color-mint: #3ddc97;
 }
 
 @theme inline {
   /* Tintes derivados (solo de la paleta) */
-  --color-teal-300: color-mix(in srgb, var(--color-teal) 40%, var(--color-mist)); /* #99B6B5 · 7.04:1 sobre abyss */
-  --color-teal-700: color-mix(in srgb, var(--color-teal) 70%, var(--color-abyss)); /* #225E60 · 5.70:1 sobre mist */
-  --color-crimson-300: color-mix(in srgb, var(--color-crimson) 25%, var(--color-mist)); /* #CBAEAC · 7.38:1 sobre abyss */
-  --color-crimson-700: color-mix(in srgb, var(--color-crimson) 75%, var(--color-abyss)); /* #681819 · mist encima 9.34:1 */
-  --color-mist-muted: color-mix(in srgb, var(--color-mist) 75%, var(--color-abyss)); /* #ADB4B4 · 7.22:1 sobre abyss */
-  --color-abyss-muted: color-mix(in srgb, var(--color-abyss) 75%, var(--color-mist)); /* #43575D · 5.87:1 sobre mist */
+  --color-violet-300: color-mix(in srgb, var(--color-violet) 55%, var(--color-frost)); /* #B7AEFB · 9.63:1 sobre night */
+  --color-violet-700: color-mix(in srgb, var(--color-violet) 55%, var(--color-night)); /* #53499A · 6.79:1 sobre lavanda */
+  --color-iris-300: color-mix(in srgb, var(--color-iris) 30%, var(--color-frost)); /* #C3BEF9 */
+  --color-iris-700: color-mix(in srgb, var(--color-iris) 78%, var(--color-night)); /* #584BCB · frost encima 5.38:1 */
+  --color-iris-800: color-mix(in srgb, var(--color-iris) 62%, var(--color-night)); /* hover del botón */
+  --color-mint-700: color-mix(in srgb, var(--color-mint) 48%, var(--color-night)); /* #256F59 · 5.42:1 sobre lavanda */
+  --color-frost-muted: color-mix(in srgb, var(--color-frost) 75%, var(--color-night)); /* #B4B2C0 · 9.27:1 sobre night */
+  --color-night-muted: color-mix(in srgb, var(--color-night) 72%, var(--color-frost)); /* #4C495B · 7.85:1 sobre lavanda */
 
   /* Colores semánticos que cambian con el tema */
   --color-bg: var(--bg);
@@ -53,39 +55,46 @@
 /* --- Tema oscuro (por defecto) --- */
 :root {
   color-scheme: dark;
-  --bg: var(--color-abyss);
-  --surface: var(--color-deep);
-  --surface-soft: color-mix(in srgb, var(--color-deep) 50%, var(--color-abyss));
-  --fg: var(--color-mist);
-  --fg-muted: var(--color-mist-muted);
-  --accent: var(--color-teal-300);
-  --accent-warm: var(--color-crimson-300);
-  --line: color-mix(in srgb, var(--color-teal) 55%, transparent);
-  --contour: var(--color-teal);
-  --ribbon: var(--color-mist);
-  --action: var(--color-crimson);
-  --action-hover: var(--color-crimson-700);
-  --on-action: var(--color-mist);
-  --shadow-layer: color-mix(in srgb, black 45%, transparent);
+  --bg: var(--color-night);
+  --surface: color-mix(in srgb, var(--color-indigo) 88%, transparent);
+  --surface-soft: color-mix(in srgb, var(--color-indigo) 60%, var(--color-night));
+  --fg: var(--color-frost);
+  --fg-muted: var(--color-frost-muted);
+  --accent: var(--color-violet-300);
+  --accent-warm: var(--color-mint);
+  --line: color-mix(in srgb, var(--color-violet) 32%, transparent);
+  --contour: var(--color-violet);
+  --ribbon: var(--color-mint);
+  --action: var(--color-iris-700);
+  --action-hover: var(--color-iris-800);
+  --on-action: var(--color-frost);
+  --shadow-layer: color-mix(in srgb, black 55%, transparent);
+  /* Manchas del fondo aurora */
+  --aurora-1: color-mix(in srgb, var(--color-iris) 38%, transparent);
+  --aurora-2: color-mix(in srgb, var(--color-mint) 16%, transparent);
+  --aurora-3: color-mix(in srgb, var(--color-violet) 22%, transparent);
 }
 
 /* --- Tema claro derivado --- */
 :root[data-theme="light"] {
   color-scheme: light;
-  --bg: var(--color-mist);
-  --surface: color-mix(in srgb, var(--color-mist) 92%, var(--color-teal)); /* #D3D9D7 */
-  --surface-soft: color-mix(in srgb, var(--color-mist) 96%, var(--color-teal));
-  --fg: var(--color-abyss);
-  --fg-muted: var(--color-abyss-muted);
-  --accent: var(--color-teal-700);
-  --accent-warm: var(--color-crimson);
-  --line: color-mix(in srgb, var(--color-teal) 45%, transparent);
-  --contour: color-mix(in srgb, var(--color-teal) 70%, var(--color-mist));
-  --ribbon: var(--color-deep);
-  --action: var(--color-crimson);
-  --action-hover: var(--color-crimson-700);
-  --on-action: var(--color-mist);
-  --shadow-layer: color-mix(in srgb, var(--color-abyss) 22%, transparent);
+  --bg: #f4f2fb;
+  --surface: color-mix(in srgb, #e9e5f8 88%, transparent);
+  --surface-soft: #efecfa;
+  --fg: var(--color-night);
+  --fg-muted: var(--color-night-muted);
+  --accent: var(--color-violet-700);
+  --accent-warm: var(--color-mint-700);
+  --line: color-mix(in srgb, var(--color-violet) 40%, transparent);
+  --contour: color-mix(in srgb, var(--color-violet) 70%, var(--color-frost));
+  --ribbon: color-mix(in srgb, var(--color-mint) 75%, var(--color-frost));
+  --action: var(--color-iris-700);
+  --action-hover: var(--color-iris-800);
+  --on-action: var(--color-frost);
+  --shadow-layer: color-mix(in srgb, var(--color-night) 18%, transparent);
+  --aurora-1: color-mix(in srgb, var(--color-iris) 18%, transparent);
+  --aurora-2: color-mix(in srgb, var(--color-mint) 14%, transparent);
+  --aurora-3: color-mix(in srgb, var(--color-violet) 14%, transparent);
 }
 
 /* ==========================================================================
@@ -115,8 +124,8 @@
   }
 
   ::selection {
-    background-color: var(--color-crimson);
-    color: var(--color-mist);
+    background-color: var(--color-iris-700);
+    color: var(--color-frost);
   }
 
   :focus-visible {
@@ -179,7 +188,7 @@
   }
   &::after {
     transform: translate(12px, 12px);
-    background-color: color-mix(in srgb, var(--color-teal) 18%, transparent);
+    background-color: color-mix(in srgb, var(--color-violet) 18%, transparent);
   }
   &:where(:hover, :focus-within)::before {
     transform: translate(10px, 10px);
@@ -187,6 +196,16 @@
   &:where(:hover, :focus-within)::after {
     transform: translate(20px, 20px);
   }
+}
+
+/* Fondo aurora: manchas de luz quietas y muy difusas detrás de todo el contenido */
+@utility aurora {
+  background:
+    radial-gradient(60vmax 45vmax at 85% -5%, var(--aurora-1), transparent 70%),
+    radial-gradient(45vmax 40vmax at -10% 35%, var(--aurora-3), transparent 70%),
+    radial-gradient(50vmax 35vmax at 70% 70%, var(--aurora-2), transparent 70%),
+    radial-gradient(55vmax 40vmax at 10% 105%, var(--aurora-1), transparent 70%),
+    var(--bg);
 }
 
 /* ==========================================================================

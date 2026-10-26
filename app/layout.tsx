@@ -53,8 +53,8 @@ export const metadata: Metadata = {
 
 export const viewport: Viewport = {
   themeColor: [
-    { media: "(prefers-color-scheme: dark)", color: "#0e2931" },
-    { media: "(prefers-color-scheme: light)", color: "#e2e2e0" },
+    { media: "(prefers-color-scheme: dark)", color: "#0e0b1f" },
+    { media: "(prefers-color-scheme: light)", color: "#f4f2fb" },
   ],
   colorScheme: "dark light",
 };
@@ -74,6 +74,8 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
       </head>
       <body className="min-h-dvh">
+        {/* Fondo aurora: decorativo, fijo detrás de todo el contenido */}
+        <div aria-hidden="true" className="aurora pointer-events-none fixed inset-0 -z-50" />
         <a
           href="#contenido"
           className="fixed left-4 top-4 z-[100] -translate-y-24 rounded-card bg-action px-5 py-3 font-semibold text-on-action shadow-lg transition-transform focus-visible:translate-y-0"

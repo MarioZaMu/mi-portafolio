@@ -6,46 +6,47 @@
 - **Objetivo:** que en menos de 10 segundos se entienda *quién soy, qué hago y cómo ver mi trabajo*, y que en un minuto se pueda revisar un proyecto, descargar el CV o escribirme.
 - **Requisitos fuente:** las 9 capturas de `assets/referencias/` (pestañas *Estructura* y *Secciones*) coinciden con la tabla del prompt. No se ven las pestañas **Entrega** ni **Checklist**; se tratan como pendientes.
 
-## 2. Concepto: «Capas»
+## 2. Concepto: «Capas» con paleta «Medianoche violeta»
 
-La paleta sale de una ilustración aérea: agua profunda con **curvas de nivel**, una franja de arena y una franja roja que cruzan en diagonal. El portafolio se lee como un **corte del terreno**:
+La primera versión usaba la paleta de la ilustración «ALONE» (verde azulado y rojo). En octubre de 2026 se cambió a **Medianoche violeta**, más moderna y cercana a mi interés por los videojuegos. La estructura y el concepto de capas se mantienen:
 
-- **Curvas de nivel en SVG** generadas por código (anillos deformados con ruido determinista) como fondo del Hero y de varias secciones, siempre `aria-hidden` y sin eventos.
-- **Estratos:** cada sección es una capa con su altitud. Las etiquetas mono imitan una carta topográfica: `02 · ACERCA DE MÍ · 2 527 m` (altitud real de Pasto).
-- **La franja:** una cinta diagonal `mist` + `crimson` atraviesa el Hero, en homenaje directo a la ilustración. Es el único gran uso de rojo; el resto del rojo se reserva para la acción principal.
-- **Tarjetas apiladas:** proyectos y testimonios muestran capas detrás (sombras desplazadas en `teal`/`deep`) que se separan al pasar el cursor.
+- **Fondo aurora:** manchas de luz violeta, iris y menta, muy difusas y quietas, fijas detrás de todo el contenido (`.aurora` en `app/globals.css`). Llenan los espacios amplios sin distraer y no se animan, así que no afectan el rendimiento ni a quien prefiere movimiento reducido.
+- **Curvas de nivel en SVG** solo como detalle: anillos alrededor del avatar. Siempre `aria-hidden`.
+- **La franja:** una cinta diagonal menta + violeta en la base del Hero.
+- **Tarjetas apiladas:** proyectos y formulario muestran capas detrás que se separan al pasar el cursor.
 
 ## 3. Paleta y contraste (WCAG 2.1, calculado)
 
 | Token | Hex | Uso |
 |---|---|---|
-| `abyss` | `#0E2931` | Fondo oscuro |
-| `deep` | `#12484C` | Superficies / tarjetas |
-| `teal` | `#2B7574` | Bordes, íconos, decoración |
-| `crimson` | `#861211` | Relleno de botón primario, franja |
-| `mist` | `#E2E2E0` | Texto (oscuro) / fondo (claro) |
-| `teal-300` *(derivado: teal 40 % + mist 60 %)* | `#99B6B5` | Texto/enlaces de acento en oscuro |
-| `crimson-300` *(crimson 25 % + mist 75 %)* | `#CBAEAC` | Acento rojo como texto en oscuro |
-| `mist-muted` *(mist 75 % + abyss 25 %)* | `#ADB4B4` | Texto secundario en oscuro |
-| `teal-700` *(teal 70 % + abyss 30 %)* | `#225E60` | Texto/enlaces de acento en claro |
-| `abyss-muted` *(abyss 75 % + mist 25 %)* | `#43575D` | Texto secundario en claro |
+| `night` | `#0E0B1F` | Fondo oscuro |
+| `indigo` | `#1A1535` | Superficies / tarjetas |
+| `violet` | `#8B7CFF` | Bordes, íconos, decoración, aurora |
+| `iris` | `#6D5DFC` | Franja, subrayados, aurora |
+| `frost` | `#ECEAF6` | Texto (oscuro) |
+| `mint` | `#3DDC97` | Detalles: experiencia laboral, punto del avatar, franja |
+| `violet-300` *(violet 55 % + frost)* | `#B7AEFB` | Texto/enlaces de acento en oscuro |
+| `iris-700` *(iris 78 % + night)* | `#584BCB` | Relleno del botón principal (ambos temas) |
+| `frost-muted` *(frost 75 % + night)* | `#B4B2C0` | Texto secundario en oscuro |
+| `violet-700` *(violet 55 % + night)* | `#53499A` | Texto/enlaces de acento en claro |
+| `mint-700` *(mint 48 % + night)* | `#256F59` | Acento menta como texto en claro |
+| `night-muted` *(night 72 % + frost)* | `#4C495B` | Texto secundario en claro |
 
 | Combinación | Ratio | Veredicto |
 |---|---|---|
-| `mist` sobre `abyss` | **11.73:1** | AAA |
-| `mist` sobre `deep` | **7.87:1** | AAA |
-| `mist` sobre `crimson` (botón) | **7.68:1** | AAA |
-| `teal-300` sobre `abyss` / `deep` | **7.04 / 4.72** | AAA / AA |
-| `crimson-300` sobre `abyss` / `deep` | **7.38 / 4.95** | AAA / AA |
-| `mist-muted` sobre `abyss` / `deep` | **7.22 / 4.84** | AAA / AA |
-| `abyss` sobre `mist` (tema claro) | **11.73:1** | AAA |
-| `teal-700` sobre `mist` | **5.70:1** | AA |
-| `abyss-muted` sobre `mist` | **5.87:1** | AA |
-| `crimson` sobre `mist` | **7.68:1** | AAA (en claro sí sirve como texto) |
-| ❌ `crimson` sobre `abyss` | 1.53:1 | Prohibido como texto |
-| ❌ `teal` sobre `abyss` | 2.83:1 | Solo decoración / bordes (≥3:1 no se exige a decoración) |
+| `frost` sobre `night` / `indigo` | **16.26 / 14.69** | AAA |
+| `frost` sobre `iris-700` (botón) | **5.38:1** | AA |
+| `violet-300` sobre `night` / `indigo` | **9.63 / 8.70** | AAA |
+| `mint` sobre `night` / `indigo` | **10.94 / 9.88** | AAA |
+| `frost-muted` sobre `night` / `indigo` | **9.27 / 8.37** | AAA |
+| `night` sobre lavanda `#F4F2FB` (tema claro) | **17.44:1** | AAA |
+| `violet-700` sobre lavanda / superficie `#E9E5F8` | **6.79 / 6.11** | AA |
+| `mint-700` sobre lavanda / superficie | **5.42 / 4.87** | AA |
+| `night-muted` sobre lavanda / superficie | **7.85 / 7.06** | AAA / AA |
+| ❌ `frost` sobre `iris` puro | 3.82:1 | Por eso el botón usa `iris-700` |
+| `violet` sobre `night` | 5.91:1 | Bordes y decoración |
 
-Tema claro: superficie `mist-2` = mist 92 % + teal 8 % (`#D3D9D7`); `abyss` encima 10.63:1 y `crimson` 6.96:1. Los valores exactos están en `app/globals.css` y se verifican en `docs/decisiones-ux.md`.
+Los valores exactos están en `app/globals.css`.
 
 ## 4. Tipografía
 
@@ -71,7 +72,7 @@ Base de **4 px**; los bloques usan múltiplos de 8 (8, 16, 24, 32, 48, 64, 96, 1
 │ Mario Alberto                          │  (( MZ )) │ curvas   │
 │ Zambrano Muñoz                         │  anillos  │ de nivel │
 │ Desarrollador de software · 4.º sem.   ╰──────────╯          │
-│ «Construyo software capa por capa…»   ╲╲ franja mist/crimson │
+│ «Construyo software capa por capa…»   ╲╲ franja menta/violeta│
 │ [↓ Descargar CV]  [Ver proyectos]       ╲╲                   │
 ├──────────────────────────────────────────────────────────────┤
 │ 02 · ACERCA DE MÍ                                             │
@@ -140,7 +141,7 @@ Base de **4 px**; los bloques usan múltiplos de 8 (8, 16, 24, 32, 48, 64, 96, 1
 | **Ley de Hick** | Navbar con 7 enlaces cortos; filtro de proyectos con pocas tecnologías principales. |
 | **Reconocer vs. recordar** | Navbar fija con sección activa resaltada (Nielsen #6). |
 | **Prevención de errores** | Validación en línea del formulario con mensajes claros (Nielsen #5 y #9). |
-| **Estética minimalista** | Paleta de 5 colores + tintes, sin gradientes pastel ni emojis (Nielsen #8). |
+| **Estética minimalista** | Paleta de 6 colores + tintes; el único degradado es el fondo aurora, muy tenue (Nielsen #8). |
 | **Control y libertad** | Toggle de tema, menú que cierra con `Esc`, botón volver arriba (Nielsen #3). |
 
 ## 8. Pendientes (`TODO`) que debe resolver Mario

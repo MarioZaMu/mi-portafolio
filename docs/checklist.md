@@ -63,7 +63,7 @@ Leyenda: ✅ cumplido · ⚠️ cumplido en código, falta contenido real (`TODO
 | Enlaces con `href="#"` | ✅ ninguno |
 | Consola del navegador | ✅ sin errores |
 | Scroll horizontal a 360 px | ✅ `scrollWidth = 360` |
-| Lighthouse móvil (build local) | Performance 90–92 · Accesibilidad 100 · Buenas prácticas 100 · SEO 100 |
+| Lighthouse móvil (build local) | Performance 87–93 (varía entre corridas) · Accesibilidad 100 · Buenas prácticas 100 · SEO 100 |
 
 ## Pruebas manuales
 

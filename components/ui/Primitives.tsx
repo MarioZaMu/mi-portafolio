@@ -8,13 +8,13 @@ export function Container({ className = "", children }: { className?: string; ch
   return <div className={`mx-auto w-full max-w-[75rem] px-4 sm:px-6 md:px-8 ${className}`}>{children}</div>;
 }
 
-type ChipProps = HTMLAttributes<HTMLSpanElement> & { tone?: "teal" | "warm" | "plain" };
+type ChipProps = HTMLAttributes<HTMLSpanElement> & { tone?: "violet" | "warm" | "plain" };
 
 /** Etiqueta mono de 12 px (tecnologías, datos rápidos). */
-export function Chip({ tone = "teal", className = "", children, ...props }: ChipProps) {
+export function Chip({ tone = "violet", className = "", children, ...props }: ChipProps) {
   const tones = {
-    teal: "border-line bg-surface-soft text-accent",
-    warm: "border-crimson/60 bg-crimson/15 text-accent-warm",
+    violet: "border-line bg-surface-soft text-accent",
+    warm: "border-mint/50 bg-mint/10 text-accent-warm",
     plain: "border-line bg-transparent text-muted",
   } as const;
   return (
@@ -27,7 +27,7 @@ export function Chip({ tone = "teal", className = "", children, ...props }: Chip
   );
 }
 
-/** Tarjeta base: superficie de la paleta y borde teal translúcido. */
+/** Tarjeta base: superficie de la paleta y borde violet translúcido. */
 export function Card({ className = "", children, ...props }: HTMLAttributes<HTMLDivElement>) {
   return (
     <div className={`rounded-card border border-line bg-surface ${className}`} {...props}>
