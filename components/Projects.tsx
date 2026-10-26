@@ -22,13 +22,18 @@ function PendingLink({ label }: { label: string }) {
 
 const sizes = "(min-width: 1024px) 380px, (min-width: 640px) 50vw, 100vw";
 
-/** Imagen que cambia con el tema: la versión clara solo se ve con data-theme="light". */
+/**
+ * Imagen que cambia con el tema: la versión clara solo se ve con data-theme="light".
+ * Se oculta con opacidad y no con display:none: algunos navegadores (Safari, móviles)
+ * no cargan una imagen diferida que estaba en display:none cuando luego se muestra.
+ */
 function ThemedImage({ shot, className, sizes }: { shot: Shot; className: string; sizes: string }) {
   return (
     <>
-      <Image src={shot.src} alt={shot.alt} fill sizes={sizes} className={`${className} ${shot.srcLight ? "light:hidden" : ""}`} />
+      <Image src={shot.src} alt={shot.alt} fill sizes={sizes} className={`${className} ${shot.srcLight ? "light:opacity-0" : ""}`} />
       {shot.srcLight && (
-        <Image src={shot.srcLight} alt={shot.alt} fill sizes={sizes} className={`${className} hidden light:block`} />
+        // Mismo texto alternativo que la oscura: se marca decorativa para no leerlo dos veces.
+        <Image src={shot.srcLight} alt="" aria-hidden="true" fill sizes={sizes} className={`${className} opacity-0 light:opacity-100`} />
       )}
     </>
   );
