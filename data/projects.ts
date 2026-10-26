@@ -7,6 +7,8 @@ export type Project = {
   id: string;
   title: string;
   description: string;
+  /** Una línea para las tarjetas del inicio. */
+  summary: string;
   /** Ruta en public/. Capturas tomadas de la app real (1600 × 1000). */
   image: string;
   imageAlt: string;
@@ -30,6 +32,7 @@ export const projects: Project[] = [
   {
     id: "vozsegura",
     title: "Voz Segura",
+    summary: "Botón de pánico silencioso para smartwatch con aviso por Telegram.",
     description:
       "Botón de pánico silencioso para smartwatch. Un doble toque en la carátula graba audio y envía tu ubicación a contactos de confianza por Telegram, sin nada visible en pantalla; la IA resume el audio para dar contexto. Funciona en el navegador y como app Android.",
     image: "/images/projects/vozsegura.png",
@@ -44,6 +47,7 @@ export const projects: Project[] = [
   {
     id: "mudanzify",
     title: "Mudanzify",
+    summary: "App de escritorio para mudar tus archivos entre equipos sin perder nada.",
     description:
       "App de escritorio que guía el traspaso de carpetas, archivos y hojas de cálculo entre equipos. Detecta duplicados, datos personales y archivos basura; una IA te entrevista para proponer cómo organizarlo, y la copia nunca toca el original y verifica cada archivo.",
     image: "/images/projects/mudanzify.png",
@@ -59,6 +63,7 @@ export const projects: Project[] = [
   {
     id: "vidalvl",
     title: "Vidalvl",
+    summary: "App Android de hábitos gamificada estilo RPG.",
     description:
       "App Android de hábitos estilo RPG: cada misión da experiencia a Cuerpo, Mente, Disciplina o Social y hace crecer tu avatar en pixel art. Mide constancia, no esfuerzo: nunca pierdes nivel por faltar un día. 62 recompensas, logros, verificación con foto e ideas de tareas con IA.",
     image: "/images/projects/vidalvl.png",

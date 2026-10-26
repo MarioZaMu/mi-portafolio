@@ -1,50 +1,48 @@
+import type { Project } from "@/data/projects";
 import { site } from "@/data/site";
-import { Avatar } from "./ui/Avatar";
+import { HeroCards } from "./HeroCards";
 import { ButtonLink } from "./ui/Button";
-import { Ribbon } from "./ui/Contours";
 import { Container, delay } from "./ui/Primitives";
 
-export default function Hero() {
+export default function Hero({ projects }: { projects: Project[] }) {
   const [first, ...rest] = site.name.split(" ");
   const firstLine = [first, rest[0]].join(" "); // "Mario Alberto"
   const secondLine = rest.slice(1).join(" "); // "Zambrano Muñoz"
+
+  // Datos reales (todos salen de data/): proyectos, semestre, sede y plataformas.
+  const stats = [
+    { value: String(projects.length).padStart(2, "0"), label: "Proyectos" },
+    { value: "4.º", label: "Semestre" },
+    { value: "UCC", label: "Campus Pasto" },
+    { value: "Full", label: "Móvil · Web · Escritorio" },
+  ];
 
   return (
     <section
       id="inicio"
       aria-labelledby="hero-title"
-      className="relative isolate flex min-h-[100svh] items-center overflow-hidden pb-48 pt-28 md:pb-56"
+      className="relative isolate flex min-h-[100svh] flex-col justify-center pt-28"
     >
-      {/* Franja en la base del inicio */}
-      <Ribbon className="absolute inset-x-0 bottom-0 -z-10 h-[28%] w-full md:h-[34%]" />
-
-      <Container className="grid grid-cols-1 items-center gap-12 lg:grid-cols-[minmax(0,1.35fr)_minmax(0,1fr)]">
+      <Container className="grid flex-1 grid-cols-1 items-center gap-14 lg:grid-cols-[minmax(0,1.25fr)_minmax(0,1fr)]">
         <div>
-          <p className="rise label-mono flex flex-wrap items-center gap-x-3 gap-y-1 text-accent" style={delay(0)}>
-            <span>{site.coordinates}</span>
-            <span aria-hidden="true">·</span>
-            <span>{site.altitude}</span>
+          <p className="rise label-mono text-accent" style={delay(0)}>
+            Ingeniería de Software · Pasto, Colombia
           </p>
 
           <h1
             id="hero-title"
-            className="mt-6 text-[clamp(2.5rem,10.5vw,5.75rem)] font-medium leading-[0.95] text-fg"
+            className="rise mt-6 text-[clamp(2.6rem,9vw,5.25rem)] font-medium leading-[0.98] text-fg"
+            style={delay(40)}
           >
             <span className="block">{firstLine}</span>
-            <span className="block italic text-accent">{secondLine}</span>
+            <span className="text-outline block">{secondLine}</span>
           </h1>
 
-          <p className="mt-6 max-w-xl text-lg font-semibold text-fg sm:text-xl">
-            {site.role}
+          <p className="rise mt-7 max-w-xl text-lg leading-relaxed text-muted sm:text-xl" style={delay(80)}>
+            <span className="font-semibold text-fg">{site.role}.</span> {site.tagline}
           </p>
 
-          <p
-            className="mt-4 max-w-xl border-l-2 border-marine pl-4 font-display text-xl italic leading-snug text-muted sm:text-2xl"
-          >
-            {site.tagline}
-          </p>
-
-          <div className="rise mt-10 flex flex-col gap-3 sm:flex-row sm:items-center" style={delay(120)}>
+          <div className="rise mt-9 flex flex-col gap-3 sm:flex-row sm:items-center" style={delay(120)}>
             {/* Obligatorio: descarga directa del CV */}
             <ButtonLink href={site.cv} download="CV-Mario-Zambrano.pdf" size="lg" icon="download" iconPosition="start">
               Descargar CV
@@ -53,21 +51,27 @@ export default function Hero() {
               Ver proyectos
             </ButtonLink>
           </div>
-
-          <ul
-            className="rise label-mono mt-10 flex flex-wrap gap-x-6 gap-y-2 text-muted"
-            style={delay(180)}
-            aria-label="Datos rápidos"
-          >
-            <li>{site.location}</li>
-            <li>{site.semester}</li>
-            <li>{site.university}</li>
-          </ul>
         </div>
 
-        <div className="rise flex justify-center lg:justify-end" style={delay(60)}>
-          <Avatar size={420} priority className="w-[min(78vw,420px)]" />
+        <div className="rise flex justify-center lg:justify-end" style={delay(160)}>
+          <HeroCards projects={projects} />
         </div>
+      </Container>
+
+      <Container className="rise mt-16" >
+        <dl className="grid grid-cols-2 border-t border-line md:grid-cols-4" style={delay(220)}>
+          {stats.map((s, i) => (
+            <div
+              key={s.label}
+              className={`flex flex-col-reverse gap-1 py-6 pr-4 md:py-8 ${i % 2 === 1 ? "border-l border-line pl-5" : ""} ${
+                i > 0 ? "md:border-l md:border-line md:pl-6" : ""
+              } ${i >= 2 ? "border-t border-line md:border-t-0" : ""}`}
+            >
+              <dt className="label-mono text-accent">{s.label}</dt>
+              <dd className="font-display text-4xl font-medium leading-none text-fg sm:text-5xl">{s.value}</dd>
+            </div>
+          ))}
+        </dl>
       </Container>
     </section>
   );

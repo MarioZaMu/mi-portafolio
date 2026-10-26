@@ -53,3 +53,13 @@
 | Modo claro gris perla + azul marino tomado de una referencia; modo oscuro «navy nocturno» como su espejo | Consistencia entre temas: mismo tono, se invierten fondo y texto | `app/globals.css` |
 | Botón principal con el color más fuerte de cada tema (`marine` / `navy`) y texto `snow` | Contraste ≥ 6.7:1 · ley de Von Restorff | `components/ui/Button.tsx` |
 | Experiencia laboral con marcador relleno cuadrado y académica con marcador redondo con borde | No depender solo del color (WCAG 1.4.1) | `components/Experience.tsx` |
+
+## Rediseño del inicio y fondo (octubre 2026)
+
+| Decisión | Principio | Dónde |
+|---|---|---|
+| Fondo de líneas onduladas fijo, generado en el servidor y sin animación | Llena el espacio vacío sin distraer ni costar JS; se desvanece hacia abajo para no competir con el texto | `components/ui/WaveField.tsx`, `.wave-field` |
+| Apellidos en contorno bajo el nombre sólido | Jerarquía tipográfica: el nombre se lee primero y el contorno da carácter sin otro color | `text-outline` en `app/globals.css`, `components/Hero.tsx` |
+| Tarjetas de proyectos en abanico en el inicio; un clic trae cada una al frente | Muestra el trabajo desde el primer vistazo (divulgación progresiva); las de atrás son botones accesibles y su contenido queda `inert` | `components/HeroCards.tsx` |
+| Franja de datos reales (proyectos, semestre, sede, plataformas) | Reconocimiento en lugar de recuerdo: lo clave se escanea en segundos | `components/Hero.tsx` |
+| Logo «MZ / Portafolio» y botón de CV fijo en el menú | El CV siempre está a un clic | `components/Navbar.tsx` |

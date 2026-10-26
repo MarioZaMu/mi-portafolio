@@ -66,6 +66,8 @@
   --action-hover: var(--color-marine-800);
   --on-action: var(--color-snow);
   --shadow-layer: color-mix(in srgb, black 55%, transparent);
+  /* Líneas onduladas del fondo */
+  --wave: color-mix(in srgb, var(--color-periwinkle) 16%, transparent);
   /* Manchas del fondo aurora (provisional) */
   --aurora-1: color-mix(in srgb, var(--color-marine) 40%, transparent);
   --aurora-2: color-mix(in srgb, var(--color-periwinkle) 12%, transparent);
@@ -89,6 +91,7 @@
   --action-hover: var(--color-midnight);
   --on-action: var(--color-snow);
   --shadow-layer: color-mix(in srgb, var(--color-navy) 20%, transparent);
+  --wave: color-mix(in srgb, var(--color-navy) 15%, transparent);
   --aurora-1: color-mix(in srgb, var(--color-marine) 14%, transparent);
   --aurora-2: color-mix(in srgb, var(--color-snow) 80%, transparent);
   --aurora-3: color-mix(in srgb, var(--color-navy) 10%, transparent);
@@ -195,6 +198,13 @@
   }
 }
 
+/* Nombre en contorno (segunda línea del inicio) */
+@utility text-outline {
+  color: transparent;
+  -webkit-text-stroke: 1.5px var(--fg);
+  paint-order: stroke fill;
+}
+
 /* Fondo aurora: manchas de luz quietas y muy difusas detrás de todo el contenido */
 @utility aurora {
   background:
@@ -203,6 +213,12 @@
     radial-gradient(50vmax 35vmax at 70% 70%, var(--aurora-2), transparent 70%),
     radial-gradient(55vmax 40vmax at 10% 105%, var(--aurora-1), transparent 70%),
     var(--bg);
+}
+
+/* Las ondas se desvanecen hacia abajo para no competir con el contenido */
+.wave-field {
+  mask-image: linear-gradient(to bottom, black 0%, black 55%, rgb(0 0 0 / 0.35) 100%);
+  -webkit-mask-image: linear-gradient(to bottom, black 0%, black 55%, rgb(0 0 0 / 0.35) 100%);
 }
 
 /* ==========================================================================

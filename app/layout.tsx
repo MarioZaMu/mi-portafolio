@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Fraunces, JetBrains_Mono, Manrope } from "next/font/google";
+import { WaveField } from "@/components/ui/WaveField";
 import { site } from "@/data/site";
 import "./globals.css";
 
@@ -74,8 +75,9 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
       </head>
       <body className="min-h-dvh">
-        {/* Fondo aurora: decorativo, fijo detrás de todo el contenido */}
+        {/* Fondo: resplandor suave + líneas onduladas, fijos detrás de todo el contenido */}
         <div aria-hidden="true" className="aurora pointer-events-none fixed inset-0 -z-50" />
+        <WaveField />
         <a
           href="#contenido"
           className="fixed left-4 top-4 z-[100] -translate-y-24 rounded-card bg-action px-5 py-3 font-semibold text-on-action shadow-lg transition-transform focus-visible:translate-y-0"

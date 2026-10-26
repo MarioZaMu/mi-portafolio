@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { navItems, site } from "@/data/site";
+import { ButtonLink } from "./ui/Button";
 import { Icon } from "./ui/Icon";
 import { ThemeToggle } from "./ui/ThemeToggle";
 
@@ -68,16 +69,11 @@ export default function Navbar() {
       <nav aria-label="Principal" className="mx-auto flex h-16 max-w-[75rem] items-center justify-between gap-4 px-4 sm:px-6 md:px-8">
         <a
           href="#inicio"
-          className="group inline-flex min-h-11 items-center gap-3 rounded-full pr-2"
+          className="label-mono inline-flex min-h-11 items-center gap-2 whitespace-nowrap rounded-full pr-2 text-fg transition-colors hover:text-accent"
           onClick={() => setOpen(false)}
         >
-          <span
-            aria-hidden="true"
-            className="flex h-10 w-10 items-center justify-center rounded-full border border-line bg-harbor font-display text-lg italic text-pearl transition-colors group-hover:border-accent"
-          >
-            {site.initials}
-          </span>
-          <span className="sr-only font-display text-lg text-fg sm:not-sr-only">{site.shortName}</span>
+          <span aria-hidden="true">{site.initials} / Portafolio</span>
+          <span className="sr-only">{site.shortName}, ir al inicio</span>
         </a>
 
         <ul className="hidden items-center gap-1 lg:flex">
@@ -98,6 +94,9 @@ export default function Navbar() {
 
         <div className="flex items-center gap-2">
           <ThemeToggle />
+          <ButtonLink href={site.cv} download="CV-Mario-Zambrano.pdf" className="px-4! max-md:hidden">
+            Descargar CV
+          </ButtonLink>
           <button
             ref={toggleRef}
             type="button"

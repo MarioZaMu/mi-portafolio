@@ -19,7 +19,7 @@ export default async function Home() {
     <>
       <Navbar />
       <main id="contenido" tabIndex={-1} className="focus:outline-none">
-        <Hero />
+        <Hero projects={projectsWithReleases} />
         <About />
         <Projects projects={projectsWithReleases} />
         <Experience />
