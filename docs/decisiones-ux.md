@@ -63,3 +63,15 @@
 | Tarjetas de proyectos en abanico en el inicio; un clic trae cada una al frente | Muestra el trabajo desde el primer vistazo (divulgación progresiva); las de atrás son botones accesibles y su contenido queda `inert` | `components/HeroCards.tsx` |
 | Franja de datos reales (proyectos, semestre, sede, plataformas) | Reconocimiento en lugar de recuerdo: lo clave se escanea en segundos | `components/Hero.tsx` |
 | Logo «MZ / Portafolio» y botón de CV fijo en el menú | El CV siempre está a un clic | `components/Navbar.tsx` |
+
+## Rediseño de secciones y fondo que se transforma (octubre 2026)
+
+| Decisión | Principio | Dónde |
+|---|---|---|
+| El fondo cambia de forma según la sección (ondas → anillos → curvas de nivel → líneas verticales) interpolando los mismos trazos al hacer scroll | Continuidad visual entre secciones; cada forma se queda quieta mientras su sección está en pantalla. Con movimiento reducido cambia sin animación | `components/ui/WaveField.tsx`, `lib/shapes.ts`, `data-bg` en cada sección |
+| Encabezados numerados «02 / Sobre mí» con los filtros o la leyenda a la derecha | Orientación: el visitante sabe en qué parte del recorrido está | `SectionHeading` en `components/ui/Primitives.tsx` |
+| Sobre mí con retrato en arco, datos en mini-tarjetas y CV + contacto | Proximidad: lo personal junto a las acciones | `components/About.tsx`, `ArchPortrait` |
+| Tarjetas de proyecto compactas (resumen + chips) con «Ver más» para la descripción y el aporte | Divulgación progresiva; filtro por plataforma con pocas opciones (ley de Hick) | `components/Projects.tsx` |
+| Celda «Hay más en GitHub» cuando la cuadrícula queda incompleta | Sin huecos vacíos y con un siguiente paso claro | `components/Projects.tsx` |
+| Experiencia alternada: laboral a la izquierda y académica a la derecha, con marcador rombo/círculo | No depender solo del color (WCAG 1.4.1) | `components/Experience.tsx` |
+| Contacto en dos columnas y pie compacto en una fila | Menos recorrido visual al final de la página | `components/Contact.tsx`, `components/Footer.tsx` |

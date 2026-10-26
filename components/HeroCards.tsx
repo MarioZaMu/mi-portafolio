@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import type { Project } from "@/data/projects";
+import { badgeFor } from "@/lib/badges";
 import { ButtonLink } from "./ui/Button";
 import { Chip } from "./ui/Primitives";
 
@@ -12,11 +13,6 @@ const slots = [
   "z-20 -rotate-[1.5deg] translate-x-[9%] translate-y-11",
   "z-30 rotate-[1deg] translate-x-[18%] translate-y-22 shadow-[0_30px_60px_-25px_var(--shadow-layer)]",
 ];
-
-function badgeFor(p: Project) {
-  if (!p.demoUrl) return null;
-  return p.demoLabel ? "Descarga" : "En vivo";
-}
 
 export function HeroCards({ projects }: { projects: Project[] }) {
   const [front, setFront] = useState(0);
@@ -49,7 +45,7 @@ export function HeroCards({ projects }: { projects: Project[] }) {
                   </span>
                 )}
               </div>
-              <h3 className="mt-3 text-3xl font-medium text-fg sm:text-4xl">{p.title}</h3>
+              <p className="mt-3 font-display text-3xl font-medium tracking-[-0.02em] text-fg sm:text-4xl">{p.title}</p>
               <p className="mt-3 text-sm leading-relaxed text-muted">{p.summary}</p>
               <ul className="mt-4 flex flex-wrap gap-1.5" aria-label="Tecnologías">
                 {p.tags.slice(0, 3).map((t) => (

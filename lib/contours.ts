@@ -1,10 +1,10 @@
 // Generador determinista de curvas de nivel (motivo "Capas").
 // Se ejecuta en el servidor/build: el navegador solo recibe <path> estáticos.
 
-type Point = [number, number];
+export type Point = [number, number];
 
 /** PRNG mulberry32: misma semilla → mismo dibujo en cada build. */
-function random(seed: number) {
+export function random(seed: number) {
   let a = seed >>> 0;
   return () => {
     a = (a + 0x6d2b79f5) >>> 0;
@@ -18,7 +18,7 @@ function random(seed: number) {
 const r1 = (n: number) => Math.round(n * 10) / 10;
 
 /** Catmull-Rom → Bézier cúbica: curvas suaves que pasan por todos los puntos. */
-function smoothPath(points: Point[], closed: boolean) {
+export function smoothPath(points: Point[], closed: boolean) {
   const n = points.length;
   const at = (i: number) => (closed ? points[(i + n) % n] : points[Math.max(0, Math.min(n - 1, i))]);
   let d = `M${r1(points[0][0])} ${r1(points[0][1])}`;

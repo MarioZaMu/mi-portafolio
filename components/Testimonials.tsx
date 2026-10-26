@@ -18,11 +18,11 @@ function Person({ t }: { t: Testimonial }) {
     <div className="flex items-center gap-4">
       {t.avatar ? (
         // eslint-disable-next-line @next/next/no-img-element -- avatares pequeños opcionales
-        <img src={t.avatar} alt="" width={56} height={56} className="h-14 w-14 rounded-full border border-line object-cover" />
+        <img src={t.avatar} alt="" width={56} height={56} className="h-12 w-12 rounded-full border border-line object-cover" />
       ) : (
         <span
           aria-hidden="true"
-          className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full border border-line bg-harbor font-display text-lg italic text-pearl"
+          className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full border border-line bg-harbor font-display text-lg italic text-pearl"
         >
           {initials(t.name)}
         </span>
@@ -50,93 +50,86 @@ export default function Testimonials() {
     }
   }
 
-  const current = testimonials[index];
-
   return (
-    <section id="testimonios" aria-labelledby="testimonios-title" className="relative py-24 md:py-32">
+    <section id="testimonios" aria-labelledby="testimonios-title" data-bg="topo" className="relative py-24 md:py-32">
       <Container>
         <SectionHeading
           id="testimonios-title"
           eyebrow="Testimonios"
-          title="Lo que dicen quienes han trabajado conmigo"
+          title="Lo que dicen de mi trabajo"
+          aside={<span className="label-mono rounded-chip border border-line px-3 py-1.5 text-accent">{total} testimonios</span>}
         />
 
-        <div
-          className="reveal mx-auto max-w-3xl"
-          role="region"
-          aria-roledescription="carrusel"
-          aria-label="Testimonios"
-          tabIndex={0}
-          onKeyDown={onKeyDown}
-        >
-          {/* Pila de capas: las tarjetas siguientes asoman detrás */}
-          <div className="relative pb-6 pr-6" aria-live="polite">
-            <div aria-hidden="true" className="absolute bottom-6 left-0 right-6 top-0 translate-x-6 translate-y-6 rounded-layer border border-line bg-surface-soft" />
-            <div aria-hidden="true" className="absolute bottom-6 left-0 right-6 top-0 translate-x-3 translate-y-3 rounded-layer border border-line bg-surface-soft" />
-            <div
-              key={index}
-              role="group"
-              aria-roledescription="testimonio"
-              aria-label={`${index + 1} de ${total}`}
-              className="rise relative rounded-layer border border-line bg-surface p-6 sm:p-10"
-            >
-              <span aria-hidden="true" className="block h-12 font-display text-8xl leading-none text-accent-warm">
-                “
-              </span>
-              <blockquote className="mt-4">
-                <p className="font-display text-xl leading-snug text-fg sm:text-2xl">«{current.text}»</p>
-              </blockquote>
-              {current.rating ? (
-                <p role="img" className="mt-4 text-accent-warm" aria-label={`${current.rating} de 5 estrellas`}>
-                  {"★".repeat(current.rating)}
-                  <span className="text-muted">{"★".repeat(5 - current.rating)}</span>
-                </p>
-              ) : null}
-              <div className="mt-8 border-t border-line pt-6">
-                <Person t={current} />
+        <div role="region" aria-roledescription="carrusel" aria-label="Testimonios" tabIndex={0} onKeyDown={onKeyDown} className="reveal rounded-layer">
+          {/* Escritorio: las tres a la vista y la activa resaltada. Móvil: solo la activa. */}
+          <ul className="grid gap-6 md:grid-cols-3" aria-live="polite">
+            {testimonials.map((t, i) => (
+              <li
+                key={t.name + i}
+                aria-roledescription="testimonio"
+                aria-label={`${i + 1} de ${total}`}
+                className={`relative flex-col rounded-layer border p-6 transition-[border-color,transform] duration-300 sm:p-7 ${
+                  i === index ? "flex border-accent bg-harbor light:bg-snow md:-translate-y-1" : "hidden border-line bg-surface md:flex"
+                }`}
+              >
+                <span aria-hidden="true" className="absolute right-6 top-4 font-display text-6xl leading-none text-accent/40">
+                  “
+                </span>
+                {t.rating ? (
+                  <p role="img" className="text-accent" aria-label={`${t.rating} de 5 estrellas`}>
+                    {"★".repeat(t.rating)}
+                    <span className="text-muted">{"★".repeat(5 - t.rating)}</span>
+                  </p>
+                ) : null}
+                <blockquote className="mt-4 flex-1">
+                  <p className="text-base leading-relaxed text-fg">«{t.text}»</p>
+                </blockquote>
+                <div className="mt-8">
+                  <Person t={t} />
+                </div>
+              </li>
+            ))}
+          </ul>
+
+          <div className="mt-8 flex flex-wrap items-center justify-between gap-4">
+            <p className="label-mono text-muted">Usa las flechas del teclado para navegar</p>
+            <div className="flex items-center gap-2">
+              <div className="flex items-center">
+                {testimonials.map((t, i) => (
+                  <button
+                    key={t.name + i}
+                    type="button"
+                    onClick={() => go(i)}
+                    aria-label={`Ir al testimonio ${i + 1}`}
+                    aria-current={i === index ? "true" : undefined}
+                    className="group inline-flex h-11 w-8 items-center justify-center rounded-full"
+                  >
+                    <span
+                      className={`block h-2 rounded-full transition-all duration-300 ${
+                        i === index ? "w-5 bg-accent" : "w-2 bg-line group-hover:bg-accent"
+                      }`}
+                    />
+                  </button>
+                ))}
               </div>
+              <button
+                type="button"
+                onClick={() => go(index - 1)}
+                aria-label="Testimonio anterior"
+                className="inline-flex h-12 w-12 items-center justify-center rounded-full border border-line text-fg transition-colors hover:border-accent hover:bg-periwinkle/15"
+              >
+                <Icon name="chevronLeft" size={22} />
+              </button>
+              <button
+                type="button"
+                onClick={() => go(index + 1)}
+                aria-label="Testimonio siguiente"
+                className="inline-flex h-12 w-12 items-center justify-center rounded-full bg-action text-on-action transition-colors hover:bg-action-hover"
+              >
+                <Icon name="chevronRight" size={22} />
+              </button>
             </div>
           </div>
-
-          <div className="mt-8 flex items-center justify-between gap-4">
-            <button
-              type="button"
-              onClick={() => go(index - 1)}
-              aria-label="Testimonio anterior"
-              className="inline-flex h-12 w-12 items-center justify-center rounded-full border border-line text-fg transition-colors hover:border-accent hover:bg-periwinkle/15 active:bg-periwinkle/25"
-            >
-              <Icon name="chevronLeft" size={22} />
-            </button>
-
-            <div className="flex items-center gap-1">
-              {testimonials.map((t, i) => (
-                <button
-                  key={t.name + i}
-                  type="button"
-                  onClick={() => go(i)}
-                  aria-label={`Ir al testimonio ${i + 1}`}
-                  aria-current={i === index ? "true" : undefined}
-                  className="group inline-flex h-11 w-11 items-center justify-center rounded-full"
-                >
-                  <span
-                    className={`block h-2.5 rounded-full transition-all duration-300 ${
-                      i === index ? "w-8 bg-marine" : "w-2.5 bg-periwinkle group-hover:bg-accent"
-                    }`}
-                  />
-                </button>
-              ))}
-            </div>
-
-            <button
-              type="button"
-              onClick={() => go(index + 1)}
-              aria-label="Testimonio siguiente"
-              className="inline-flex h-12 w-12 items-center justify-center rounded-full border border-line text-fg transition-colors hover:border-accent hover:bg-periwinkle/15 active:bg-periwinkle/25"
-            >
-              <Icon name="chevronRight" size={22} />
-            </button>
-          </div>
-          <p className="label-mono mt-4 text-center text-muted">Usa las flechas del teclado para navegar</p>
         </div>
       </Container>
     </section>

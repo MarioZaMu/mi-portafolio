@@ -7,10 +7,11 @@ const projectTitle = new Map(projects.map((p) => [p.id, p.title]));
 // Sección adicional: habilidades agrupadas por área.
 export default function Skills() {
   return (
-    <section id="habilidades" aria-labelledby="habilidades-title" className="relative isolate overflow-hidden py-24 md:py-32">
+    <section id="habilidades" aria-labelledby="habilidades-title" data-bg="topo" className="relative isolate overflow-hidden py-24 md:py-32">
       <Container>
         <SectionHeading
           id="habilidades-title"
+          number={6}
           eyebrow="Habilidades"
           title="Herramientas y tecnologías"
           intro="Agrupadas por área y conectadas con los proyectos donde las usé."

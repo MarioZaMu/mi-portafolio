@@ -3,7 +3,6 @@
 import { useEffect, useState } from "react";
 import { navItems, site, whatsappHref } from "@/data/site";
 import { Icon, type IconName } from "./ui/Icon";
-import { StrataDivider } from "./ui/Contours";
 import { Container } from "./ui/Primitives";
 
 type Social = { icon: IconName; label: string; href: string; external: boolean };
@@ -31,34 +30,24 @@ export default function Footer() {
   }
 
   return (
-    <footer className="relative mt-12 border-t border-line bg-surface-soft">
-      <StrataDivider seed={9} className="absolute inset-x-0 -top-7 md:-top-9" />
-      <Container className="grid gap-10 py-14 md:grid-cols-[1.4fr_1fr_1fr]">
+    <footer className="relative mt-12 border-t border-line bg-bg/70 backdrop-blur-sm">
+      <Container className="grid gap-8 py-10 md:grid-cols-[auto_1fr_auto] md:items-center md:gap-10">
         <div>
-          <p className="font-display text-3xl text-fg">{site.shortName}</p>
-          <p className="mt-2 max-w-xs text-muted">{site.role}.</p>
-          <ul className="mt-6 flex gap-2" aria-label="Redes sociales">
-            {socials.map((s) => (
-              <li key={s.label}>
-                <a
-                  href={s.href}
-                  aria-label={s.external ? `${s.label} (se abre en una pestaña nueva)` : s.label}
-                  {...(s.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-                  className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-line text-fg transition-colors hover:border-accent hover:bg-periwinkle/15 active:bg-periwinkle/25"
-                >
-                  <Icon name={s.icon} size={20} />
-                </a>
-              </li>
-            ))}
-          </ul>
+          <p className="font-display text-2xl text-fg">{site.shortName}</p>
+          <p className="mt-1 text-sm text-muted">
+            © <span suppressHydrationWarning>{new Date().getFullYear()}</span> · Todos los derechos reservados
+          </p>
+          <p className="label-mono mt-2 text-accent">Hecho con Next.js + Tailwind</p>
         </div>
 
-        <nav aria-label="Enlaces rápidos">
-          <p className="label-mono text-accent">Enlaces rápidos</p>
-          <ul className="mt-4 grid grid-cols-2 gap-x-4 md:grid-cols-1">
+        <nav aria-label="Enlaces rápidos" className="md:justify-self-center">
+          <ul className="flex flex-wrap gap-x-1 gap-y-0">
             {navItems.map((item) => (
               <li key={item.id}>
-                <a href={`#${item.id}`} className="inline-flex min-h-11 items-center text-muted underline-offset-4 hover:text-fg hover:underline">
+                <a
+                  href={`#${item.id}`}
+                  className="inline-flex min-h-11 items-center rounded-full px-3 text-sm font-medium text-muted underline-offset-4 hover:text-fg hover:underline"
+                >
                   {item.label}
                 </a>
               </li>
@@ -66,23 +55,21 @@ export default function Footer() {
           </ul>
         </nav>
 
-        <div>
-          <p className="label-mono text-accent">Ubicación</p>
-          <p className="mt-4 text-muted">{site.location}</p>
-          <p className="label-mono mt-2 text-muted">
-            {site.coordinates} · {site.altitude}
-          </p>
-        </div>
+        <ul className="flex gap-2" aria-label="Redes sociales">
+          {socials.map((s) => (
+            <li key={s.label}>
+              <a
+                href={s.href}
+                aria-label={s.external ? `${s.label} (se abre en una pestaña nueva)` : s.label}
+                {...(s.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+                className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-line text-fg transition-colors hover:border-accent hover:bg-periwinkle/15 active:bg-periwinkle/25"
+              >
+                <Icon name={s.icon} size={20} />
+              </a>
+            </li>
+          ))}
+        </ul>
       </Container>
-
-      <div className="border-t border-line">
-        <Container className="flex flex-col gap-2 py-6 text-sm text-muted sm:flex-row sm:items-center sm:justify-between">
-          <p>
-            © <span suppressHydrationWarning>{new Date().getFullYear()}</span> {site.name}
-          </p>
-          <p>Hecho con Next.js + Tailwind</p>
-        </Container>
-      </div>
 
       <button
         type="button"

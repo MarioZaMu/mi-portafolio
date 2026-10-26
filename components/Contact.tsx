@@ -29,7 +29,7 @@ type Channel = { icon: IconName; label: string; value: string; href: string | nu
 
 const channels: Channel[] = [
   { icon: "mail", label: "Correo", value: site.email, href: `mailto:${site.email}` },
-  { icon: "github", label: "GitHub", value: `@${site.githubUser}`, href: site.github, external: true },
+  { icon: "github", label: "GitHub", value: `github.com/${site.githubUser}`, href: site.github, external: true },
   { icon: "linkedin", label: "LinkedIn", value: site.linkedin ? "Ver perfil" : "Próximamente", href: site.linkedin, external: true },
   ...(site.whatsapp
     ? [{ icon: "whatsapp" as const, label: "WhatsApp", value: "Escríbeme", href: whatsappHref(site.whatsapp), external: true }]
@@ -119,54 +119,59 @@ export default function Contact() {
   const done = status === "success" || status === "mailto";
 
   return (
-    <section id="contacto" aria-labelledby="contacto-title" className="relative py-24 md:py-32">
+    <section id="contacto" aria-labelledby="contacto-title" data-bg="topo-b" className="relative py-24 md:py-32">
       <Container>
-        <SectionHeading
-          id="contacto-title"
-          eyebrow="Contacto"
-          title="Hablemos de tu proyecto"
-          intro="¿Tienes una idea, una práctica o una pregunta? Escríbeme por el canal que prefieras; respondo lo antes posible."
-        />
+        <div className="grid grid-cols-1 items-start gap-12 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:gap-16">
+          <div className="min-w-0">
+            <SectionHeading
+              id="contacto-title"
+              number={5}
+              eyebrow="Contacto"
+              title="Hablemos"
+              intro="¿Tienes una idea, una práctica o un proyecto? Escríbeme por donde te quede más cómodo."
+            />
+            <ul className="reveal grid min-w-0 grid-cols-1 content-start gap-3">
+              {channels.map((c) => {
+                const inner = (
+                  <>
+                    <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full border border-line bg-harbor text-pearl transition-colors group-hover:border-accent">
+                      <Icon name={c.icon} size={22} />
+                    </span>
+                    <span className="min-w-0 flex-1">
+                      <span className="label-mono block text-muted">{c.label}</span>
+                      <span className="block truncate font-semibold text-fg">{c.value}</span>
+                    </span>
+                    {c.href && <Icon name={c.external ? "external" : "arrowRight"} size={18} className="text-accent" />}
+                  </>
+                );
+                const cls =
+                  "group flex min-h-16 items-center gap-4 rounded-card border border-line bg-harbor p-3 pr-5 light:bg-snow transition-[border-color,transform] duration-200";
+                return (
+                  <li key={c.label}>
+                    {c.href ? (
+                      <a
+                        href={c.href}
+                        className={`${cls} hover:-translate-y-0.5 hover:border-accent motion-reduce:transform-none`}
+                        {...(c.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+                      >
+                        {inner}
+                        {c.external && <span className="sr-only"> (se abre en una pestaña nueva)</span>}
+                      </a>
+                    ) : (
+                      <div aria-disabled="true" className={`${cls} border-dashed opacity-70`}>
+                        {inner}
+                      </div>
+                    )}
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
 
-        <div className="grid grid-cols-1 gap-10 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)] lg:gap-14">
-          <ul className="reveal grid min-w-0 grid-cols-1 content-start gap-3">
-            {channels.map((c) => {
-              const inner = (
-                <>
-                  <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full border border-line bg-harbor text-pearl transition-colors group-hover:border-accent">
-                    <Icon name={c.icon} size={22} />
-                  </span>
-                  <span className="min-w-0 flex-1">
-                    <span className="label-mono block text-muted">{c.label}</span>
-                    <span className="block truncate font-semibold text-fg">{c.value}</span>
-                  </span>
-                  {c.href && <Icon name={c.external ? "external" : "arrowRight"} size={18} className="text-accent" />}
-                </>
-              );
-              const cls =
-                "group flex min-h-16 items-center gap-4 rounded-card border border-line bg-surface p-3 pr-5 transition-[border-color,transform] duration-200";
-              return (
-                <li key={c.label}>
-                  {c.href ? (
-                    <a
-                      href={c.href}
-                      className={`${cls} hover:-translate-y-0.5 hover:border-accent motion-reduce:transform-none`}
-                      {...(c.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-                    >
-                      {inner}
-                      {c.external && <span className="sr-only"> (se abre en una pestaña nueva)</span>}
-                    </a>
-                  ) : (
-                    <div aria-disabled="true" className={`${cls} border-dashed opacity-70`}>
-                      {inner}
-                    </div>
-                  )}
-                </li>
-              );
-            })}
-          </ul>
-
-          <div className="reveal layered rounded-layer border border-line bg-surface p-6 sm:p-8" style={delay(120)}>
+          <div
+            className="reveal rounded-layer border border-line bg-harbor p-6 shadow-[0_30px_60px_-30px_var(--shadow-layer)] light:bg-snow sm:p-8 lg:mt-8"
+            style={delay(120)}
+          >
             {done ? (
               <div ref={statusRef} tabIndex={-1} role="status" className="flex flex-col items-center py-10 text-center focus:outline-none">
                 <span className="flex h-20 w-20 items-center justify-center rounded-full border-2 border-accent text-accent">
@@ -185,10 +190,13 @@ export default function Contact() {
                 </Button>
               </div>
             ) : (
-              <form ref={formRef} noValidate onSubmit={onSubmit} aria-describedby="form-nota" className="grid gap-6">
-                <p id="form-nota" className="text-sm text-muted">
-                  Todos los campos son obligatorios.
-                </p>
+              <form ref={formRef} noValidate onSubmit={onSubmit} aria-describedby="form-nota" className="grid gap-5">
+                <div>
+                  <h3 className="text-2xl font-medium text-fg sm:text-3xl">Envíame un mensaje</h3>
+                  <p id="form-nota" className="mt-1 text-sm text-muted">
+                    Todos los campos son obligatorios.
+                  </p>
+                </div>
                 <div>
                   <label htmlFor="name" className="font-semibold text-fg">
                     Nombre
@@ -274,11 +282,12 @@ export default function Contact() {
                   </div>
                 )}
 
-                <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+                <div className="flex flex-col gap-3">
                   <Button
                     type="submit"
                     size="lg"
                     icon="send"
+                    className="w-full"
                     disabled={status === "sending"}
                     aria-disabled={status === "sending"}
                   >

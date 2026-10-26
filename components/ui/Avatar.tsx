@@ -59,3 +59,34 @@ export function Avatar({ size, priority = false, className = "" }: AvatarProps) 
     </div>
   );
 }
+
+/** Retrato en arco (Sobre mí): foto si existe; si no, monograma sobre anillos de contorno. */
+export function ArchPortrait({ className = "" }: { className?: string }) {
+  const rings = contourRings({ cx: 200, cy: 230, count: 14, minRadius: 26, step: 15, seed: 7, wobble: 0.06, points: 48 });
+  return (
+    <div className={`relative isolate ${className}`}>
+      {/* Capa desplazada detrás del arco */}
+      <div aria-hidden="true" className="absolute inset-0 -z-10 translate-x-6 translate-y-6 rounded-t-[999px] rounded-b-layer border border-line bg-surface-soft" />
+      <div className="relative aspect-[4/5] overflow-hidden rounded-t-[999px] rounded-b-layer border border-line bg-harbor light:bg-snow">
+        {hasPhoto ? (
+          <Image src={site.photo} alt={`Retrato de ${site.name}`} fill sizes="(min-width: 768px) 420px, 80vw" className="object-cover" />
+        ) : (
+          <>
+            <svg aria-hidden="true" viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice" className="absolute inset-0 h-full w-full">
+              <g fill="none" stroke="var(--contour)">
+                {rings.map((d, i) => (
+                  <path key={i} d={d} strokeWidth={i % 5 === 4 ? 1.4 : 0.7} opacity={0.55 - i * 0.025} vectorEffect="non-scaling-stroke" />
+                ))}
+              </g>
+            </svg>
+            <div role="img" aria-label={`Monograma con las iniciales de ${site.name}`} className="absolute inset-0 flex items-center justify-center">
+              <span aria-hidden="true" className="font-display text-[clamp(5rem,14vw,8.5rem)] font-medium leading-none text-fg">
+                {site.initials}
+              </span>
+            </div>
+          </>
+        )}
+      </div>
+    </div>
+  );
+}

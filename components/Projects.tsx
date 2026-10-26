@@ -2,7 +2,9 @@
 
 import Image from "next/image";
 import { useState } from "react";
-import type { Project } from "@/data/projects";
+import type { Platform, Project } from "@/data/projects";
+import { site } from "@/data/site";
+import { badgeFor } from "@/lib/badges";
 import { ButtonLink, buttonClasses } from "./ui/Button";
 import { Icon } from "./ui/Icon";
 import { Chip, Container, SectionHeading } from "./ui/Primitives";
@@ -20,13 +22,14 @@ function PendingLink({ label }: { label: string }) {
 
 function ProjectCard({ project, index }: { project: Project; index: number }) {
   const titleId = `proyecto-${project.id}`;
+  const badge = badgeFor(project);
   return (
     <li className="h-full">
       <article
         aria-labelledby={titleId}
-        className="layered group flex h-full flex-col rounded-layer border border-line bg-surface transition-transform duration-300 hover:-translate-y-1 focus-within:-translate-y-1 motion-reduce:transform-none"
+        className="group flex h-full flex-col overflow-hidden rounded-layer border border-line bg-harbor shadow-[0_24px_50px_-35px_var(--shadow-layer)] transition-[transform,border-color] duration-300 hover:-translate-y-1 hover:border-accent focus-within:-translate-y-1 motion-reduce:transform-none light:bg-snow"
       >
-        <div className="relative aspect-[16/10] overflow-hidden rounded-t-layer border-b border-line">
+        <div className="relative aspect-[16/9] overflow-hidden border-b border-line">
           <Image
             src={project.image}
             alt={project.imageAlt}
@@ -35,30 +38,43 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
             unoptimized={project.image.endsWith(".svg")}
             className="object-cover transition-transform duration-500 group-hover:scale-[1.04] motion-reduce:transform-none"
           />
-          <span className="label-mono absolute left-4 top-4 rounded-chip bg-midnight/85 px-2 py-1 text-pearl">
-            {String(index + 1).padStart(2, "0")}
+          <span className="label-mono absolute left-3 top-3 rounded-full bg-midnight/85 px-3 py-1 text-pearl">
+            {String(index + 1).padStart(2, "0")} / {project.platforms[0]}
           </span>
+          {badge && (
+            <span className="absolute right-3 top-3 rounded-full bg-action px-3 py-1 text-xs font-semibold text-on-action">
+              {badge}
+            </span>
+          )}
         </div>
 
-        {/* Cuadro interior de vidrio que se monta sobre la imagen */}
-        <div className="glass relative z-10 mx-3 -mt-10 flex flex-1 flex-col rounded-card p-5 sm:mx-4 sm:p-6">
-          <h3 id={titleId} className="text-2xl font-medium text-fg">
+        <div className="flex flex-1 flex-col p-5 sm:p-6">
+          <h3 id={titleId} className="text-2xl font-medium text-fg sm:text-3xl">
             {project.title}
           </h3>
-          <p className="mt-2 text-base leading-relaxed text-muted">{project.description}</p>
-          <p className="mt-3 text-sm text-fg">
-            <span className="label-mono text-accent">Mi aporte · </span>
-            {project.role}
-          </p>
-          <ul className="mt-4 flex flex-wrap gap-2" aria-label={`Tecnologías de ${project.title}`}>
+          <p className="mt-2 text-base leading-relaxed text-muted">{project.summary}</p>
+          <ul className="mt-4 flex flex-wrap gap-1.5" aria-label={`Tecnologías de ${project.title}`}>
             {project.tags.map((tag) => (
               <li key={tag}>
-                <Chip>{tag}</Chip>
+                <Chip className="rounded-full">{tag}</Chip>
               </li>
             ))}
           </ul>
 
-          <div className="mt-auto flex flex-wrap gap-2 pt-6">
+          <details className="group/more mt-4">
+            <summary className="inline-flex min-h-11 cursor-pointer list-none items-center gap-1 text-sm font-semibold text-accent underline-offset-4 hover:underline [&::-webkit-details-marker]:hidden">
+              <span className="group-open/more:hidden">Ver más</span>
+              <span className="hidden group-open/more:inline">Ver menos</span>
+              <Icon name="chevronRight" size={16} className="transition-transform group-open/more:rotate-90" />
+            </summary>
+            <p className="mt-1 text-sm leading-relaxed text-muted">{project.description}</p>
+            <p className="mt-3 text-sm text-fg">
+              <span className="label-mono text-accent">Mi aporte · </span>
+              {project.role}
+            </p>
+          </details>
+
+          <div className="mt-auto flex flex-wrap items-center gap-2 pt-5">
             <ButtonLink
               href={project.githubUrl}
               external
@@ -73,8 +89,7 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
               <ButtonLink
                 href={project.demoUrl}
                 external
-                variant="tonal"
-                icon="external"
+                icon={project.demoLabel ? "download" : "external"}
                 aria-label={`${project.demoLabel ?? "Demo en vivo"} de ${project.title}`}
               >
                 {project.demoLabel ?? "Demo en vivo"}
@@ -101,49 +116,73 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
   );
 }
 
+/** Celda que llena el hueco de la cuadrícula y lleva al resto del trabajo. */
+function MoreOnGitHub() {
+  return (
+    <li className="h-full">
+      <a
+        href={site.github}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="group flex h-full min-h-56 flex-col items-center justify-center gap-3 rounded-layer border border-dashed border-line p-8 text-center transition-colors hover:border-accent hover:bg-periwinkle/5"
+      >
+        <Icon name="github" size={28} className="text-accent" />
+        <span className="font-display text-2xl text-fg sm:text-3xl">Hay más en GitHub</span>
+        <span className="label-mono text-accent group-hover:underline">github.com/{site.githubUser}</span>
+        <span className="sr-only"> (se abre en una pestaña nueva)</span>
+      </a>
+    </li>
+  );
+}
+
 // Recibe los proyectos ya completados con sus releases desde app/page.tsx (servidor).
 export default function Projects({ projects }: { projects: Project[] }) {
-  const [filter, setFilter] = useState(ALL);
-  // Filtro por tecnología principal (primera etiqueta) para no saturar de opciones (ley de Hick).
-  const filters = [ALL, ...Array.from(new Set(projects.map((p) => p.tags[0])))];
-  const visible = filter === ALL ? projects : projects.filter((p) => p.tags[0] === filter);
+  const [filter, setFilter] = useState<Platform | typeof ALL>(ALL);
+  // Filtro por plataforma, solo con las que existen (ley de Hick: pocas opciones claras).
+  const order: Platform[] = ["Móvil", "Web", "Escritorio"];
+  const filters: (Platform | typeof ALL)[] = [ALL, ...order.filter((pl) => projects.some((p) => p.platforms.includes(pl)))];
+  const visible = filter === ALL ? projects : projects.filter((p) => p.platforms.includes(filter));
 
   return (
-    <section id="proyectos" aria-labelledby="proyectos-title" className="relative py-24 md:py-32">
+    <section id="proyectos" aria-labelledby="proyectos-title" data-bg="topo" className="relative py-24 md:py-32">
       <Container>
         <SectionHeading
           id="proyectos-title"
+          number={3}
           eyebrow="Proyectos"
-          title="Lo que he construido"
-          intro="Apps móviles, de escritorio y web. Cada tarjeta enlaza al código en GitHub y a su demo en vivo."
+          title="Proyectos"
+          intro="Lo que he construido: cada uno enlaza a su código en GitHub y a su demo o descarga."
+          aside={
+            <div role="group" aria-label="Filtrar proyectos por plataforma" className="-mx-4 flex gap-2 overflow-x-auto px-4 pb-1 sm:mx-0 sm:flex-wrap sm:px-0">
+              {filters.map((f) => (
+                <button
+                  key={f}
+                  type="button"
+                  aria-pressed={filter === f}
+                  onClick={() => setFilter(f)}
+                  className={`min-h-11 shrink-0 rounded-full border px-4 text-sm font-semibold transition-colors ${
+                    filter === f
+                      ? "border-action bg-action text-on-action"
+                      : "border-line text-muted hover:border-accent hover:text-fg"
+                  }`}
+                >
+                  {f}
+                </button>
+              ))}
+            </div>
+          }
         />
 
         <div className="reveal">
-          <div role="group" aria-label="Filtrar proyectos por tecnología principal" className="-mx-4 flex gap-2 overflow-x-auto px-4 pb-2 sm:mx-0 sm:flex-wrap sm:px-0">
-            {filters.map((f) => (
-              <button
-                key={f}
-                type="button"
-                aria-pressed={filter === f}
-                onClick={() => setFilter(f)}
-                className={`min-h-11 shrink-0 rounded-full border px-4 font-mono text-xs uppercase tracking-wider transition-colors ${
-                  filter === f
-                    ? "border-accent bg-accent text-bg"
-                    : "border-line text-muted hover:border-accent hover:text-fg"
-                }`}
-              >
-                {f}
-              </button>
-            ))}
-          </div>
           <p className="sr-only" aria-live="polite">
             {visible.length === 1 ? "1 proyecto visible" : `${visible.length} proyectos visibles`}
           </p>
 
-          <ul className="mt-10 grid grid-cols-1 gap-x-8 gap-y-12 pr-5 sm:grid-cols-2 lg:grid-cols-3">
+          <ul className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {visible.map((p) => (
               <ProjectCard key={p.id} project={p} index={projects.indexOf(p)} />
             ))}
+            {visible.length % 3 !== 0 && <MoreOnGitHub />}
           </ul>
         </div>
       </Container>

@@ -1,6 +1,8 @@
 // Proyectos del portafolio: arreglo tipado que Projects.tsx recorre con .map().
 // Para agregar un proyecto basta con agregar un objeto a este arreglo.
 
+export type Platform = "Móvil" | "Web" | "Escritorio";
+
 export type ProjectLink = { label: string; href: string };
 
 export type Project = {
@@ -12,8 +14,9 @@ export type Project = {
   /** Ruta en public/. Capturas tomadas de la app real (1600 × 1000). */
   image: string;
   imageAlt: string;
-  /** La primera etiqueta es la tecnología principal (se usa en el filtro). */
   tags: string[];
+  /** Dónde corre la app (se usa en el filtro). La primera es la principal. */
+  platforms: Platform[];
   /** Obligatorio: repositorio en GitHub. */
   githubUrl: string;
   /** Obligatorio. null mientras no haya demo publicada (TODO). Nunca usar "#". */
@@ -38,6 +41,7 @@ export const projects: Project[] = [
     image: "/images/projects/vozsegura.png",
     imageAlt: "Captura de Voz Segura: mockup de reloj inteligente con la hora, los pasos y el modo demo activado",
     tags: ["React", "TypeScript", "Capacitor", "Node.js", "Telegram", "IA"],
+    platforms: ["Web", "Móvil"],
     githubUrl: "https://github.com/MarioZaMu/VozSegura-Frontend",
     demoUrl: "https://voz-segura-frontend.vercel.app",
     releaseRepo: "MarioZaMu/VozSegura-Frontend",
@@ -53,6 +57,7 @@ export const projects: Project[] = [
     image: "/images/projects/mudanzify.png",
     imageAlt: "Captura de Mudanzify: pantalla de bienvenida «Tu mudanza de datos, sin perder nada» con el logo de la caja",
     tags: ["Electron", "TypeScript", "React", "Tailwind CSS", "IA"],
+    platforms: ["Escritorio"],
     githubUrl: "https://github.com/MarioZaMu/Mudanzify-Frontend",
     // El instalador para Windows sale del último release (botón «Descargar app»).
     demoUrl: null,
@@ -69,6 +74,7 @@ export const projects: Project[] = [
     image: "/images/projects/vidalvl.png",
     imageAlt: "Captura de Vidalvl: pantalla de misiones con el avatar en pixel art, nivel, racha y misiones diarias",
     tags: ["Kotlin", "Jetpack Compose", "Room", "CameraX", "IA"],
+    platforms: ["Móvil"],
     githubUrl: "https://github.com/MarioZaMu/Vidalvl",
     // En cuanto haya un release con el APK, aparece «Descargar APK» solo.
     demoUrl: null,

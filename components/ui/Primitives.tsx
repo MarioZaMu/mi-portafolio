@@ -38,25 +38,36 @@ export function Card({ className = "", children, ...props }: HTMLAttributes<HTML
 
 type SectionHeadingProps = {
   id: string;
+  /** Número de la sección en el recorrido («02 / Sobre mí»). */
+  number?: number;
   eyebrow: string;
   title: ReactNode;
   intro?: ReactNode;
   align?: "start" | "center";
+  /** Contenido a la derecha del título en escritorio (filtros, leyenda, insignias). */
+  aside?: ReactNode;
 };
 
-/** Título de sección con etiqueta superior estilo carta topográfica. */
-export function SectionHeading({ id, eyebrow, title, intro, align = "start" }: SectionHeadingProps) {
+/** Título de sección con etiqueta numerada estilo índice. */
+export function SectionHeading({ id, number, eyebrow, title, intro, align = "start", aside }: SectionHeadingProps) {
   const centered = align === "center";
   return (
-    <header className={`reveal mb-12 max-w-3xl md:mb-16 ${centered ? "mx-auto text-center" : ""}`}>
-      <p className={`label-mono flex items-center gap-3 text-accent ${centered ? "justify-center" : ""}`}>
-        <span aria-hidden="true" className="inline-block h-px w-8 bg-current" />
-        <span>{eyebrow}</span>
-      </p>
-      <h2 id={id} className="mt-4 text-4xl font-medium leading-[1.05] text-fg sm:text-5xl md:text-6xl">
-        {title}
-      </h2>
-      {intro && <p className="mt-5 text-lg leading-relaxed text-muted">{intro}</p>}
+    <header
+      className={`reveal mb-12 md:mb-14 ${centered ? "mx-auto max-w-3xl text-center" : ""} ${
+        aside ? "flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between" : ""
+      }`}
+    >
+      <div className="max-w-3xl">
+        <p className={`label-mono text-accent ${centered ? "text-center" : ""}`}>
+          {number !== undefined && <span>{String(number).padStart(2, "0")} / </span>}
+          <span>{eyebrow}</span>
+        </p>
+        <h2 id={id} className="mt-4 text-4xl font-medium leading-[1.05] text-fg sm:text-5xl md:text-6xl">
+          {title}
+        </h2>
+        {intro && <p className="mt-5 text-lg leading-relaxed text-muted">{intro}</p>}
+      </div>
+      {aside && <div className="shrink-0">{aside}</div>}
     </header>
   );
 }

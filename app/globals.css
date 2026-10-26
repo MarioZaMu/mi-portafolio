@@ -68,6 +68,7 @@
   --shadow-layer: color-mix(in srgb, black 55%, transparent);
   /* Líneas onduladas del fondo */
   --wave: color-mix(in srgb, var(--color-periwinkle) 16%, transparent);
+  --wave-accent: color-mix(in srgb, var(--color-periwinkle) 45%, transparent);
   /* Manchas del fondo aurora (provisional) */
   --aurora-1: color-mix(in srgb, var(--color-marine) 40%, transparent);
   --aurora-2: color-mix(in srgb, var(--color-periwinkle) 12%, transparent);
@@ -92,6 +93,7 @@
   --on-action: var(--color-snow);
   --shadow-layer: color-mix(in srgb, var(--color-navy) 20%, transparent);
   --wave: color-mix(in srgb, var(--color-navy) 15%, transparent);
+  --wave-accent: color-mix(in srgb, var(--color-marine) 70%, transparent);
   --aurora-1: color-mix(in srgb, var(--color-marine) 14%, transparent);
   --aurora-2: color-mix(in srgb, var(--color-snow) 80%, transparent);
   --aurora-3: color-mix(in srgb, var(--color-navy) 10%, transparent);

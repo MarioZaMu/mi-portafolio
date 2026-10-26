@@ -21,6 +21,7 @@ export default function Hero({ projects }: { projects: Project[] }) {
     <section
       id="inicio"
       aria-labelledby="hero-title"
+      data-bg="waves"
       className="relative isolate flex min-h-[100svh] flex-col justify-center pt-28"
     >
       <Container className="grid flex-1 grid-cols-1 items-center gap-14 lg:grid-cols-[minmax(0,1.25fr)_minmax(0,1fr)]">
