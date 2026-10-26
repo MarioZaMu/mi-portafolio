@@ -2,7 +2,6 @@
 
 import { useEffect, useRef, useState } from "react";
 import { navItems, site } from "@/data/site";
-import { ButtonLink } from "./ui/Button";
 import { Icon } from "./ui/Icon";
 import { ThemeToggle } from "./ui/ThemeToggle";
 
@@ -94,9 +93,6 @@ export default function Navbar() {
 
         <div className="flex items-center gap-2">
           <ThemeToggle />
-          <ButtonLink href={site.cv} download="CV-Mario-Zambrano.pdf" className="px-4! max-md:hidden">
-            Descargar CV
-          </ButtonLink>
           <button
             ref={toggleRef}
             type="button"
