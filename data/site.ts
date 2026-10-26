@@ -7,7 +7,7 @@ export const site = {
   role: "Desarrollador de software · apps móviles, web y de escritorio",
   tagline: "Hago software que se siente bien al usarlo, como un buen juego.",
   about:
-    "Soy Mario, estudiante de cuarto semestre de Ingeniería de Software en la UCC de Pasto. Me gusta construir apps que resuelven problemas reales: un botón de pánico para smartwatch, una app de escritorio que muda tus archivos sin perder nada y una app Android que convierte los hábitos en un RPG. Me apasionan los videojuegos y llevo esa forma de pensar —metas claras, progreso visible y algo de diversión— a todo lo que diseño y programo.",
+    "Me apasionan los videojuegos y llevo esa forma de pensar —metas claras, progreso visible y algo de diversión— a todo lo que diseño y programo.",
   university: "Universidad Cooperativa de Colombia",
   location: "Pasto, Nariño, Colombia",
   semester: "Cuarto semestre",
