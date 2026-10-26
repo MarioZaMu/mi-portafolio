@@ -71,7 +71,7 @@ export const projects: Project[] = [
     summary: "App Android de hábitos gamificada estilo RPG.",
     description:
       "App Android de hábitos estilo RPG: cada misión da experiencia a Cuerpo, Mente, Disciplina o Social y hace crecer tu avatar en pixel art. Mide constancia, no esfuerzo: nunca pierdes nivel por faltar un día. 62 recompensas, logros, verificación con foto e ideas de tareas con IA.",
-    image: "/images/projects/vidalvl.png",
+    image: "/images/projects/vidalvl-app.png",
     imageAlt: "Captura de Vidalvl: pantalla de misiones con el avatar en pixel art, nivel, racha y misiones diarias",
     tags: ["Kotlin", "Jetpack Compose", "Room", "CameraX", "IA"],
     platforms: ["Móvil"],

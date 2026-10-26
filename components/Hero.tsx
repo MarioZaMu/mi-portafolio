@@ -1,6 +1,6 @@
 import type { Project } from "@/data/projects";
 import { site } from "@/data/site";
-import { HeroCards } from "./HeroCards";
+import { HeroRadar } from "./HeroRadar";
 import { ButtonLink } from "./ui/Button";
 import { Container, delay } from "./ui/Primitives";
 
@@ -22,7 +22,7 @@ export default function Hero({ projects }: { projects: Project[] }) {
       id="inicio"
       aria-labelledby="hero-title"
       data-bg="waves"
-      className="relative isolate flex min-h-[100svh] flex-col justify-center pt-28"
+      className="relative isolate flex min-h-[100svh] flex-col justify-center overflow-x-clip pt-28"
     >
       <Container className="grid flex-1 grid-cols-1 items-center gap-14 lg:grid-cols-[minmax(0,1.25fr)_minmax(0,1fr)]">
         <div>
@@ -55,7 +55,7 @@ export default function Hero({ projects }: { projects: Project[] }) {
         </div>
 
         <div className="rise flex justify-center lg:justify-end" style={delay(160)}>
-          <HeroCards projects={projects} />
+          <HeroRadar projects={projects} />
         </div>
       </Container>
 

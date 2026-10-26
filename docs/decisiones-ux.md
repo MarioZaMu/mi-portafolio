@@ -60,7 +60,7 @@
 |---|---|---|
 | Fondo de líneas onduladas fijo, generado en el servidor y sin animación | Llena el espacio vacío sin distraer ni costar JS; se desvanece hacia abajo para no competir con el texto | `components/ui/WaveField.tsx`, `.wave-field` |
 | Apellidos en contorno bajo el nombre sólido | Jerarquía tipográfica: el nombre se lee primero y el contorno da carácter sin otro color | `text-outline` en `app/globals.css`, `components/Hero.tsx` |
-| Tarjetas de proyectos en abanico en el inicio; un clic trae cada una al frente | Muestra el trabajo desde el primer vistazo (divulgación progresiva); las de atrás son botones accesibles y su contenido queda `inert` | `components/HeroCards.tsx` |
+| Tarjetas de proyectos en abanico en el inicio; un clic trae cada una al frente | Muestra el trabajo desde el primer vistazo (divulgación progresiva); las de atrás son botones accesibles y su contenido queda `inert` | `components/HeroCards.tsx` (reemplazado por el radar) |
 | Franja de datos reales (proyectos, semestre, sede, plataformas) | Reconocimiento en lugar de recuerdo: lo clave se escanea en segundos | `components/Hero.tsx` |
 | Logo «MZ / Portafolio» y botón de CV fijo en el menú | El CV siempre está a un clic | `components/Navbar.tsx` |
 
@@ -75,3 +75,12 @@
 | Celda «Hay más en GitHub» cuando la cuadrícula queda incompleta | Sin huecos vacíos y con un siguiente paso claro | `components/Projects.tsx` |
 | Experiencia alternada: laboral a la izquierda y académica a la derecha, con marcador rombo/círculo | No depender solo del color (WCAG 1.4.1) | `components/Experience.tsx` |
 | Contacto en dos columnas y pie compacto en una fila | Menos recorrido visual al final de la página | `components/Contact.tsx`, `components/Footer.tsx` |
+
+## Radar de proyectos en el inicio (octubre 2026)
+
+| Decisión | Principio | Dónde |
+|---|---|---|
+| Radar en lugar de tarjetas en abanico: cada proyecto es un «eco» con nombre y plataforma | Reconocimiento a primera vista; los proyectos se descubren explorando | `components/HeroRadar.tsx` |
+| Al pasar el mouse, enfocar con teclado o tocar un eco, su tarjeta se expande desde ese punto hacia el centro, sin salirse del radar | Divulgación progresiva; Escape la cierra y devuelve el foco al eco | `components/HeroRadar.tsx`, `.radar-card` |
+| Con una tarjeta abierta, las etiquetas de los otros ecos se ocultan y sus puntos siguen accesibles encima | Menos ruido sin bloquear el cambio a otro proyecto | `components/HeroRadar.tsx` |
+| Captura de Vidalvl sin el fondo verdoso: el teléfono queda sobre el color de la página | Consistencia con la paleta en ambos temas | `public/images/projects/vidalvl-app.png`, `bg-bg` en `Projects.tsx` |

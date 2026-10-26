@@ -29,7 +29,7 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
         aria-labelledby={titleId}
         className="group flex h-full flex-col overflow-hidden rounded-layer border border-line bg-harbor shadow-[0_24px_50px_-35px_var(--shadow-layer)] transition-[transform,border-color] duration-300 hover:-translate-y-1 hover:border-accent focus-within:-translate-y-1 motion-reduce:transform-none light:bg-snow"
       >
-        <div className="relative aspect-[16/9] overflow-hidden border-b border-line">
+        <div className="relative aspect-[16/9] overflow-hidden border-b border-line bg-bg">
           <Image
             src={project.image}
             alt={project.imageAlt}
