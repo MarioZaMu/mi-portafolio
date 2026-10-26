@@ -39,7 +39,6 @@ export const navItems: NavItem[] = [
   { id: "inicio", label: "Inicio" },
   { id: "sobre-mi", label: "Sobre mí" },
   { id: "proyectos", label: "Proyectos" },
-  { id: "testimonios", label: "Testimonios" },
   { id: "experiencia", label: "Experiencia" },
   { id: "contacto", label: "Contacto" },
   { id: "habilidades", label: "Habilidades" },

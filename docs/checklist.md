@@ -34,7 +34,7 @@ Leyenda: ✅ cumplido · ⚠️ cumplido en código, falta contenido real (`TODO
 | 4 | Grid 1 col móvil, 2–3 escritorio | ✅ | `grid-cols-1 sm:grid-cols-2 lg:grid-cols-3` |
 | 4 | `target="_blank"` | ✅ | `ButtonLink external` → `target="_blank" rel="noopener noreferrer"` |
 | 4 | Datos en `data/projects.ts`, tipado, `.map()` | ✅ | tipo `Project`, `projects.map` |
-| 5 | Mínimo 3 testimonios con nombre, relación, avatar y texto | ⚠️ | `data/testimonials.ts` (3 placeholders: deben ser reales) |
+| 5 | Mínimo 3 testimonios con nombre, relación, avatar y texto | ❌ | Sección oculta por ahora (sin testimonios reales). `Testimonials.tsx` sigue listo: volver a ponerlo en `app/page.tsx` y en `navItems` antes de entregar |
 | 5 | Tipo `Testimonial` + arreglo ≥ 3 | ✅ | `data/testimonials.ts` |
 | 5 | Carrusel o grid (opcional) | ✅ | carrusel accesible con flechas, puntos y teclado |
 | 6 | Académica y laboral | ⚠️ | `data/experience.ts` (fechas y cursos `TODO`) |

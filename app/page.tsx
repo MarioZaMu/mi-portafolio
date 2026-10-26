@@ -6,13 +6,13 @@ import Hero from "@/components/Hero";
 import Navbar from "@/components/Navbar";
 import Projects from "@/components/Projects";
 import Skills from "@/components/Skills";
-import Testimonials from "@/components/Testimonials";
 import { StrataDivider } from "@/components/ui/Contours";
 import { RevealObserver } from "@/components/ui/RevealObserver";
 import { projects } from "@/data/projects";
 import { withLatestReleases } from "@/lib/releases";
 
-// Mismo orden del mapa: Menú → Hero + CV → Acerca de mí → Proyectos → Testimonios
+// Testimonios ocultos por ahora (components/Testimonials.tsx sigue listo para cuando haya reales).
+// Mismo orden del mapa: Menú → Hero + CV → Acerca de mí → Proyectos → (Testimonios)
 // → Experiencia → Contactos → Adicional (Habilidades) → Pie de página.
 export default async function Home() {
   const projectsWithReleases = await withLatestReleases(projects);
@@ -25,7 +25,6 @@ export default async function Home() {
         <StrataDivider seed={21} />
         <Projects projects={projectsWithReleases} />
         <StrataDivider seed={34} />
-        <Testimonials />
         <Experience />
         <StrataDivider seed={55} />
         <Contact />
