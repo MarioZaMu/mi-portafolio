@@ -218,9 +218,8 @@
 }
 
 /* Las ondas se desvanecen hacia abajo para no competir con el contenido */
-.wave-field {
-  mask-image: linear-gradient(to bottom, black 0%, black 55%, rgb(0 0 0 / 0.35) 100%);
-  -webkit-mask-image: linear-gradient(to bottom, black 0%, black 55%, rgb(0 0 0 / 0.35) 100%);
+.wave-fade {
+  background: linear-gradient(to bottom, transparent 55%, color-mix(in srgb, var(--bg) 65%, transparent) 100%);
 }
 
 /* ==========================================================================
