@@ -20,8 +20,8 @@ export const testimonials: Testimonial[] = [
     name: tx("Que Ricuras", "Que Ricuras"),
     role: tx("Negocio familiar de comidas rápidas", "Family fast-food business"),
     text: tx(
-      "La aplicación que Mario hizo para el negocio me facilitó el trabajo.",
-      "The app Mario made for the business made my work easier.",
+      "Con la aplicación que Mario hizo para el negocio, el trabajo se volvió mucho más fácil.",
+      "With the app Mario built for the business, our work became so much easier.",
     ),
     avatar: null,
   },
@@ -29,8 +29,8 @@ export const testimonials: Testimonial[] = [
     name: tx("Fernando Zambrano", "Fernando Zambrano"),
     role: tx("Usuario de TON Music Player", "TON Music Player user"),
     text: tx(
-      "Me encantó el reproductor de música de Mario. Puedo armar mis propias listas sin que me salgan anuncios.",
-      "I loved Mario's music player. I can build my own playlists without any ads.",
+      "Me encantó el reproductor que hizo Mario: armo mis propias listas y las escucho sin un solo anuncio.",
+      "I loved the music player Mario made: I put together my own playlists and listen to them without a single ad.",
     ),
     avatar: null,
   },
@@ -38,8 +38,8 @@ export const testimonials: Testimonial[] = [
     name: tx("Mirian Muñoz", "Mirian Muñoz"),
     role: tx("Usuaria de Mudanzify", "Mudanzify user"),
     text: tx(
-      "Por mi trabajo tengo muchos documentos y presentaciones, y me llenan la memoria del computador. Con Mudanzify traspaso los que necesito y la app me ayuda a identificar cuáles ya no sirven.",
-      "Because of my job I have lots of documents and presentations, and they fill up my computer's memory. With Mudanzify I transfer the ones I need and the app helps me spot which ones are no longer useful.",
+      "Por mi trabajo manejo muchísimos documentos y presentaciones, y terminan llenando la memoria de mi computador. Con Mudanzify traspaso los que necesito y, además, la app me ayuda a identificar cuáles ya no sirven.",
+      "My job means handling a huge number of documents and presentations, and they end up filling my computer's memory. With Mudanzify I transfer the ones I need and, on top of that, the app helps me spot which ones are no longer useful.",
     ),
     avatar: null,
   },
