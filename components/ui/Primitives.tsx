@@ -40,7 +40,7 @@ type SectionHeadingProps = {
   id: string;
   /** Número de la sección en el recorrido («02 / Sobre mí»). */
   number?: number;
-  eyebrow: string;
+  eyebrow: ReactNode;
   title: ReactNode;
   intro?: ReactNode;
   align?: "start" | "center";

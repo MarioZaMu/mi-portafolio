@@ -49,7 +49,7 @@ export default function OpengraphImage() {
         </div>
         <div style={{ fontSize: 88, marginTop: 24, lineHeight: 1 }}>Mario Alberto</div>
         <div style={{ fontSize: 88, fontStyle: "italic", color: "#A9ADF0", lineHeight: 1.1 }}>Zambrano Muñoz</div>
-        <div style={{ fontSize: 32, marginTop: 32, maxWidth: 760 }}>{site.role}</div>
+        <div style={{ fontSize: 32, marginTop: 32, maxWidth: 760 }}>{site.role.es}</div>
       </div>
     ),
     size,

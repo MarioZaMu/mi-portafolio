@@ -1,5 +1,6 @@
 import { projects } from "@/data/projects";
 import { skillGroups } from "@/data/skills";
+import { T, tx } from "@/lib/i18n";
 import { Container, SectionHeading, delay } from "./ui/Primitives";
 
 const projectTitle = new Map(projects.map((p) => [p.id, p.title]));
@@ -12,9 +13,9 @@ export default function Skills() {
         <SectionHeading
           id="habilidades-title"
           number={6}
-          eyebrow="Habilidades"
-          title="Herramientas y tecnologías"
-          intro="Agrupadas por área y conectadas con los proyectos donde las usé."
+          eyebrow={<T {...tx("Habilidades", "Skills")} />}
+          title={<T {...tx("Herramientas y tecnologías", "Tools and technologies")} />}
+          intro={<T {...tx("Agrupadas por área y conectadas con los proyectos donde las usé.", "Grouped by area and linked to the projects where I used them.")} />}
         />
 
         <ol className="grid gap-4">
@@ -25,8 +26,12 @@ export default function Skills() {
               style={{ ...delay(i * 70), marginLeft: `min(${i * 1.5}rem, ${i * 3}vw)` }}
             >
               <div>
-                <h3 className="text-2xl font-medium text-fg">{group.title}</h3>
-                <p className="mt-2 text-base text-muted">{group.summary}</p>
+                <h3 className="text-2xl font-medium text-fg">
+                  <T {...group.title} />
+                </h3>
+                <p className="mt-2 text-base text-muted">
+                  <T {...group.summary} />
+                </p>
               </div>
               <ul className="flex flex-wrap content-start gap-2">
                 {group.skills.map((skill) => {
@@ -36,8 +41,14 @@ export default function Skills() {
                       key={skill.name}
                       className="flex min-h-11 flex-col justify-center rounded-card border border-line bg-surface-soft px-4 py-2"
                     >
-                      <span className="font-semibold text-fg">{skill.name}</span>
-                      {used && <span className="font-mono text-xs text-muted">en {used}</span>}
+                      <span className="font-semibold text-fg">
+                        <T {...tx(skill.name, skill.nameEn ?? skill.name)} />
+                      </span>
+                      {used && (
+                        <span className="font-mono text-xs text-muted">
+                          <T {...tx("en", "in")} /> {used}
+                        </span>
+                      )}
                     </li>
                   );
                 })}

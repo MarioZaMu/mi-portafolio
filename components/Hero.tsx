@@ -1,5 +1,6 @@
 import type { Project } from "@/data/projects";
 import { site } from "@/data/site";
+import { T, tx, type Tx } from "@/lib/i18n";
 import { HeroRadar } from "./HeroRadar";
 import { ButtonLink } from "./ui/Button";
 import { Container, delay } from "./ui/Primitives";
@@ -10,11 +11,11 @@ export default function Hero({ projects }: { projects: Project[] }) {
   const secondLine = rest.slice(1).join(" "); // "Zambrano Muñoz"
 
   // Datos reales (todos salen de data/): proyectos, semestre, sede y plataformas.
-  const stats = [
-    { value: String(projects.length).padStart(2, "0"), label: "Proyectos" },
-    { value: "4.º", label: "Semestre" },
-    { value: "UCC", label: "Campus Pasto" },
-    { value: "Full", label: "Móvil · Web · Escritorio" },
+  const stats: { value: Tx; label: Tx }[] = [
+    { value: tx(String(projects.length).padStart(2, "0"), String(projects.length).padStart(2, "0")), label: tx("Proyectos", "Projects") },
+    { value: site.semesterShort, label: tx("Semestre", "Semester") },
+    { value: tx("UCC", "UCC"), label: tx("Campus Pasto", "Pasto campus") },
+    { value: tx("Full", "Full"), label: tx("Móvil · Web · Escritorio", "Mobile · Web · Desktop") },
   ];
 
   return (
@@ -27,7 +28,7 @@ export default function Hero({ projects }: { projects: Project[] }) {
       <Container className="grid flex-1 grid-cols-1 items-center gap-14 lg:grid-cols-[minmax(0,1.25fr)_minmax(0,1fr)]">
         <div>
           <p className="rise label-mono text-accent" style={delay(0)}>
-            Ingeniería de Software · Pasto, Colombia
+            <T {...tx("Ingeniería de Software · Pasto, Colombia", "Software Engineering · Pasto, Colombia")} />
           </p>
 
           <h1
@@ -40,16 +41,19 @@ export default function Hero({ projects }: { projects: Project[] }) {
           </h1>
 
           <p className="rise mt-7 max-w-xl text-lg leading-relaxed text-muted sm:text-xl" style={delay(80)}>
-            <span className="font-semibold text-fg">{site.role}.</span> {site.tagline}
+            <span className="font-semibold text-fg">
+              <T {...site.role} />.
+            </span>{" "}
+            <T {...site.tagline} />
           </p>
 
           <div className="rise mt-9 flex flex-col gap-3 sm:flex-row sm:items-center" style={delay(120)}>
             {/* Obligatorio: descarga directa del CV */}
             <ButtonLink href={site.cv} download="CV-Mario-Zambrano.pdf" size="lg" icon="download" iconPosition="start">
-              Descargar CV
+              <T {...tx("Descargar CV", "Download CV")} />
             </ButtonLink>
             <ButtonLink href="#proyectos" variant="secondary" size="lg" icon="arrowRight">
-              Ver proyectos
+              <T {...tx("Ver proyectos", "View projects")} />
             </ButtonLink>
           </div>
         </div>
@@ -63,13 +67,17 @@ export default function Hero({ projects }: { projects: Project[] }) {
         <dl className="grid grid-cols-2 border-t border-line md:grid-cols-4" style={delay(220)}>
           {stats.map((s, i) => (
             <div
-              key={s.label}
+              key={s.label.es}
               className={`flex flex-col-reverse gap-1 py-6 pr-4 md:py-8 ${i % 2 === 1 ? "border-l border-line pl-5" : ""} ${
                 i > 0 ? "md:border-l md:border-line md:pl-6" : ""
               } ${i >= 2 ? "border-t border-line md:border-t-0" : ""}`}
             >
-              <dt className="label-mono text-accent">{s.label}</dt>
-              <dd className="font-display text-4xl font-medium leading-none text-fg sm:text-5xl">{s.value}</dd>
+              <dt className="label-mono text-accent">
+                <T {...s.label} />
+              </dt>
+              <dd className="font-display text-4xl font-medium leading-none text-fg sm:text-5xl">
+                <T {...s.value} />
+              </dd>
             </div>
           ))}
         </dl>

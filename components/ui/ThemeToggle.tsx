@@ -1,6 +1,7 @@
 "use client";
 
 import { useSyncExternalStore } from "react";
+import { useLang } from "@/lib/useLang";
 import { Icon } from "./Icon";
 
 type Theme = "light" | "dark";
@@ -16,7 +17,12 @@ const getTheme = (): Theme => (document.documentElement.dataset.theme === "light
 /** Alterna claro/oscuro. El tema inicial lo fija el script de layout (preferencia guardada o del sistema). */
 export function ThemeToggle({ className = "" }: { className?: string }) {
   const theme = useSyncExternalStore(subscribe, getTheme, () => "dark" as Theme);
+  const lang = useLang();
   const next: Theme = theme === "dark" ? "light" : "dark";
+  const label =
+    lang === "en"
+      ? next === "light" ? "Switch to light theme" : "Switch to dark theme"
+      : next === "light" ? "Activar tema claro" : "Activar tema oscuro";
 
   function toggle() {
     document.documentElement.dataset.theme = next;
@@ -31,8 +37,8 @@ export function ThemeToggle({ className = "" }: { className?: string }) {
     <button
       type="button"
       onClick={toggle}
-      aria-label={next === "light" ? "Activar tema claro" : "Activar tema oscuro"}
-      title={next === "light" ? "Tema claro" : "Tema oscuro"}
+      aria-label={label}
+      title={label}
       className={`inline-flex h-11 w-11 items-center justify-center rounded-full border border-line text-fg transition-colors hover:border-accent hover:bg-periwinkle/15 active:bg-periwinkle/25 ${className}`}
     >
       <Icon name={theme === "dark" ? "sun" : "moon"} size={20} />

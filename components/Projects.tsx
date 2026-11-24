@@ -5,17 +5,27 @@ import { useState } from "react";
 import type { Platform, Project, Shot } from "@/data/projects";
 import { site } from "@/data/site";
 import { badgeFor } from "@/lib/badges";
+import { T, newTab, platformText, pick, tagText, tx } from "@/lib/i18n";
+import { useLang } from "@/lib/useLang";
 import { ButtonLink, buttonClasses } from "./ui/Button";
 import { Icon } from "./ui/Icon";
 import { Chip, Container, SectionHeading } from "./ui/Primitives";
 
 const ALL = "Todos";
+const allText = tx("Todos", "All");
 
-function PendingLink({ label }: { label: string }) {
+function PendingLink() {
+  const lang = useLang();
   return (
-    <span aria-disabled="true" className={buttonClasses("secondary", "md", "border-dashed")} title="Enlace pendiente">
+    <span
+      aria-disabled="true"
+      className={buttonClasses("secondary", "md", "border-dashed")}
+      title={lang === "en" ? "Link pending" : "Enlace pendiente"}
+    >
       <Icon name="clock" size={18} className="shrink-0" />
-      <span>{label}</span>
+      <span>
+        <T {...tx("Demo pendiente", "Demo pending")} />
+      </span>
     </span>
   );
 }
@@ -28,9 +38,10 @@ const sizes = "(min-width: 1024px) 380px, (min-width: 640px) 50vw, 100vw";
  * no cargan una imagen diferida que estaba en display:none cuando luego se muestra.
  */
 function ThemedImage({ shot, className, sizes }: { shot: Shot; className: string; sizes: string }) {
+  const lang = useLang();
   return (
     <>
-      <Image src={shot.src} alt={shot.alt} fill sizes={sizes} className={`${className} ${shot.srcLight ? "light:opacity-0" : ""}`} />
+      <Image src={shot.src} alt={shot.alt[lang]} fill sizes={sizes} className={`${className} ${shot.srcLight ? "light:opacity-0" : ""}`} />
       {shot.srcLight && (
         // Mismo texto alternativo que la oscura: se marca decorativa para no leerlo dos veces.
         <Image src={shot.srcLight} alt="" aria-hidden="true" fill sizes={sizes} className={`${className} opacity-0 light:opacity-100`} />
@@ -41,6 +52,7 @@ function ThemedImage({ shot, className, sizes }: { shot: Shot; className: string
 
 /** Capturas de la tarjeta: celulares lado a lado, o pantallas una a la vez con puntos para cambiar. */
 function Shots({ project }: { project: Project }) {
+  const lang = useLang();
   const [current, setCurrent] = useState(0);
   const zoom = "transition-transform duration-500 group-hover:scale-[1.04] motion-reduce:transform-none";
 
@@ -76,14 +88,16 @@ function Shots({ project }: { project: Project }) {
         <div
           className="absolute bottom-2 left-1/2 z-10 flex -translate-x-1/2 rounded-full bg-midnight/70 px-1 backdrop-blur-sm"
           role="group"
-          aria-label={`Capturas de ${project.title}`}
+          aria-label={lang === "en" ? `Screenshots of ${project.title}` : `Capturas de ${project.title}`}
         >
           {project.shots.map((shot, i) => (
             <button
               key={shot.src}
               type="button"
               onClick={() => setCurrent(i)}
-              aria-label={`Ver captura ${i + 1} de ${project.shots.length}`}
+              aria-label={
+                lang === "en" ? `View screenshot ${i + 1} of ${project.shots.length}` : `Ver captura ${i + 1} de ${project.shots.length}`
+              }
               aria-pressed={i === current}
               className="group/dot inline-flex h-8 w-7 items-center justify-center"
             >
@@ -101,6 +115,7 @@ function Shots({ project }: { project: Project }) {
 }
 
 function ProjectCard({ project, index }: { project: Project; index: number }) {
+  const lang = useLang();
   const titleId = `proyecto-${project.id}`;
   const badge = badgeFor(project);
   return (
@@ -112,11 +127,11 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
         <div className="relative aspect-[16/9] overflow-hidden border-b border-line bg-bg">
           <Shots project={project} />
           <span className="label-mono absolute left-3 top-3 rounded-full bg-midnight/85 px-3 py-1 text-pearl">
-            {String(index + 1).padStart(2, "0")} / {project.platforms[0]}
+            {String(index + 1).padStart(2, "0")} / <T {...platformText[project.platforms[0]]} />
           </span>
           {badge && (
             <span className="absolute right-3 top-3 rounded-full bg-action px-3 py-1 text-xs font-semibold text-on-action">
-              {badge}
+              <T {...badge} />
             </span>
           )}
         </div>
@@ -125,25 +140,40 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
           <h3 id={titleId} className="text-2xl font-medium text-fg sm:text-3xl">
             {project.title}
           </h3>
-          <p className="mt-2 text-base leading-relaxed text-muted">{project.summary}</p>
-          <ul className="mt-4 flex flex-wrap gap-1.5" aria-label={`Tecnologías de ${project.title}`}>
+          <p className="mt-2 text-base leading-relaxed text-muted">
+            <T {...project.summary} />
+          </p>
+          <ul
+            className="mt-4 flex flex-wrap gap-1.5"
+            aria-label={lang === "en" ? `Technologies of ${project.title}` : `Tecnologías de ${project.title}`}
+          >
             {project.tags.map((tag) => (
               <li key={tag}>
-                <Chip className="rounded-full">{tag}</Chip>
+                <Chip className="rounded-full">
+                  <T {...tagText(tag)} />
+                </Chip>
               </li>
             ))}
           </ul>
 
           <details className="group/more mt-4">
             <summary className="inline-flex min-h-11 cursor-pointer list-none items-center gap-1 text-sm font-semibold text-accent underline-offset-4 hover:underline [&::-webkit-details-marker]:hidden">
-              <span className="group-open/more:hidden">Ver más</span>
-              <span className="hidden group-open/more:inline">Ver menos</span>
+              <span className="group-open/more:hidden">
+                <T {...tx("Ver más", "See more")} />
+              </span>
+              <span className="hidden group-open/more:inline">
+                <T {...tx("Ver menos", "See less")} />
+              </span>
               <Icon name="chevronRight" size={16} className="transition-transform group-open/more:rotate-90" />
             </summary>
-            <p className="mt-1 text-sm leading-relaxed text-muted">{project.description}</p>
+            <p className="mt-1 text-sm leading-relaxed text-muted">
+              <T {...project.description} />
+            </p>
             <p className="mt-3 text-sm text-fg">
-              <span className="label-mono text-accent">Mi aporte · </span>
-              {project.role}
+              <span className="label-mono text-accent">
+                <T {...tx("Mi aporte", "My contribution")} /> ·{" "}
+              </span>
+              <T {...project.role} />
             </p>
           </details>
 
@@ -154,7 +184,7 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
               variant="secondary"
               icon="github"
               iconPosition="start"
-              aria-label={`Código de ${project.title} en GitHub`}
+              aria-label={lang === "en" ? `${project.title} code on GitHub` : `Código de ${project.title} en GitHub`}
             >
               GitHub
             </ButtonLink>
@@ -163,12 +193,12 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
                 href={project.demoUrl}
                 external
                 icon={project.demoLabel ? "download" : "external"}
-                aria-label={`${project.demoLabel ?? "Demo en vivo"} de ${project.title}`}
+                aria-label={`${pick(project.demoLabel ?? tx("Demo en vivo", "Live demo"), lang)} · ${project.title}`}
               >
-                {project.demoLabel ?? "Demo en vivo"}
+                <T {...(project.demoLabel ?? tx("Demo en vivo", "Live demo"))} />
               </ButtonLink>
             ) : (
-              <PendingLink label="Demo pendiente" />
+              <PendingLink />
             )}
             {project.extraLinks?.map((link) => (
               <ButtonLink
@@ -177,9 +207,9 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
                 external
                 variant="ghost"
                 icon="external"
-                aria-label={`${link.label} de ${project.title} (GitHub)`}
+                aria-label={`${pick(link.label, lang)} · ${project.title} (GitHub)`}
               >
-                {link.label}
+                <T {...link.label} />
               </ButtonLink>
             ))}
           </div>
@@ -200,9 +230,14 @@ function MoreOnGitHub() {
         className="group flex h-full min-h-56 flex-col items-center justify-center gap-3 rounded-layer border border-dashed border-line p-8 text-center transition-colors hover:border-accent hover:bg-periwinkle/5"
       >
         <Icon name="github" size={28} className="text-accent" />
-        <span className="font-display text-2xl text-fg sm:text-3xl">Hay más en GitHub</span>
+        <span className="font-display text-2xl text-fg sm:text-3xl">
+          <T {...tx("Hay más en GitHub", "There's more on GitHub")} />
+        </span>
         <span className="label-mono text-accent group-hover:underline">github.com/{site.githubUser}</span>
-        <span className="sr-only"> (se abre en una pestaña nueva)</span>
+        <span className="sr-only">
+          {" "}
+          <T {...newTab} />
+        </span>
       </a>
     </li>
   );
@@ -210,6 +245,7 @@ function MoreOnGitHub() {
 
 // Recibe los proyectos ya completados con sus releases desde app/page.tsx (servidor).
 export default function Projects({ projects }: { projects: Project[] }) {
+  const lang = useLang();
   const [filter, setFilter] = useState<Platform | typeof ALL>(ALL);
   // Filtro por plataforma, solo con las que existen (ley de Hick: pocas opciones claras).
   const order: Platform[] = ["Móvil", "Web", "Escritorio"];
@@ -222,11 +258,18 @@ export default function Projects({ projects }: { projects: Project[] }) {
         <SectionHeading
           id="proyectos-title"
           number={3}
-          eyebrow="Proyectos"
-          title="Proyectos"
-          intro="Lo que he construido: cada uno enlaza a su código en GitHub y a su demo o descarga."
+          eyebrow={<T {...tx("Proyectos", "Projects")} />}
+          title={<T {...tx("Proyectos", "Projects")} />}
+          intro={
+            <T
+              {...tx(
+                "Lo que he construido: cada uno enlaza a su código en GitHub y a su demo o descarga.",
+                "What I've built: each one links to its code on GitHub and to its demo or download.",
+              )}
+            />
+          }
           aside={
-            <div role="group" aria-label="Filtrar proyectos por plataforma" className="-mx-4 flex gap-2 overflow-x-auto px-4 pb-1 sm:mx-0 sm:flex-wrap sm:px-0">
+            <div role="group" aria-label={lang === "en" ? "Filter projects by platform" : "Filtrar proyectos por plataforma"} className="-mx-4 flex gap-2 overflow-x-auto px-4 pb-1 sm:mx-0 sm:flex-wrap sm:px-0">
               {filters.map((f) => (
                 <button
                   key={f}
@@ -239,7 +282,7 @@ export default function Projects({ projects }: { projects: Project[] }) {
                       : "border-line text-muted hover:border-accent hover:text-fg"
                   }`}
                 >
-                  {f}
+                  <T {...(f === ALL ? allText : platformText[f])} />
                 </button>
               ))}
             </div>
@@ -248,7 +291,9 @@ export default function Projects({ projects }: { projects: Project[] }) {
 
         <div className="reveal">
           <p className="sr-only" aria-live="polite">
-            {visible.length === 1 ? "1 proyecto visible" : `${visible.length} proyectos visibles`}
+            {visible.length === 1
+              ? pick(tx("1 proyecto visible", "1 project shown"), lang)
+              : pick(tx(`${visible.length} proyectos visibles`, `${visible.length} projects shown`), lang)}
           </p>
 
           <ul className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">

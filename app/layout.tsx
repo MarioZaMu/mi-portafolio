@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Fraunces, JetBrains_Mono, Manrope } from "next/font/google";
 import { WaveField } from "@/components/ui/WaveField";
 import { site } from "@/data/site";
+import { T } from "@/lib/i18n";
 import "./globals.css";
 
 const fraunces = Fraunces({
@@ -23,7 +24,7 @@ const jetbrains = JetBrains_Mono({
   preload: false,
 });
 
-const description = `${site.role} en ${site.location}. Proyectos móviles, web y de escritorio con Kotlin, TypeScript y React.`;
+const description = `${site.role.es} en ${site.location}. Proyectos móviles, web y de escritorio con Kotlin, TypeScript y React.`;
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
@@ -61,13 +62,15 @@ export const viewport: Viewport = {
 };
 
 // Corre antes del primer pintado: aplica el tema guardado o el del sistema y marca que hay JS.
-const themeScript = `(function(){try{var d=document.documentElement;d.classList.add("js");var t=localStorage.getItem("theme");if(t!=="light"&&t!=="dark"){t=window.matchMedia("(prefers-color-scheme: light)").matches?"light":"dark"}d.setAttribute("data-theme",t)}catch(e){}})()`;
+// También aplica el idioma guardado (español por defecto) y ajusta lang y el título.
+const themeScript = `(function(){try{var d=document.documentElement;d.classList.add("js");var t=localStorage.getItem("theme");if(t!=="light"&&t!=="dark"){t=window.matchMedia("(prefers-color-scheme: light)").matches?"light":"dark"}d.setAttribute("data-theme",t);var l=localStorage.getItem("lang")==="en"?"en":"es";d.setAttribute("data-lang",l);d.lang=l;if(l==="en"){document.title=document.title.replace("Portafolio","Portfolio")}}catch(e){}})()`;
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="es"
       data-theme="dark"
+      data-lang="es"
       suppressHydrationWarning
       className={`${fraunces.variable} ${manrope.variable} ${jetbrains.variable} antialiased`}
     >
@@ -82,7 +85,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           href="#contenido"
           className="fixed left-4 top-4 z-[100] -translate-y-24 rounded-card bg-action px-5 py-3 font-semibold text-on-action shadow-lg transition-transform focus-visible:translate-y-0"
         >
-          Saltar al contenido
+          <T es="Saltar al contenido" en="Skip to content" />
         </a>
         {children}
       </body>

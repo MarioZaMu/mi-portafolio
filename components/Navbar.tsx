@@ -2,7 +2,10 @@
 
 import { useEffect, useRef, useState } from "react";
 import { navItems, site } from "@/data/site";
+import { T, tx } from "@/lib/i18n";
+import { useLang } from "@/lib/useLang";
 import { Icon } from "./ui/Icon";
+import { LangToggle } from "./ui/LangToggle";
 import { ThemeToggle } from "./ui/ThemeToggle";
 
 export default function Navbar() {
@@ -10,6 +13,7 @@ export default function Navbar() {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const toggleRef = useRef<HTMLButtonElement>(null);
+  const lang = useLang();
 
   // Sección activa: la que ocupa la franja central de la pantalla.
   useEffect(() => {
@@ -65,21 +69,25 @@ export default function Navbar() {
           : "border-b border-transparent"
       }`}
     >
-      <nav aria-label="Principal" className="mx-auto flex h-16 max-w-[75rem] items-center justify-between gap-4 px-4 sm:px-6 md:px-8">
+      <nav aria-label={lang === "en" ? "Main" : "Principal"} className="mx-auto flex h-16 max-w-[75rem] items-center justify-between gap-4 px-4 sm:px-6 md:px-8">
         <a
           href="#inicio"
           className="label-mono inline-flex min-h-11 items-center gap-2 whitespace-nowrap rounded-full pr-2 text-fg transition-colors hover:text-accent"
           onClick={() => setOpen(false)}
         >
-          <span aria-hidden="true">{site.initials} / Portafolio</span>
-          <span className="sr-only">{site.shortName}, ir al inicio</span>
+          <span aria-hidden="true">
+            {site.initials} / <T {...tx("Portafolio", "Portfolio")} />
+          </span>
+          <span className="sr-only">
+            {site.shortName}, <T {...tx("ir al inicio", "go to the top")} />
+          </span>
         </a>
 
         <ul className="hidden items-center gap-1 lg:flex">
           {navItems.slice(1).map((item) => (
             <li key={item.id}>
               <a href={`#${item.id}`} className={linkClass(item.id)} aria-current={active === item.id ? "location" : undefined}>
-                {item.label}
+                <T {...item.label} />
                 <span
                   aria-hidden="true"
                   className={`absolute inset-x-3 -bottom-0.5 h-0.5 origin-left rounded-full bg-marine transition-transform duration-300 ${
@@ -92,6 +100,7 @@ export default function Navbar() {
         </ul>
 
         <div className="flex items-center gap-2">
+          <LangToggle />
           <ThemeToggle />
           <button
             ref={toggleRef}
@@ -99,7 +108,7 @@ export default function Navbar() {
             className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-line text-fg transition-colors hover:border-accent hover:bg-periwinkle/15 lg:hidden"
             aria-expanded={open}
             aria-controls="menu-movil"
-            aria-label={open ? "Cerrar menú" : "Abrir menú"}
+            aria-label={lang === "en" ? (open ? "Close menu" : "Open menu") : open ? "Cerrar menú" : "Abrir menú"}
             onClick={() => setOpen((v) => !v)}
           >
             <Icon name={open ? "close" : "menu"} size={22} />
@@ -122,7 +131,7 @@ export default function Navbar() {
                 <span aria-hidden="true" className="font-mono text-xs text-accent">
                   {String(i + 1).padStart(2, "0")}
                 </span>
-                {item.label}
+                <T {...item.label} />
               </a>
             </li>
           ))}

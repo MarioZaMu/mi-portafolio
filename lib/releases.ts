@@ -1,11 +1,12 @@
 import type { Project } from "@/data/projects";
+import { tx, type Tx } from "@/lib/i18n";
 
 // Lee el último release de GitHub de cada proyecto para que el botón de descarga
 // aparezca (o cambie de versión) solo, sin editar data/projects.ts.
 // La página se regenera como máximo cada REVALIDATE segundos (ISR).
 const REVALIDATE = 300;
 
-type Release = { tag: string; url: string; label: string };
+type Release = { tag: string; url: string; label: Tx };
 
 type GitHubRelease = {
   tag_name: string;
@@ -14,11 +15,11 @@ type GitHubRelease = {
   assets: { name: string }[];
 };
 
-function labelFor(assets: { name: string }[]): string {
+function labelFor(assets: { name: string }[]): Tx {
   const names = assets.map((a) => a.name.toLowerCase());
-  if (names.some((n) => n.endsWith(".apk"))) return "Descargar APK";
-  if (names.some((n) => /\.(exe|msi|dmg|appimage|deb)$/.test(n))) return "Descargar app";
-  return "Ver release";
+  if (names.some((n) => n.endsWith(".apk"))) return tx("Descargar APK", "Download APK");
+  if (names.some((n) => /\.(exe|msi|dmg|appimage|deb)$/.test(n))) return tx("Descargar app", "Download app");
+  return tx("Ver release", "View release");
 }
 
 async function latestRelease(repo: string): Promise<Release | null> {
@@ -54,7 +55,7 @@ export async function withLatestReleases(list: Project[]): Promise<Project[]> {
       if (!project.releaseRepo) return project;
       const release = await latestRelease(project.releaseRepo);
       if (!release) return project;
-      const label = `${release.label} · ${release.tag}`;
+      const label = tx(`${release.label.es} · ${release.tag}`, `${release.label.en} · ${release.tag}`);
       if (!project.demoUrl) return { ...project, demoUrl: release.url, demoLabel: label };
       return { ...project, extraLinks: [...(project.extraLinks ?? []), { label, href: release.url }] };
     }),

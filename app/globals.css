@@ -360,3 +360,9 @@
     transform: none;
   }
 }
+
+/* Idioma: cada texto trae las dos versiones (componente T) y solo se ve la del idioma activo. */
+html:not([data-lang="en"]) [data-l="en"],
+html[data-lang="en"] [data-l="es"] {
+  display: none;
+}

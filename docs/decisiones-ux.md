@@ -87,3 +87,14 @@
 | Radar más detallado: bisel con marcas cada 5°, rumbos 000–270, barrido con borde brillante, ecos que destellan al pasar el barrido y línea de fijación al eco activo | Retroalimentación visual de qué proyecto está seleccionado; lectura «rumbo NNN°» debajo | `components/HeroRadar.tsx`, `.radar-*` en `globals.css` |
 | Capturas de Vidalvl como dos celulares lado a lado sobre el color de la página, en su versión clara u oscura según el tema del portafolio | Consistencia con la paleta en ambos temas; se ve que la app también tiene los dos temas | `shots` / `shotLayout: "phone"` en `data/projects.ts`, `Shots` en `Projects.tsx` |
 | Mudanzify con dos capturas (bienvenida e inicio) y puntos para cambiar entre ellas | Muestra más de la app sin alargar la tarjeta; los puntos son botones con `aria-pressed` | `Projects.tsx` |
+
+## Idioma español / inglés (noviembre 2026)
+
+| Decisión | Principio | Dónde |
+|---|---|---|
+| Botón «EN» / «ES» junto al de tema, mismo tamaño y borde; muestra el idioma al que se cambiará | Consistencia con el botón de tema y reconocimiento sin leer (convención de los selectores de idioma) | `components/ui/LangToggle.tsx`, `Navbar.tsx` |
+| Español por defecto; la elección se guarda y se aplica antes del primer pintado | Sin parpadeo al cargar y se respeta la preferencia al volver | script en `app/layout.tsx`, `data-lang` en `<html>` |
+| Cada texto trae sus dos versiones (`<T es en />`) y CSS muestra la activa | Los componentes de servidor siguen sin JavaScript y el cambio es instantáneo | `lib/i18n.tsx`, `globals.css` |
+| Los datos (`data/`) guardan cada texto como `tx("español", "english")` | Un proyecto nuevo se agrega en un solo lugar y en los dos idiomas | `data/*.ts` |
+| Atributos (aria-label, placeholder, alt) usan el idioma activo; `<html lang>` y el título cambian con él | Accesibilidad: el lector de pantalla lee en el idioma correcto (WCAG 3.1.1 y 3.1.2) | `lib/useLang.ts` |
+| Cuarto eco del radar a un costado | Con 4 proyectos las etiquetas se pisaban | `components/HeroRadar.tsx` |

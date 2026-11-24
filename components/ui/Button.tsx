@@ -1,4 +1,5 @@
 import type { AnchorHTMLAttributes, ButtonHTMLAttributes, ReactNode } from "react";
+import { T, newTab } from "@/lib/i18n";
 import { Icon, type IconName } from "./Icon";
 
 type Variant = "primary" | "secondary" | "tonal" | "ghost";
@@ -64,7 +65,12 @@ export function ButtonLink({ variant, size, icon, iconPosition, children, classN
       <Content icon={icon} iconPosition={iconPosition}>
         {children}
       </Content>
-      {external && <span className="sr-only"> (se abre en una pestaña nueva)</span>}
+      {external && (
+        <span className="sr-only">
+          {" "}
+          <T {...newTab} />
+        </span>
+      )}
     </a>
   );
 }

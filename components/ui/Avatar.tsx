@@ -29,7 +29,7 @@ export function Avatar({ size, priority = false, className = "" }: AvatarProps) 
         {hasPhoto ? (
           <Image
             src={site.photo}
-            alt={`Retrato de ${site.name}`}
+            alt={site.name}
             fill
             sizes={`${Math.round(size * 0.64)}px`}
             priority={priority}
@@ -38,7 +38,7 @@ export function Avatar({ size, priority = false, className = "" }: AvatarProps) 
         ) : (
           <div
             role="img"
-            aria-label={`Avatar con las iniciales de ${site.name}`}
+            aria-label={site.name}
             className="flex h-full w-full items-center justify-center bg-[radial-gradient(circle_at_30%_25%,var(--color-periwinkle),var(--color-harbor)_55%,var(--color-midnight))]"
           >
             <span
@@ -69,7 +69,7 @@ export function ArchPortrait({ className = "" }: { className?: string }) {
       <div aria-hidden="true" className="absolute inset-0 -z-10 translate-x-6 translate-y-6 rounded-t-[999px] rounded-b-layer border border-line bg-surface-soft" />
       <div className="relative aspect-[4/5] overflow-hidden rounded-t-[999px] rounded-b-layer border border-line bg-harbor light:bg-snow">
         {hasPhoto ? (
-          <Image src={site.photo} alt={`Retrato de ${site.name}`} fill sizes="(min-width: 768px) 420px, 80vw" className="object-cover" />
+          <Image src={site.photo} alt={site.name} fill sizes="(min-width: 768px) 420px, 80vw" className="object-cover" />
         ) : (
           <>
             <svg aria-hidden="true" viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice" className="absolute inset-0 h-full w-full">
@@ -79,7 +79,7 @@ export function ArchPortrait({ className = "" }: { className?: string }) {
                 ))}
               </g>
             </svg>
-            <div role="img" aria-label={`Monograma con las iniciales de ${site.name}`} className="absolute inset-0 flex items-center justify-center">
+            <div role="img" aria-label={site.name} className="absolute inset-0 flex items-center justify-center">
               <span aria-hidden="true" className="font-display text-[clamp(5rem,14vw,8.5rem)] font-medium leading-none text-fg">
                 {site.initials}
               </span>

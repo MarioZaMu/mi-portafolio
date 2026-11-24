@@ -2,6 +2,8 @@
 
 import { useRef, useState, type FormEvent } from "react";
 import { site, whatsappHref } from "@/data/site";
+import { T, newTab, pick, tx, type Tx } from "@/lib/i18n";
+import { useLang } from "@/lib/useLang";
 import { Button } from "./ui/Button";
 import { Icon, type IconName } from "./ui/Icon";
 import { Container, SectionHeading, delay } from "./ui/Primitives";
@@ -11,32 +13,38 @@ const FORMSPREE_ID = process.env.NEXT_PUBLIC_FORMSPREE_ID;
 const endpoint = FORMSPREE_ID ? `https://formspree.io/f/${FORMSPREE_ID}` : null;
 
 type Field = "name" | "email" | "message";
-type Errors = Partial<Record<Field, string>>;
+type Errors = Partial<Record<Field, Tx>>;
 type Status = "idle" | "sending" | "success" | "mailto" | "error";
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 
 function validate(values: Record<Field, string>): Errors {
   const errors: Errors = {};
-  if (values.name.trim().length < 2) errors.name = "Escribe tu nombre (mínimo 2 caracteres).";
-  if (!values.email.trim()) errors.email = "Escribe tu correo electrónico.";
-  else if (!EMAIL_RE.test(values.email.trim())) errors.email = "Revisa el formato del correo, por ejemplo: nombre@dominio.com.";
-  if (values.message.trim().length < 10) errors.message = "Cuéntame un poco más (mínimo 10 caracteres).";
+  if (values.name.trim().length < 2) errors.name = tx("Escribe tu nombre (mínimo 2 caracteres).", "Enter your name (at least 2 characters).");
+  if (!values.email.trim()) errors.email = tx("Escribe tu correo electrónico.", "Enter your email address.");
+  else if (!EMAIL_RE.test(values.email.trim())) errors.email = tx(
+      "Revisa el formato del correo, por ejemplo: nombre@dominio.com.",
+      "Check the email format, for example: name@domain.com.",
+    );
+  if (values.message.trim().length < 10) errors.message = tx("Cuéntame un poco más (mínimo 10 caracteres).", "Tell me a bit more (at least 10 characters).");
   return errors;
 }
 
-type Channel = { icon: IconName; label: string; value: string; href: string | null; external?: boolean };
+type Channel = { icon: IconName; label: Tx; value: Tx | string; href: string | null; external?: boolean };
 
 const channels: Channel[] = [
-  { icon: "mail", label: "Correo", value: site.email, href: `mailto:${site.email}` },
-  { icon: "github", label: "GitHub", value: `github.com/${site.githubUser}`, href: site.github, external: true },
-  { icon: "linkedin", label: "LinkedIn", value: site.linkedin ? "Ver perfil" : "Próximamente", href: site.linkedin, external: true },
+  { icon: "mail", label: tx("Correo", "Email"), value: site.email, href: `mailto:${site.email}` },
+  { icon: "github", label: tx("GitHub", "GitHub"), value: `github.com/${site.githubUser}`, href: site.github, external: true },
+  { icon: "linkedin", label: tx("LinkedIn", "LinkedIn"),
+    value: site.linkedin ? tx("Ver perfil", "View profile") : tx("Próximamente", "Coming soon"),
+     href: site.linkedin, external: true },
   ...(site.whatsapp
-    ? [{ icon: "whatsapp" as const, label: "WhatsApp", value: "Escríbeme", href: whatsappHref(site.whatsapp), external: true }]
+    ? [{ icon: "whatsapp" as const, label: tx("WhatsApp", "WhatsApp"), value: tx("Escríbeme", "Message me"), href: whatsappHref(site.whatsapp), external: true }]
     : []),
 ];
 
 export default function Contact() {
+  const lang = useLang();
   const [values, setValues] = useState<Record<Field, string>>({ name: "", email: "", message: "" });
   const [errors, setErrors] = useState<Errors>({});
   const [touched, setTouched] = useState<Partial<Record<Field, boolean>>>({});
@@ -111,7 +119,7 @@ export default function Contact() {
     errors[field] && touched[field] ? (
       <p id={`${field}-error`} className="mt-2 flex items-center gap-2 text-sm font-medium text-accent-warm">
         <Icon name="alert" size={16} className="shrink-0" />
-        {errors[field]}
+        <T {...errors[field]!} />
       </p>
     ) : null;
 
@@ -126,9 +134,16 @@ export default function Contact() {
             <SectionHeading
               id="contacto-title"
               number={5}
-              eyebrow="Contacto"
-              title="Hablemos"
-              intro="¿Tienes una idea, una práctica o un proyecto? Escríbeme por donde te quede más cómodo."
+              eyebrow={<T {...tx("Contacto", "Contact")} />}
+              title={<T {...tx("Hablemos", "Let's talk")} />}
+              intro={
+                <T
+                  {...tx(
+                    "¿Tienes una idea, una práctica o un proyecto? Escríbeme por donde te quede más cómodo.",
+                    "Have an idea, an internship or a project? Write to me wherever suits you best.",
+                  )}
+                />
+              }
             />
             <ul className="reveal grid min-w-0 grid-cols-1 content-start gap-3">
               {channels.map((c) => {
@@ -138,8 +153,12 @@ export default function Contact() {
                       <Icon name={c.icon} size={22} />
                     </span>
                     <span className="min-w-0 flex-1">
-                      <span className="label-mono block text-muted">{c.label}</span>
-                      <span className="block truncate font-semibold text-fg">{c.value}</span>
+                      <span className="label-mono block text-muted">
+                        <T {...c.label} />
+                      </span>
+                      <span className="block truncate font-semibold text-fg">
+                        {typeof c.value === "string" ? c.value : <T {...c.value} />}
+                      </span>
                     </span>
                     {c.href && <Icon name={c.external ? "external" : "arrowRight"} size={18} className="text-accent" />}
                   </>
@@ -147,7 +166,7 @@ export default function Contact() {
                 const cls =
                   "group flex min-h-16 items-center gap-4 rounded-card border border-line bg-harbor p-3 pr-5 light:bg-snow transition-[border-color,transform] duration-200";
                 return (
-                  <li key={c.label}>
+                  <li key={c.label.es}>
                     {c.href ? (
                       <a
                         href={c.href}
@@ -155,7 +174,12 @@ export default function Contact() {
                         {...(c.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
                       >
                         {inner}
-                        {c.external && <span className="sr-only"> (se abre en una pestaña nueva)</span>}
+                        {c.external && (
+                          <span className="sr-only">
+                            {" "}
+                            <T {...newTab} />
+                          </span>
+                        )}
                       </a>
                     ) : (
                       <div aria-disabled="true" className={`${cls} border-dashed opacity-70`}>
@@ -178,28 +202,37 @@ export default function Contact() {
                   <Icon name="check" size={40} />
                 </span>
                 <h3 className="mt-6 text-3xl font-medium text-fg">
-                  {status === "success" ? "¡Mensaje enviado!" : "Tu correo está listo"}
+                  {status === "success" ? <T {...tx("¡Mensaje enviado!", "Message sent!")} /> : <T {...tx("Tu correo está listo", "Your email is ready")} />}
                 </h3>
                 <p className="mt-3 max-w-sm text-muted">
-                  {status === "success"
-                    ? "Gracias por escribirme. Te responderé pronto a tu correo."
-                    : "Abrí tu aplicación de correo con el mensaje escrito. Solo tienes que pulsar «Enviar»."}
+                  {status === "success" ? (
+                    <T {...tx("Gracias por escribirme. Te responderé pronto a tu correo.", "Thanks for writing to me. I'll reply to your email soon.")} />
+                  ) : (
+                    <T
+                      {...tx(
+                        "Abrí tu aplicación de correo con el mensaje escrito. Solo tienes que pulsar «Enviar».",
+                        "I opened your email app with the message written. You just have to press “Send”.",
+                      )}
+                    />
+                  )}
                 </p>
                 <Button variant="secondary" className="mt-8" onClick={() => setStatus("idle")} icon="arrowRight">
-                  Escribir otro mensaje
+                  <T {...tx("Escribir otro mensaje", "Write another message")} />
                 </Button>
               </div>
             ) : (
               <form ref={formRef} noValidate onSubmit={onSubmit} aria-describedby="form-nota" className="grid gap-5">
                 <div>
-                  <h3 className="text-2xl font-medium text-fg sm:text-3xl">Envíame un mensaje</h3>
+                  <h3 className="text-2xl font-medium text-fg sm:text-3xl">
+                    <T {...tx("Envíame un mensaje", "Send me a message")} />
+                  </h3>
                   <p id="form-nota" className="mt-1 text-sm text-muted">
-                    Todos los campos son obligatorios.
+                    <T {...tx("Todos los campos son obligatorios.", "All fields are required.")} />
                   </p>
                 </div>
                 <div>
                   <label htmlFor="name" className="font-semibold text-fg">
-                    Nombre
+                    <T {...tx("Nombre", "Name")} />
                   </label>
                   <input
                     id="name"
@@ -207,7 +240,7 @@ export default function Contact() {
                     type="text"
                     required
                     autoComplete="name"
-                    placeholder="¿Cómo te llamas?"
+                    placeholder={lang === "en" ? "What's your name?" : "¿Cómo te llamas?"}
                     value={values.name}
                     onChange={(e) => update("name", e.target.value)}
                     onBlur={() => blur("name")}
@@ -219,7 +252,7 @@ export default function Contact() {
                 </div>
                 <div>
                   <label htmlFor="email" className="font-semibold text-fg">
-                    Correo electrónico
+                    <T {...tx("Correo electrónico", "Email address")} />
                   </label>
                   <input
                     id="email"
@@ -228,7 +261,7 @@ export default function Contact() {
                     required
                     autoComplete="email"
                     inputMode="email"
-                    placeholder="nombre@dominio.com"
+                    placeholder={lang === "en" ? "name@domain.com" : "nombre@dominio.com"}
                     value={values.email}
                     onChange={(e) => update("email", e.target.value)}
                     onBlur={() => blur("email")}
@@ -240,14 +273,14 @@ export default function Contact() {
                 </div>
                 <div>
                   <label htmlFor="message" className="font-semibold text-fg">
-                    Mensaje
+                    <T {...tx("Mensaje", "Message")} />
                   </label>
                   <textarea
                     id="message"
                     name="message"
                     required
                     rows={5}
-                    placeholder="Cuéntame en qué puedo ayudarte"
+                    placeholder={lang === "en" ? "Tell me how I can help you" : "Cuéntame en qué puedo ayudarte"}
                     value={values.message}
                     onChange={(e) => update("message", e.target.value)}
                     onBlur={() => blur("message")}
@@ -273,7 +306,12 @@ export default function Contact() {
                   >
                     <Icon name="alert" className="mt-0.5 shrink-0 text-accent-warm" />
                     <p>
-                      No se pudo enviar el mensaje. Inténtalo de nuevo o escríbeme a{" "}
+                      <T
+                        {...tx(
+                          "No se pudo enviar el mensaje. Inténtalo de nuevo o escríbeme a",
+                          "The message could not be sent. Try again or write to me at",
+                        )}
+                      />{" "}
                       <a href={`mailto:${site.email}`} className="font-semibold text-accent underline underline-offset-4">
                         {site.email}
                       </a>
@@ -291,10 +329,10 @@ export default function Contact() {
                     disabled={status === "sending"}
                     aria-disabled={status === "sending"}
                   >
-                    {status === "sending" ? "Enviando…" : "Enviar mensaje"}
+                    {status === "sending" ? <T {...tx("Enviando…", "Sending…")} /> : <T {...tx("Enviar mensaje", "Send message")} />}
                   </Button>
                   <p className="text-sm text-muted" aria-live="polite">
-                    {status === "sending" ? "Enviando tu mensaje…" : ""}
+                    {status === "sending" ? pick(tx("Enviando tu mensaje…", "Sending your message…"), lang) : ""}
                   </p>
                 </div>
               </form>

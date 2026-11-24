@@ -3,6 +3,8 @@
 import { useEffect, useRef, useState, type CSSProperties } from "react";
 import type { Project } from "@/data/projects";
 import { badgeFor } from "@/lib/badges";
+import { T, platformText, tagText, tx } from "@/lib/i18n";
+import { useLang } from "@/lib/useLang";
 import { ButtonLink } from "./ui/Button";
 import { Icon } from "./ui/Icon";
 import { Chip } from "./ui/Primitives";
@@ -10,7 +12,7 @@ import { Chip } from "./ui/Primitives";
 // Radar del inicio: cada proyecto es un "eco". Al pasar el mouse, enfocar con el teclado
 // o tocar un eco, su tarjeta se expande desde ese punto hacia el centro del radar.
 
-const RADII = [0.7, 0.5, 0.78];
+const RADII = [0.7, 0.5, 0.78, 0.74];
 /** Duración de una vuelta del haz (s). Los ecos destellan justo cuando el haz pasa. */
 const SWEEP = 6;
 /** Tiempo que el mouse debe quedarse en otro eco para cambiar de tarjeta. */
@@ -19,7 +21,8 @@ const CLOSE_DELAY = 320;
 
 /** Posición del eco i (en % del radar) y su rumbo (grados desde el norte, sentido horario). */
 function blipAt(i: number, n: number) {
-  const deg = -50 + (i * 360) / n;
+  // Con cuatro ecos, el último se corre hacia el costado para que su etiqueta no quede pegada a la del primero.
+  const deg = n === 4 ? [-50, 40, 130, 200][i] : -50 + (i * 360) / n;
   const angle = (deg * Math.PI) / 180;
   const r = RADII[i % RADII.length] * 50;
   return { x: 50 + r * Math.cos(angle), y: 50 + r * Math.sin(angle), bearing: (((deg + 90) % 360) + 360) % 360 };
@@ -37,6 +40,7 @@ const ticks = Array.from({ length: 72 }, (_, k) => {
 
 export function HeroRadar({ projects }: { projects: Project[] }) {
   const [open, setOpen] = useState<number | null>(null);
+  const lang = useLang();
   const closeTimer = useRef(0);
   const switchTimer = useRef(0);
   const rootRef = useRef<HTMLDivElement>(null);
@@ -203,20 +207,30 @@ export function HeroRadar({ projects }: { projects: Project[] }) {
             >
               <div className="flex items-center justify-between gap-3 border-b border-line bg-surface-soft px-5 py-2.5">
                 <p className="label-mono text-accent">
-                  Eco {String(i + 1).padStart(2, "0")} · {p.platforms.join(" · ")}
+                  <T {...tx("Eco", "Echo")} /> {String(i + 1).padStart(2, "0")} ·{" "}
+                  {p.platforms.map((pl, k) => (
+                    <span key={pl}>
+                      {k > 0 && " · "}
+                      <T {...platformText[pl]} />
+                    </span>
+                  ))}
                 </p>
                 {badge && (
-                  <span className="rounded-full bg-action px-2.5 py-1 text-[0.7rem] font-semibold leading-none text-on-action">{badge}</span>
+                  <span className="rounded-full bg-action px-2.5 py-1 text-[0.7rem] font-semibold leading-none text-on-action">
+                    <T {...badge} />
+                  </span>
                 )}
               </div>
               <div className="p-5">
                 <p className="font-display text-3xl font-medium tracking-[-0.02em] text-fg">{p.title}</p>
-                <p className="mt-2 text-sm leading-relaxed text-muted">{p.summary}</p>
-                <ul className="mt-3 flex flex-wrap gap-1.5" aria-label="Tecnologías">
+                <p className="mt-2 text-sm leading-relaxed text-muted">
+                  <T {...p.summary} />
+                </p>
+                <ul className="mt-3 flex flex-wrap gap-1.5" aria-label={lang === "en" ? "Technologies" : "Tecnologías"}>
                   {p.tags.slice(0, 3).map((t) => (
                     <li key={t}>
                       <Chip tone="plain" className="rounded-full">
-                        {t}
+                        <T {...tagText(t)} />
                       </Chip>
                     </li>
                   ))}
@@ -227,11 +241,11 @@ export function HeroRadar({ projects }: { projects: Project[] }) {
                   </ButtonLink>
                   {p.demoUrl ? (
                     <ButtonLink href={p.demoUrl} external icon={p.demoLabel ? "download" : "external"} className="px-4! py-2!">
-                      {p.demoLabel ? "Descargar" : "Abrir"}
+                      <T {...(p.demoLabel ? tx("Descargar", "Download") : tx("Abrir", "Open"))} />
                     </ButtonLink>
                   ) : (
                     <ButtonLink href="#proyectos" icon="arrowRight" className="px-4! py-2!">
-                      Ver detalles
+                      <T {...tx("Ver detalles", "View details")} />
                     </ButtonLink>
                   )}
                 </div>
@@ -239,7 +253,7 @@ export function HeroRadar({ projects }: { projects: Project[] }) {
               <button
                 type="button"
                 onClick={() => close(true)}
-                aria-label={`Cerrar ${p.title}`}
+                aria-label={lang === "en" ? `Close ${p.title}` : `Cerrar ${p.title}`}
                 className="absolute right-1 top-0.5 hidden h-9 w-9 items-center justify-center rounded-full text-muted hover:text-fg [@media(hover:none)]:inline-flex"
               >
                 <Icon name="close" size={18} />
@@ -251,11 +265,17 @@ export function HeroRadar({ projects }: { projects: Project[] }) {
 
       {/* Lectura del radar */}
       <div className="label-mono mt-5 flex items-center justify-between gap-4 border-t border-line pt-3 text-muted">
-        <span>{String(n).padStart(2, "0")} ecos detectados</span>
+        <span>
+          {String(n).padStart(2, "0")} <T {...tx("ecos detectados", "echoes detected")} />
+        </span>
         <span aria-live="polite" className={open !== null ? "text-accent" : ""}>
-          {open !== null
-            ? `${projects[open].title} · rumbo ${String(Math.round(blips[open].bearing)).padStart(3, "0")}°`
-            : "Pasa el mouse o toca un eco"}
+          {open !== null ? (
+            <>
+              {projects[open].title} · <T {...tx("rumbo", "bearing")} /> {String(Math.round(blips[open].bearing)).padStart(3, "0")}°
+            </>
+          ) : (
+            <T {...tx("Pasa el mouse o toca un eco", "Hover or tap an echo")} />
+          )}
         </span>
       </div>
     </div>
