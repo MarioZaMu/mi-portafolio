@@ -108,4 +108,22 @@ export const projects: Project[] = [
     releaseRepo: "MarioZaMu/Vidalvl",
     role: "Diseño y desarrollo completo: interfaz, reglas del juego, avatar en pixel art e IA",
   },
+  {
+    id: "ton-music-player",
+    title: "TON Music Player",
+    summary: "Reproductor de música estilo Spotify hecho sobre una lista doblemente enlazada.",
+    description:
+      "Reproductor de música estilo Spotify cuya lista de reproducción es una lista doblemente enlazada escrita desde cero en TypeScript. Permite agregar canciones buscándolas en línea, desde un archivo propio o sin audio, reordenarlas, marcar favoritas, deshacer cambios y ver la letra sincronizada.",
+    shots: [
+      {
+        src: "/images/projects/ton-reproductor.png",
+        alt: "Captura de TON Music Player: lista de reproducción con quince canciones, el menú lateral y la barra de reproducción",
+      },
+    ],
+    tags: ["React", "TypeScript", "Vite", "Estructuras de datos"],
+    platforms: ["Web"],
+    githubUrl: "https://github.com/MarioZaMu/TallerReproductordeMusica",
+    demoUrl: "https://taller-reproductorde-m-sica.vercel.app",
+    role: "Lista doblemente enlazada propia, interfaz del reproductor y búsqueda de canciones con un backend serverless",
+  },
 ];
