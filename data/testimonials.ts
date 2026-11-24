@@ -1,6 +1,6 @@
 // Testimonios de personas que usan lo que construí. Cada texto resume lo que la persona le contó
 // a Mario y se redactó a partir de eso; conviene que cada una lo revise antes de publicarlo.
-// Cuando tengan nombre propio o una foto, se reemplazan `name` y `avatar`.
+// Para agregar una foto, se completa `avatar`.
 
 import { tx, type Tx } from "@/lib/i18n";
 
@@ -17,8 +17,8 @@ export type Testimonial = {
 
 export const testimonials: Testimonial[] = [
   {
-    name: tx("Familiar de Mario", "Mario's relative"),
-    role: tx("Que Ricuras · negocio familiar", "Que Ricuras · family business"),
+    name: tx("Que Ricuras", "Que Ricuras"),
+    role: tx("Negocio familiar de comidas rápidas", "Family fast-food business"),
     text: tx(
       "La aplicación que Mario hizo para el negocio me facilitó el trabajo.",
       "The app Mario made for the business made my work easier.",
@@ -26,7 +26,7 @@ export const testimonials: Testimonial[] = [
     avatar: null,
   },
   {
-    name: tx("Papá de Mario", "Mario's dad"),
+    name: tx("Fernando Zambrano", "Fernando Zambrano"),
     role: tx("Usuario de TON Music Player", "TON Music Player user"),
     text: tx(
       "Me encantó el reproductor de música de Mario. Puedo armar mis propias listas sin que me salgan anuncios.",
@@ -35,7 +35,7 @@ export const testimonials: Testimonial[] = [
     avatar: null,
   },
   {
-    name: tx("Mamá de Mario", "Mario's mom"),
+    name: tx("Mirian Muñoz", "Mirian Muñoz"),
     role: tx("Usuaria de Mudanzify", "Mudanzify user"),
     text: tx(
       "Por mi trabajo tengo muchos documentos y presentaciones, y me llenan la memoria del computador. Con Mudanzify traspaso los que necesito y la app me ayuda a identificar cuáles ya no sirven.",

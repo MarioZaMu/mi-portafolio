@@ -29,8 +29,15 @@ const MONTHS = {
   en: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
 };
 
-// Más contribuciones = más intensidad del color de acento (el nivel 0 es solo la rejilla).
-const LEVEL_CLASS = ["bg-line", "bg-accent/25", "bg-accent/50", "bg-accent/75", "bg-accent"] as const;
+// Más contribuciones = más intensidad del color de acento. El nivel 0 es una rejilla casi plana y
+// los saltos entre niveles son grandes para que se distingan; el más alto lleva borde y brillo.
+const LEVEL_CLASS = [
+  "bg-fg/[0.07]",
+  "bg-accent/28",
+  "bg-accent/52",
+  "bg-accent/78",
+  "bg-accent dark:bg-pearl ring-1 ring-fg/60 shadow-[0_0_8px_var(--accent)]",
+] as const;
 
 export default async function Activity() {
   const activity = await loadActivity();
