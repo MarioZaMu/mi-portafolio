@@ -55,7 +55,7 @@ export default async function Activity() {
       <Container>
         <SectionHeading
           id="actividad-title"
-          number={7}
+          number={8}
           eyebrow={<T {...tx("Actividad", "Activity")} />}
           title={<T {...tx("Mi actividad en GitHub", "My GitHub activity")} />}
           intro={

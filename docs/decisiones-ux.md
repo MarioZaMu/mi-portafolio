@@ -108,3 +108,11 @@
 | Intensidad con el color de acento (no verde) y leyenda «Menos / Más» | Misma paleta del sitio en ambos temas; la leyenda hace legible el mapa | `Activity.tsx` |
 | En pantallas angostas el mapa se desplaza y empieza en lo más reciente | Lo más relevante queda a la vista sin encoger las celdas | `direction: rtl` en el contenedor |
 | Si el servicio de datos no responde, la sección no se muestra | Mejor omitirla que mostrar un mapa vacío o una cifra falsa | `loadActivity()` |
+
+## Testimonios visibles (noviembre 2026)
+
+| Decisión | Principio | Dónde |
+|---|---|---|
+| Sección «Testimonios» entre Proyectos y Experiencia, con tres comentarios de personas que usan lo que construí | Prueba social justo después de ver el trabajo; el recorrido numerado pasa a 02–08 | `components/Testimonials.tsx`, `data/testimonials.ts` |
+| Cada persona aparece por su relación («Mamá de Mario», «Usuario de TON Music Player») con iniciales, sin estrellas ni cifras | No se inventan nombres ni valoraciones; la relación da contexto y se reemplaza por el nombre real cuando se tenga | `data/testimonials.ts` |
+| Los textos resumen lo que cada persona le contó a Mario y se escribieron a partir de eso | Honestidad: solo dicen lo que la persona expresó; conviene que cada una los revise antes de publicarlos | comentario en `data/testimonials.ts` |

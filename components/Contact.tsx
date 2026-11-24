@@ -133,7 +133,7 @@ export default function Contact() {
           <div className="min-w-0">
             <SectionHeading
               id="contacto-title"
-              number={5}
+              number={6}
               eyebrow={<T {...tx("Contacto", "Contact")} />}
               title={<T {...tx("Hablemos", "Let's talk")} />}
               intro={

@@ -41,7 +41,7 @@ export default function Experience() {
       <Container>
         <SectionHeading
           id="experiencia-title"
-          number={4}
+          number={5}
           eyebrow={<T {...tx("Experiencia", "Experience")} />}
           title={<T {...tx("Mi trayectoria", "My journey")} />}
           aside={legend}

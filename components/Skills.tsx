@@ -12,7 +12,7 @@ export default function Skills() {
       <Container>
         <SectionHeading
           id="habilidades-title"
-          number={6}
+          number={7}
           eyebrow={<T {...tx("Habilidades", "Skills")} />}
           title={<T {...tx("Herramientas y tecnologías", "Tools and technologies")} />}
           intro={<T {...tx("Agrupadas por área y conectadas con los proyectos donde las usé.", "Grouped by area and linked to the projects where I used them.")} />}

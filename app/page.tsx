@@ -7,12 +7,12 @@ import Hero from "@/components/Hero";
 import Navbar from "@/components/Navbar";
 import Projects from "@/components/Projects";
 import Skills from "@/components/Skills";
+import Testimonials from "@/components/Testimonials";
 import { RevealObserver } from "@/components/ui/RevealObserver";
 import { projects } from "@/data/projects";
 import { withLatestReleases } from "@/lib/releases";
 
-// Testimonios ocultos por ahora (components/Testimonials.tsx sigue listo para cuando haya reales).
-// Mismo orden del mapa: Menú → Hero + CV → Acerca de mí → Proyectos → (Testimonios)
+// Mismo orden del mapa: Menú → Hero + CV → Acerca de mí → Proyectos → Testimonios
 // → Experiencia → Contactos → Adicional (Habilidades) → Pie de página.
 export default async function Home() {
   const projectsWithReleases = await withLatestReleases(projects);
@@ -23,6 +23,7 @@ export default async function Home() {
         <Hero projects={projectsWithReleases} />
         <About />
         <Projects projects={projectsWithReleases} />
+        <Testimonials />
         <Experience />
         <Contact />
         <Skills />
