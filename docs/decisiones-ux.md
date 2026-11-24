@@ -98,3 +98,13 @@
 | Los datos (`data/`) guardan cada texto como `tx("español", "english")` | Un proyecto nuevo se agrega en un solo lugar y en los dos idiomas | `data/*.ts` |
 | Atributos (aria-label, placeholder, alt) usan el idioma activo; `<html lang>` y el título cambian con él | Accesibilidad: el lector de pantalla lee en el idioma correcto (WCAG 3.1.1 y 3.1.2) | `lib/useLang.ts` |
 | Cuarto eco del radar a un costado | Con 4 proyectos las etiquetas se pisaban | `components/HeroRadar.tsx` |
+
+## Foto y actividad de GitHub (noviembre 2026)
+
+| Decisión | Principio | Dónde |
+|---|---|---|
+| Foto real en el arco de «Sobre mí», recortada en 4:5 con el rostro dentro de la curva | Rostro humano genera confianza; el recorte evita que el arco corte la cabeza | `public/images/profile.jpg`, `ArchPortrait` |
+| Sección «Mi actividad en GitHub» con las contribuciones de los últimos 12 meses, en una tarjeta con estilo de terminal | Evidencia verificable de constancia; datos en vivo en lugar de una cifra escrita a mano | `components/Activity.tsx` |
+| Intensidad con el color de acento (no verde) y leyenda «Menos / Más» | Misma paleta del sitio en ambos temas; la leyenda hace legible el mapa | `Activity.tsx` |
+| En pantallas angostas el mapa se desplaza y empieza en lo más reciente | Lo más relevante queda a la vista sin encoger las celdas | `direction: rtl` en el contenedor |
+| Si el servicio de datos no responde, la sección no se muestra | Mejor omitirla que mostrar un mapa vacío o una cifra falsa | `loadActivity()` |

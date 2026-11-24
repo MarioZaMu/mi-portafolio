@@ -1,4 +1,5 @@
 import About from "@/components/About";
+import Activity from "@/components/Activity";
 import Contact from "@/components/Contact";
 import Experience from "@/components/Experience";
 import Footer from "@/components/Footer";
@@ -25,6 +26,7 @@ export default async function Home() {
         <Experience />
         <Contact />
         <Skills />
+        <Activity />
       </main>
       <Footer />
       <RevealObserver />
